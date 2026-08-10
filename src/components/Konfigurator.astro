@@ -1,0 +1,556 @@
+---
+/**
+ * Der Konfigurator. Alles kommt aus pakete.ts — keine Zahl steht hier.
+ *
+ * Ohne JavaScript ist das ein normales GET-Formular auf /kontakt: Die
+ * Auswahl landet als Adresszeile im Kontaktformular, nur eben ohne
+ * mitlaufende Summe. Mit JavaScript rechnet die Summe live mit, die Adresse
+ * bleibt teilbar, und bei zu vielen Seiten springt er ins nächste Paket.
+ */
+import {
+  pakete,
+  seitenOptionen,
+  rechnen,
+  seitenZaehlen,
+  euro,
+  umsatzsteuerHinweis,
+  preisProZusatzseite,
+  urlParameter,
+} from "../data/pakete";
+
+/** Startzustand ohne JavaScript: kleinstes Paket, nur die festen Seiten. */
+const start = pakete[0];
+const anfang = rechnen({
+  paketId: start.id,
+  seitenAnzahl: seitenZaehlen([]),
+  mitSeo: false,
+});
+
+const festeOptionen = seitenOptionen.filter((o) => o.fest);
+const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
+---
+
+<form class="konf" id="konfigurator" action="/kontakt" method="GET">
+  <div class="konf__spalten">
+    <div class="konf__auswahl">
+      <fieldset class="block">
+        <legend class="block__titel">1. Welche Seiten brauchst du?</legend>
+        <p class="leise block__hinweis">
+          Startseite und Kontakt sind immer dabei. Impressum und Datenschutz
+          zählen nicht mit.
+        </p>
+
+        <ul class="seiten">
+          {
+            festeOptionen.map((o) => (
+              <li class="seite seite--fest">
+                <span class="haken">
+                  <input type="checkbox" checked disabled />
+                  <span>
+                    <strong>{o.name}</strong>
+                    <span class="seite__text">{o.beschreibung}</span>
+                  </span>
+                </span>
+              </li>
+            ))
+          }
+          {
+            waehlbareOptionen.map((o) => (
+              <li class="seite">
+                <span class="haken">
+                  <input
+                    type="checkbox"
+                    id={`seite-${o.slug}`}
+                    name={urlParameter.seiten}
+                    value={o.slug}
+                  />
+                  <label for={`seite-${o.slug}`}>
+                    <strong>{o.name}</strong>
+                    <span class="seite__text">{o.beschreibung}</span>
+                  </label>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend class="block__titel">2. Paket</legend>
+        <p class="leise block__hinweis">
+          Passt deine Seitenzahl nicht mehr, wechsle ich hier automatisch.
+        </p>
+        <ul class="pakete">
+          {
+            pakete.map((p) => (
+              <li>
+                <span class="haken">
+                  <input
+                    type="radio"
+                    id={`paket-${p.id}`}
+                    name={urlParameter.paket}
+                    value={p.id}
+                    checked={p.id === start.id}
+                  />
+                  <label for={`paket-${p.id}`}>
+                    <strong>{p.name}</strong>
+                    <span class="seite__text">
+                      {p.seitenMin}–{p.seitenMax} Seiten · ab {euro(p.preisAb)}
+                    </span>
+                  </label>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend class="block__titel">3. Bei Google auffindbar sein</legend>
+        <div class="haken">
+          <input
+            type="checkbox"
+            id="seo"
+            name={urlParameter.seo}
+            value="1"
+          />
+          <label for="seo">
+            <strong>Einrichtung dazunehmen</strong>
+            <span class="seite__text">
+              Titel, Beschreibungen, Ortsbezug und strukturierte Daten.
+              Einmalig, kein Abo.
+            </span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="konf__ergebnis">
+      <div class="summe" aria-live="polite">
+        <p class="summe__zeile">
+          <span>Paket</span>
+          <strong data-feld="paket">{anfang.paket.name}</strong>
+        </p>
+        <p class="summe__zeile">
+          <span>Seiten</span>
+          <strong data-feld="seiten">{anfang.seitenAnzahl}</strong>
+        </p>
+        <p class="summe__zeile" data-zeile="zusatz" hidden>
+          <span>Zusatzseiten</span>
+          <strong data-feld="zusatz"></strong>
+        </p>
+        <p class="summe__zeile" data-zeile="seo" hidden>
+          <span>Google-Einrichtung</span>
+          <strong data-feld="seo"></strong>
+        </p>
+
+        <p class="summe__gesamt">
+          <span>Einmalig</span>
+          <strong data-feld="gesamt">{euro(anfang.gesamt)}</strong>
+        </p>
+        <p class="summe__zeile summe__zeile--pflege">
+          <span>Pflege</span>
+          <strong data-feld="pflege">{euro(anfang.pflegeMonat)} im Monat</strong>
+        </p>
+
+        <p class="leise summe__hinweis">{umsatzsteuerHinweis}</p>
+
+        <button type="submit" class="knopf">Unverbindlich anfragen</button>
+        <p class="leise summe__hinweis">
+          Deine Auswahl wird ins Formular übernommen. Kostet nichts und
+          verpflichtet zu nichts.
+        </p>
+      </div>
+
+      <div class="kasten" data-kasten hidden>
+        <p class="kasten__titel" data-kasten-titel></p>
+        <p class="kasten__text" data-kasten-text></p>
+        <ul class="kasten__liste" data-kasten-liste></ul>
+        <button type="button" class="knopf knopf--rand" data-kasten-knopf
+        ></button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<style>
+  .konf__spalten {
+    display: grid;
+    gap: var(--raum-5);
+    align-items: start;
+  }
+
+  .block {
+    margin: 0 0 var(--raum-5);
+    padding: 0;
+    border: 0;
+  }
+
+  .block:last-child {
+    margin-bottom: 0;
+  }
+
+  .block__titel {
+    padding: 0;
+    margin-bottom: var(--raum-1);
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .block__hinweis {
+    margin-bottom: var(--raum-3);
+  }
+
+  .seiten,
+  .pakete {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .seite--fest .haken {
+    opacity: 0.65;
+  }
+
+  .seite__text {
+    display: block;
+    font-size: var(--gr-klein);
+    color: color-mix(in srgb, var(--tinte) 70%, var(--papier));
+  }
+
+  .haken label strong,
+  .haken > span > strong {
+    display: block;
+    font-weight: 600;
+  }
+
+  input[type="radio"] {
+    width: 1.375rem;
+    height: 1.375rem;
+    margin: 0;
+    accent-color: var(--stahl);
+    flex-shrink: 0;
+  }
+
+  /* Ergebnisspalte ------------------------------------------------------- */
+
+  .summe {
+    padding: var(--raum-3);
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .summe__zeile,
+  .summe__gesamt {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-1);
+    max-width: none;
+  }
+
+  .summe__gesamt {
+    margin: var(--raum-3) 0 0;
+    padding-top: var(--raum-3);
+    border-top: 2px solid var(--eisblau);
+    font-family: var(--schrift-titel);
+  }
+
+  .summe__gesamt strong {
+    font-size: var(--gr-h2);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .summe__zeile--pflege {
+    margin-top: var(--raum-1);
+  }
+
+  .summe__hinweis {
+    margin: var(--raum-2) 0 var(--raum-3);
+  }
+
+  .summe .knopf {
+    width: 100%;
+  }
+
+  .summe .knopf + .summe__hinweis {
+    margin: var(--raum-2) 0 0;
+  }
+
+  /* Der Kasten beim Wechsel ---------------------------------------------- */
+
+  .kasten {
+    margin-top: var(--raum-3);
+    padding: var(--raum-3);
+    border: 2px dashed var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .kasten__titel {
+    margin: 0 0 var(--raum-1);
+    font-family: var(--schrift-text);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .kasten__text {
+    margin: 0 0 var(--raum-2);
+  }
+
+  .kasten__liste {
+    margin: 0 0 var(--raum-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .kasten__liste li {
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .kasten__liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--stahl);
+  }
+
+  .kasten .knopf {
+    width: 100%;
+  }
+
+  @media (min-width: 60em) {
+    .konf__spalten {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--raum-6);
+    }
+
+    .konf__ergebnis {
+      position: sticky;
+      top: var(--raum-3);
+    }
+  }
+</style>
+
+<script>
+  import {
+    pakete,
+    rechnen,
+    seitenZaehlen,
+    empfohlenesPaket,
+    euro,
+    preisProZusatzseite,
+    auswahlAusSuchparametern,
+    auswahlAlsSuchparameter,
+    urlParameter,
+    type PaketId,
+  } from "../data/pakete";
+
+  const formular = document.getElementById("konfigurator") as HTMLFormElement;
+
+  if (formular) {
+    const seitenFelder = [
+      ...formular.querySelectorAll<HTMLInputElement>(
+        `input[name="${urlParameter.seiten}"]`
+      ),
+    ];
+    const paketFelder = [
+      ...formular.querySelectorAll<HTMLInputElement>(
+        `input[name="${urlParameter.paket}"]`
+      ),
+    ];
+    const seoFeld = formular.querySelector<HTMLInputElement>(
+      `input[name="${urlParameter.seo}"]`
+    )!;
+
+    const kasten = formular.querySelector<HTMLElement>("[data-kasten]")!;
+    const kastenTitel = formular.querySelector("[data-kasten-titel]")!;
+    const kastenText = formular.querySelector("[data-kasten-text]")!;
+    const kastenListe = formular.querySelector("[data-kasten-liste]")!;
+    const kastenKnopf = formular.querySelector<HTMLButtonElement>(
+      "[data-kasten-knopf]"
+    )!;
+
+    const feld = (name: string) =>
+      formular.querySelector<HTMLElement>(`[data-feld="${name}"]`)!;
+    const zeile = (name: string) =>
+      formular.querySelector<HTMLElement>(`[data-zeile="${name}"]`)!;
+
+    /**
+     * Steht auf true, wenn der Besucher bewusst in einem Paket bleibt, in das
+     * seine Seiten nicht passen. Wird zurückgesetzt, sobald sich die
+     * Seitenauswahl ändert — dann greift der automatische Wechsel wieder.
+     */
+    let bewusstGeblieben = false;
+    /** Merkt sich, ob gerade automatisch gewechselt wurde. */
+    let automatischGewechselt = false;
+
+    function gewaehlteSeiten(): string[] {
+      return seitenFelder.filter((f) => f.checked).map((f) => f.value);
+    }
+
+    function gewaehltesPaket(): PaketId {
+      return (paketFelder.find((f) => f.checked)?.value ??
+        pakete[0].id) as PaketId;
+    }
+
+    function paketSetzen(id: string) {
+      paketFelder.forEach((f) => (f.checked = f.value === id));
+    }
+
+    function zeichnen() {
+      const slugs = gewaehlteSeiten();
+      const anzahl = seitenZaehlen(slugs);
+      const vorher = gewaehltesPaket();
+      const passend = empfohlenesPaket(anzahl);
+
+      // Automatischer Sprung ins nächste Paket, sobald die Seitenzahl das
+      // gewählte sprengt — es sei denn, der Besucher will ausdrücklich bleiben.
+      automatischGewechselt = false;
+      if (!bewusstGeblieben && passend.id !== vorher) {
+        const zuKlein =
+          anzahl > pakete.find((p) => p.id === vorher)!.seitenMax;
+        if (zuKlein) {
+          paketSetzen(passend.id);
+          automatischGewechselt = true;
+        }
+      }
+
+      const paketId = gewaehltesPaket();
+      const mitSeo = seoFeld.checked;
+      const r = rechnen({ paketId, seitenAnzahl: anzahl, mitSeo });
+
+      feld("paket").textContent = r.paket.name;
+      feld("seiten").textContent = String(r.seitenAnzahl);
+      feld("gesamt").textContent = euro(r.gesamt);
+      feld("pflege").textContent = `${euro(r.pflegeMonat)} im Monat`;
+
+      zeile("zusatz").hidden = r.zusatzseiten === 0;
+      feld("zusatz").textContent = `${r.zusatzseiten} × ${euro(
+        preisProZusatzseite
+      )} = ${euro(r.zusatzkosten)}`;
+
+      zeile("seo").hidden = !mitSeo;
+      feld("seo").textContent = euro(r.paket.seoAufpreis);
+
+      kastenZeichnen(r);
+      adresseSchreiben(paketId, slugs, mitSeo);
+    }
+
+    function kastenZeichnen(r: ReturnType<typeof rechnen>) {
+      // Fall 1: Der Besucher bleibt in einem zu kleinen Paket.
+      if (r.empfehlung) {
+        const e = r.empfehlung;
+        kastenTitel.textContent = `Für ${euro(e.unterschied)} mehr`;
+        kastenText.textContent =
+          `Du bleibst bei ${r.paket.name} und zahlst ${r.zusatzseiten} ` +
+          `Zusatzseiten. ${e.paket.name} kostet ${euro(e.gesamt)} und bringt:`;
+        kastenListe.innerHTML = "";
+        e.dazu.forEach((punkt) => {
+          const li = document.createElement("li");
+          li.textContent = punkt;
+          kastenListe.appendChild(li);
+        });
+        kastenKnopf.textContent = `Zu ${e.paket.name} wechseln`;
+        kastenKnopf.onclick = () => {
+          bewusstGeblieben = false;
+          paketSetzen(e.paket.id);
+          zeichnen();
+        };
+        kasten.hidden = false;
+        return;
+      }
+
+      // Fall 2: Gerade automatisch ins nächste Paket gesprungen.
+      if (automatischGewechselt) {
+        const kleiner = pakete[pakete.indexOf(r.paket) - 1];
+        const zurueck = rechnen({
+          paketId: kleiner.id,
+          seitenAnzahl: r.seitenAnzahl,
+          mitSeo: seoFeld.checked,
+        });
+        kastenTitel.textContent = `Auf ${r.paket.name} gewechselt`;
+        kastenText.textContent =
+          `${r.seitenAnzahl} Seiten passen nicht mehr in ${kleiner.name}. ` +
+          `${r.paket.name} bringt dir:`;
+        kastenListe.innerHTML = "";
+        r.paket.mehrAlsDavor.forEach((punkt) => {
+          const li = document.createElement("li");
+          li.textContent = punkt;
+          kastenListe.appendChild(li);
+        });
+        kastenKnopf.textContent = `Bei ${kleiner.name} bleiben (${euro(
+          zurueck.gesamt
+        )})`;
+        kastenKnopf.onclick = () => {
+          bewusstGeblieben = true;
+          paketSetzen(kleiner.id);
+          zeichnen();
+        };
+        kasten.hidden = false;
+        return;
+      }
+
+      kasten.hidden = true;
+    }
+
+    /** Die Auswahl in die Adresszeile schreiben, ohne die Seite neu zu laden. */
+    function adresseSchreiben(
+      paketId: PaketId,
+      slugs: string[],
+      mitSeo: boolean
+    ) {
+      const suche = auswahlAlsSuchparameter({
+        paketId,
+        seitenSlugs: slugs,
+        mitSeo,
+      });
+      history.replaceState(null, "", `${location.pathname}?${suche}`);
+    }
+
+    // Geteilte Adresse wiederherstellen.
+    const geteilt = auswahlAusSuchparametern(
+      new URLSearchParams(location.search)
+    );
+    if (geteilt) {
+      paketSetzen(geteilt.paketId);
+      seitenFelder.forEach(
+        (f) => (f.checked = geteilt.seitenSlugs.includes(f.value))
+      );
+      seoFeld.checked = geteilt.mitSeo;
+      // Wer einen Link teilt, hat sein Paket bewusst gewählt.
+      bewusstGeblieben = true;
+    }
+
+    seitenFelder.forEach((f) =>
+      f.addEventListener("change", () => {
+        bewusstGeblieben = false;
+        zeichnen();
+      })
+    );
+    paketFelder.forEach((f) =>
+      f.addEventListener("change", () => {
+        bewusstGeblieben = true;
+        zeichnen();
+      })
+    );
+    seoFeld.addEventListener("change", zeichnen);
+
+    zeichnen();
+  }
+</script>

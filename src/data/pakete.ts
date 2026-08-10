@@ -410,10 +410,19 @@ export function auswahlAusSuchparametern(
   const gueltigeSlugs = new Set(
     seitenOptionen.filter((o) => !o.fest).map((o) => o.slug)
   );
-  const seitenSlugs = (params.get(urlParameter.seiten) ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter((s) => gueltigeSlugs.has(s));
+
+  // Zwei Schreibweisen, dasselbe Ergebnis:
+  // ?seiten=a,b        — so schreibt es der Konfigurator mit JavaScript
+  // ?seiten=a&seiten=b — so schickt es das Formular ohne JavaScript ab
+  const seitenSlugs = [
+    ...new Set(
+      params
+        .getAll(urlParameter.seiten)
+        .flatMap((wert) => wert.split(","))
+        .map((s) => s.trim())
+        .filter((s) => gueltigeSlugs.has(s))
+    ),
+  ];
 
   return {
     paketId: paketId as PaketId,

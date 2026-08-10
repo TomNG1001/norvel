@@ -9,7 +9,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 1 | Grundgerüst | erledigt und geprüft | 2026-08-10 |
 | 2 | Datenmodelle | erledigt und geprüft | 2026-08-10 |
 | 3 | /kontakt und /danke | erledigt und geprüft | 2026-08-10 |
-| 4 | /preise | offen | – |
+| 4 | /preise | erledigt und geprüft | 2026-08-10 |
 | 5 | Startseite | offen | – |
 | 6 | /leistungen und die 4 Unterseiten | offen | – |
 | 7 | /branchen und die 5 Unterseiten | offen | – |
@@ -200,3 +200,56 @@ las sich das wie sieben Seiten statt sechs. Jetzt mit Plus verbunden.
    ich erfinde keine.
 4. Die Datenschutzerklärung wird vom Formular verlinkt, existiert aber erst
    ab Schritt 10.
+
+---
+
+## Schritt 4 — /preise · erledigt am 2026-08-10
+
+Neu:
+
+- `src/components/Konfigurator.astro` — Seitenauswahl, Paketwahl,
+  SEO-Haken, mitlaufende Summe, Wechselkasten, Übergabe an /kontakt.
+- `src/pages/preise.astro` — fünf Abschnitte: Kopf, Preistabelle auf einem
+  Tinte-Band, Konfigurator, Pflegeumfang, dunkler Abschluss.
+- `pakete.ts`: `auswahlAusSuchparametern` versteht jetzt beide Schreibweisen
+  (`?seiten=a,b` und `?seiten=a&seiten=b`).
+
+**Ohne JavaScript funktioniert der Konfigurator als normales GET-Formular auf
+/kontakt.** Die Auswahl landet trotzdem im Kontaktformular, nur ohne
+mitlaufende Summe. Mit JavaScript rechnet die Summe live, die Adresse bleibt
+teilbar, und der automatische Wechsel greift.
+
+Der automatische Wechsel, wie geprüft:
+
+| Zustand | Anzeige |
+|---|---|
+| 2 Seiten (nur die festen) | Start · 449 € · 39 €/Monat |
+| 5 Seiten | springt auf **Standard** · 849 €, Kasten „Auf Standard gewechselt" mit 5 Punkten und Knopf „Bei Start bleiben (539 €)" |
+| Klick auf „Bei Start bleiben" | Start · 539 € · Zeile „1 × 90 € = 90 €", Kasten dreht sich um: „Für 310 € mehr" mit Knopf „Zu Standard wechseln" |
+| dazu SEO | Start · 688 € (539 + 149) |
+| zurück zu Standard | 1.068 € (849 + 219) · Zusatzseiten-Zeile weg |
+
+Weiter geprüft:
+
+- Geteilte Adresse `?paket=komplett&seiten=…&seo=1` stellt Haken, Paketwahl
+  und Summe wieder her: 9 Seiten, 1.538 €, 89 €/Monat.
+- Abschicken landet auf `/kontakt` mit
+  `?seiten=angebot&seiten=ueber-uns&seiten=galerie&paket=standard&seo=1` —
+  das ist die Schreibweise ohne JavaScript, und die Kontaktseite versteht sie.
+  Der Kasten dort zeigt die Auswahl, das versteckte Feld ist gefüllt.
+- Drei Preiskarten gleich hoch, Knöpfe auf einer Linie, Standard mit 3-px-Rahmen
+  statt Schatten.
+- Knöpfe in den weißen Karten auf dem Tinte-Band sind wieder stahlblau, nicht
+  die helle Bandvariante.
+- `§ 19`-Hinweis steht unter der Tabelle. **Kein Prozentzeichen auf der ganzen
+  Seite** — automatisch geprüft.
+- Keine Konsolenfehler.
+
+### Offene Punkte
+
+1. Auf dem Handy steht die Summe unter der Auswahlliste. Wer neun Haken setzt,
+   scrollt weit, bis er den Preis sieht. Eine feste Summenleiste am unteren
+   Rand wäre die übliche Lösung — nicht gebaut, weil nicht abgesprochen.
+2. Die Karten-Knöpfe verweisen auf `?paket=…#konfigurator`. Ohne JavaScript
+   springt man zwar zum Konfigurator, aber das Paket ist dort nicht
+   vorausgewählt. Mit JavaScript stimmt es.

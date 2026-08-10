@@ -1,0 +1,338 @@
+---
+/**
+ * /preise — die drei Pakete und der Konfigurator.
+ *
+ * Jede Zahl auf dieser Seite kommt aus pakete.ts. Hier steht keine einzige.
+ * Die Preistabelle liegt auf einem Tinte-Band über die ganze Breite.
+ */
+import Basis from "../layouts/Basis.astro";
+import Konfigurator from "../components/Konfigurator.astro";
+import { brand } from "../config/brand";
+import {
+  pakete,
+  euro,
+  umsatzsteuerHinweis,
+  preisProZusatzseite,
+  pflegeEnthaelt,
+  urlParameter,
+} from "../data/pakete";
+---
+
+<Basis
+  titel="Preise"
+  beschreibung="Drei Pakete, ein Konfigurator, ein Endpreis. Klick dir deine Seiten zusammen und sieh sofort, was es kostet."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Was es kostet</h1>
+      <p class="vorspann">
+        Drei Pakete. Der Preis hängt an der Seitenzahl, sonst an nichts. Klick
+        dir unten deine Seiten zusammen, dann siehst du deinen Betrag — und
+        kannst ihn mitnehmen, ohne mich vorher anzurufen.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Die drei Pakete</h2>
+      <ul class="pakete">
+        {
+          pakete.map((p) => (
+            <li class:list={["paket", p.hervorgehoben && "paket--wahl"]}>
+              {p.hervorgehoben && (
+                <p class="paket__marke">Für die meisten Betriebe richtig</p>
+              )}
+
+              <h3>{p.name}</h3>
+              <p class="paket__preis">
+                <span class="paket__ab">ab</span> {euro(p.preisAb)}
+              </p>
+              <p class="paket__pflege">
+                {p.seitenMin}–{p.seitenMax} Seiten · {euro(p.pflegeMonat)} im
+                Monat für die Pflege
+              </p>
+              <p class="paket__fuerwen">{p.fuerWen}</p>
+
+              <ul class="liste">
+                {p.enthalten.map((z) => (
+                  <li>{z}</li>
+                ))}
+              </ul>
+
+              {p.nichtEnthalten.length > 0 && (
+                <ul class="liste liste--ohne">
+                  {p.nichtEnthalten.map((z) => (
+                    <li>{z}</li>
+                  ))}
+                </ul>
+              )}
+
+              <p class="paket__seo">
+                Auffindbarkeit bei Google: einmalig {euro(p.seoAufpreis)}
+              </p>
+
+              <a
+                class="knopf paket__knopf"
+                href={`?${urlParameter.paket}=${p.id}#konfigurator`}
+              >
+                Mit {p.name} rechnen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="leise tabelle__fuss">
+        {umsatzsteuerHinweis}. Jede Seite über dem Umfang deines Pakets kostet
+        {" "}{euro(preisProZusatzseite)}. Der angezeigte Preis ist der Preis.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="konfigurator-abschnitt">
+    <div class="breite">
+      <h2>Rechne dir deine Seite zusammen</h2>
+      <p class="vorspann">
+        Hak an, was du brauchst. Die Summe läuft mit. Deine Auswahl steht in
+        der Adresszeile — du kannst sie dir selbst schicken oder jemandem
+        zeigen, bevor du dich meldest.
+      </p>
+      <Konfigurator />
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Was die monatliche Pflege abdeckt</h2>
+      <p>
+        Der monatliche Betrag hängt am Paket. Enthalten ist bei allen dasselbe:
+      </p>
+      <ul class="liste liste--zwei">
+        {pflegeEnthaelt.map((z) => <li>{z}</li>)}
+      </ul>
+      <p>
+        <a href="/leistungen/hosting-pflege">
+          Mehr dazu, was Hosting und Pflege bedeuten
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite abschluss">
+      <div>
+        <h2>Unsicher, welches Paket passt?</h2>
+        <p>
+          Ruf an und beschreib mir deinen Betrieb in zwei Sätzen. Dann sage ich
+          dir, was du brauchst — auch wenn das das kleinste Paket ist.
+        </p>
+      </div>
+      <div class="abschluss__knoepfe">
+        <a class="knopf" href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige}
+        </a>
+        <a class="knopf knopf--rand knopf--hell" href="/kontakt">
+          Zum Formular
+        </a>
+      </div>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  /* Preistabelle --------------------------------------------------------- */
+
+  .pakete {
+    display: grid;
+    gap: var(--raum-3);
+    margin: 0 0 var(--raum-3);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .paket {
+    display: flex;
+    flex-direction: column;
+    padding: var(--raum-3);
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+    color: var(--tinte);
+  }
+
+  /* Das hervorgehobene Paket bekommt einen kräftigen Rahmen, keinen Schatten. */
+  .paket--wahl {
+    border-color: var(--stahl);
+    border-width: 3px;
+  }
+
+  .paket__marke {
+    margin: 0 0 var(--raum-2);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .paket h3 {
+    margin-bottom: var(--raum-1);
+    color: var(--tinte);
+  }
+
+  .paket__preis {
+    margin: 0;
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .paket__ab {
+    font-size: var(--gr-text);
+    font-weight: 400;
+  }
+
+  .paket__pflege {
+    margin: var(--raum-1) 0 var(--raum-3);
+    font-size: var(--gr-klein);
+    color: color-mix(in srgb, var(--tinte) 70%, var(--karte));
+  }
+
+  .paket__fuerwen {
+    margin: 0 0 var(--raum-3);
+    padding-bottom: var(--raum-3);
+    border-bottom: 1px solid var(--eisblau);
+  }
+
+  .paket__seo {
+    margin: var(--raum-3) 0;
+    font-size: var(--gr-klein);
+  }
+
+  .paket__knopf {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  /* Innerhalb der weißen Karte gilt wieder die normale Knopffarbe,
+     nicht die helle Variante des Tinte-Bands. */
+  .band--tinte .paket .knopf {
+    background: var(--stahl);
+    border-color: var(--stahl);
+    color: #ffffff;
+  }
+
+  .band--tinte .paket .knopf:hover {
+    background: var(--tinte);
+    border-color: var(--tinte);
+  }
+
+  .band--tinte .paket a {
+    color: var(--stahl);
+  }
+
+  .tabelle__fuss {
+    max-width: 44rem;
+  }
+
+  /* Listen --------------------------------------------------------------- */
+
+  .liste {
+    display: grid;
+    gap: var(--raum-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .liste li {
+    position: relative;
+    padding-left: 1.125rem;
+  }
+
+  .liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--stahl);
+  }
+
+  /* Was bewusst fehlt. Der Knick bei Start muss sichtbar bleiben. */
+  .liste--ohne {
+    margin-top: var(--raum-2);
+    padding-top: var(--raum-2);
+    border-top: 1px solid var(--eisblau);
+  }
+
+  .liste--ohne li {
+    color: color-mix(in srgb, var(--tinte) 65%, var(--karte));
+  }
+
+  .liste--ohne li::before {
+    top: 0.85em;
+    height: 2px;
+    width: 0.65rem;
+    background: currentColor;
+  }
+
+  .liste--zwei {
+    margin-bottom: var(--raum-3);
+  }
+
+  /* Abschluss ------------------------------------------------------------ */
+
+  .abschluss {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--raum-3);
+  }
+
+  .abschluss h2 {
+    margin-bottom: var(--raum-2);
+  }
+
+  .abschluss p {
+    margin: 0;
+  }
+
+  .abschluss__knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  /* Zweite Wahl auf dunklem Grund: nur Rahmen, keine Fläche. */
+  .band--tinte .knopf--hell {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--hell:hover {
+    background: var(--auf-tinte);
+    color: var(--tinte);
+  }
+
+  @media (min-width: 48em) {
+    .liste--zwei {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64em) {
+    .pakete {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+    }
+  }
+</style>
