@@ -10,7 +10,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 2 | Datenmodelle | erledigt und geprüft | 2026-08-10 |
 | 3 | /kontakt und /danke | erledigt und geprüft | 2026-08-10 |
 | 4 | /preise | erledigt und geprüft | 2026-08-10 |
-| 5 | Startseite | offen | – |
+| 5 | Startseite | erledigt und geprüft | 2026-08-10 |
 | 6 | /leistungen und die 4 Unterseiten | offen | – |
 | 7 | /branchen und die 5 Unterseiten | offen | – |
 | 8 | /arbeiten und die 3 Projektseiten | offen | – |
@@ -253,3 +253,63 @@ Weiter geprüft:
 2. Die Karten-Knöpfe verweisen auf `?paket=…#konfigurator`. Ohne JavaScript
    springt man zwar zum Konfigurator, aber das Paket ist dort nicht
    vorausgewählt. Mit JavaScript stimmt es.
+
+---
+
+## Schritt 5 — Startseite · erledigt am 2026-08-10
+
+Acht Abschnitte, im Wechsel hell und dunkel:
+
+| # | Abschnitt | Grund |
+|---|---|---|
+| 1 | Kopf, Papier | Hauptziel und nächster Schritt |
+| 2 | „Was ich vor jedem Gespräch sehe", Karte | drei konkrete Befunde |
+| 3 | **24 bis 72 Stunden, Tinte** | laut Vorgabe ein Tinte-Band |
+| 4 | „Für wen ich baue", Papier | 5 Branchen aus `branchen.ts` |
+| 5 | „Was ich mache", Karte | 4 Leistungen aus `leistungen.ts` |
+| 6 | „Was es kostet", Papier | 3 Pakete aus `pakete.ts` + § 19 |
+| 7 | „Beispiele", Karte | 3 Konzeptprojekte mit Kennzeichnung |
+| 8 | **Abschluss, Tinte** | laut Vorgabe ein Tinte-Band |
+
+Neu dazu:
+
+- `src/components/Kontaktabschluss.astro` — der Abschluss, der laut Vorgabe
+  auf jeder Seite gleich ist. Bewusst ohne Einstellmöglichkeiten: wer den
+  Text ändert, ändert ihn überall.
+- `global.css` um ein Kachelsystem ergänzt (`.kacheln`, `.kachel`), damit
+  Übersichtskarten ab Schritt 6 nicht fünfmal neu gebaut werden. Die ganze
+  Kachel ist anklickbar, hat aber nur einen Halt für die Tabulatortaste.
+- `branchen.ts` hat jetzt ein Feld `kurz` — die Vorgabe verlangt auf
+  Übersichtsseiten Karten mit ein bis zwei Sätzen, und Leistung und Projekt
+  hatten das schon. In Schritt 2 fehlte es.
+- `/preise` benutzt jetzt denselben Abschluss statt eines eigenen.
+
+Geprüft:
+
+- Eine `h1`, Überschriftenfolge ohne Sprünge (H1, H2, H3 …).
+- Kachel überall anklickbar: Klick in die Kachelmitte trifft
+  `/branchen/restaurants`.
+- Fünf Branchenkarten in zwei Reihen, alle gleich breit.
+- **Tonprüfung über alle vier gebauten Seiten:** kein verbotenes Wort, kein
+  „wir", kein Prozentzeichen im Seitentext.
+- § 19-Hinweis unter der Preisübersicht.
+- Alle Seiten und das Favicon antworten mit 200.
+
+**Nachgebessert:**
+
+1. Zwei echte Verstöße gegen die „nie wir"-Regel gefunden, beide aus Schritt 2:
+   `ablauf.ts` hatte „Wir sprechen kurz" → jetzt „Ein kurzes Telefonat".
+   `branchen.ts` hatte die FAQ-Frage „Wir wechseln die Karte ständig." →
+   jetzt „Die Karte ändert sich ständig."
+2. Im Kartenverweis stand „Für Restaurante ansehen" — die Einzahl mit „e“
+   angehängt ergibt keinen Plural. Jetzt „Für Restaurants ansehen".
+3. Fehlendes Leerzeichen vor der Telefonnummer im Kopfabschnitt.
+4. Harter Zeilenumbruch in der H1 entfernt — er hätte auf schmalen Geräten
+   an der falschen Stelle gebrochen.
+
+### Offene Punkte
+
+1. `/kontakt` behält seinen eigenen Abschluss. Der gemeinsame würde dort auf
+   die Seite verweisen, auf der man schon steht.
+2. Die drei Projektnamen stehen als PLATZHALTER auf der Startseite — sichtbar,
+   wie es sein soll, aber sie gehören ersetzt, bevor jemand die Seite sieht.

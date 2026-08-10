@@ -25,6 +25,12 @@ export interface Branche {
   seoTitel: string;
   /** Unter 160 Zeichen. */
   seoText: string;
+  /**
+   * Ein bis zwei Sätze für die Karte auf der Übersicht und der Startseite.
+   * Regel: Übersichtsseiten zeigen ihre Unterseiten als Karten mit einer
+   * kurzen Erklärung — dafür ist dieses Feld da.
+   */
+  kurz: string;
   /** Was heute konkret schiefläuft. Kein Werbetext, ein Befund. */
   problem: string;
   /** Mindestens drei. Was diese Branche wirklich braucht. */
@@ -44,6 +50,8 @@ export const branchen: Branche[] = [
     seoTitel: "Website für Restaurants im Rhein-Neckar-Kreis",
     seoText:
       "Speisekarte, die Google lesen kann. Öffnungszeiten ganz oben. Reservierung ohne Anruf. Für Restaurants in Heidelberg, Mannheim und Umgebung.",
+    kurz:
+      "Die Karte als Text statt als Foto, Öffnungszeiten ganz oben, Reservierung ohne Anruf zur Stoßzeit.",
     problem:
       "Deine Speisekarte liegt als Foto auf Facebook. Google kann sie nicht lesen, also findet dich niemand, der abends Pizza in Weinheim sucht. Wer wissen will, ob heute offen ist, muss anrufen — oder geht woandershin.",
     mussHaben: [
@@ -97,6 +105,8 @@ export const branchen: Branche[] = [
     seoTitel: "Website für Bars in Heidelberg und Umgebung",
     seoText:
       "Wer abends eine Bar sucht, entscheidet in zehn Sekunden. Öffnungszeiten, Karte und Stimmung müssen sofort sichtbar sein.",
+    kurz:
+      "Wer abends sucht, entscheidet in zehn Sekunden. Öffnungszeiten, Karte und Stimmung müssen sofort da sein.",
     problem:
       "Um 22 Uhr sucht jemand auf dem Handy eine Bar in der Altstadt. Er findet dein Instagram-Profil. Ob heute offen ist, steht in einer Story von vorletzter Woche. Also geht er in die Bar nebenan, deren Öffnungszeiten bei Google stehen.",
     mussHaben: [
@@ -130,7 +140,7 @@ export const branchen: Branche[] = [
           "Ja. Für eine Bar ist ein dunkler Auftritt oft richtig. Wichtig ist nur, dass der Text lesbar bleibt — auch für Gäste, die keine 25 mehr sind.",
       },
       {
-        frage: "Wir wechseln die Karte ständig.",
+        frage: "Die Karte ändert sich ständig.",
         antwort:
           "Dann kommt auf die Seite, was bleibt: Öffnungszeiten, Preisspanne, Räumlichkeiten. Die wechselnde Karte gehört auf eine Tafel im Laden.",
       },
@@ -145,6 +155,8 @@ export const branchen: Branche[] = [
     seoTitel: "Website für Kosmetikstudios im Rhein-Neckar-Kreis",
     seoText:
       "Behandlungen mit Preis und Dauer, Termine online statt per Nachricht um elf Uhr abends. Für Studios in Heidelberg und Umgebung.",
+    kurz:
+      "Behandlungen mit Preis und Dauer, Termine online — statt Anfragen per Nachricht um elf Uhr abends.",
     problem:
       "Terminanfragen kommen als Instagram-Nachricht, zwischen zwei Kundinnen. Du beantwortest sie abends um elf. Wer bis dahin keine Antwort hat, hat längst woanders gebucht.",
     mussHaben: [
@@ -198,6 +210,8 @@ export const branchen: Branche[] = [
     seoTitel: "Website für Hundesalons im Rhein-Neckar-Kreis",
     seoText:
       "Preise nach Größe, Termine online, Fotos deiner Arbeit. Damit Hundehalter dich finden und nicht den Nächsten anrufen.",
+    kurz:
+      "Preise nach Größe, Wartezeit offen genannt, Termine über ein Formular. Das spart dir die immer gleichen Anrufe.",
     problem:
       "Hundehalter suchen nach einem Salon in der Nähe und wollen drei Dinge wissen: Nimmst du meine Rasse, was kostet das ungefähr, wie lange dauert es. Steht das nicht da, rufen sie beim Nächsten an.",
     mussHaben: [
@@ -246,6 +260,8 @@ export const branchen: Branche[] = [
     seoTitel: "Website für Handwerksbetriebe im Rhein-Neckar-Kreis",
     seoText:
       "Leistungen einzeln benannt, Einsatzgebiet mit Ortsnamen, Nummer zum Antippen. Und eine Seite für offene Stellen.",
+    kurz:
+      "Leistungen einzeln benannt, Einsatzgebiet mit Ortsnamen, und eine Seite für offene Stellen.",
     problem:
       "Jemand sucht „Heizung Notdienst Schwetzingen“. Auf deiner Seite steht, dass du seit 1998 zuverlässig arbeitest — aber nicht, welche Orte du fährst und ob du gerade Aufträge annimmst. Also ruft er beim Nächsten an.",
     mussHaben: [

@@ -27,8 +27,8 @@ export const ablauf: Ablaufschritt[] = [
   },
   {
     nummer: 2,
-    titel: "Wir sprechen kurz",
-    text: "Ein Telefonat von zwanzig Minuten, in dem ich frage, wer bei dir bestellt, bucht oder anruft und was diese Leute vorher wissen müssen. Danach weißt du, was es kostet und wie lange es dauert.",
+    titel: "Ein kurzes Telefonat",
+    text: "Zwanzig Minuten, in denen ich frage, wer bei dir bestellt, bucht oder anruft und was diese Leute vorher wissen müssen. Danach weißt du, was es kostet und wie lange es dauert.",
     vonDir: "Zwanzig Minuten Zeit",
     dauer: "1 Telefonat",
   },

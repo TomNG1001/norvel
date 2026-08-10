@@ -1,0 +1,74 @@
+---
+/**
+ * Der Abschluss, der unter jeder Seite steht — überall derselbe.
+ *
+ * Regel aus dem Projekt: jede Seite hat ein Hauptziel, einen sichtbaren
+ * nächsten Schritt und denselben Kontakt-Abschluss. Deshalb hat diese
+ * Komponente bewusst keine Einstellmöglichkeiten. Wer hier Text ändert,
+ * ändert ihn auf allen Seiten gleichzeitig — genau so ist es gedacht.
+ */
+import { brand } from "../config/brand";
+---
+
+<section class="abschnitt band--tinte">
+  <div class="breite abschluss">
+    <div class="abschluss__text">
+      <h2>Erzähl mir von deinem Betrieb</h2>
+      <p>
+        Zwei Sätze reichen für den Anfang. Ich sage dir, was du brauchst — und
+        was du nicht brauchst.
+      </p>
+      <p class="leise">
+        {brand.inhaber} · {brand.region}
+      </p>
+    </div>
+
+    <div class="abschluss__knoepfe">
+      <a class="knopf" href={`tel:${brand.telefonE164}`}>
+        {brand.telefonAnzeige}
+      </a>
+      <a class="knopf knopf--umriss" href="/kontakt">Anfrage schicken</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .abschluss {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--raum-4);
+  }
+
+  .abschluss__text {
+    max-width: 34rem;
+  }
+
+  .abschluss h2 {
+    margin-bottom: var(--raum-2);
+  }
+
+  .abschluss p {
+    margin: 0 0 var(--raum-1);
+  }
+
+  .abschluss__knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  /* Zweite Wahl auf dunklem Grund: nur Umriss, keine Fläche. */
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+</style>

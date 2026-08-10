@@ -7,7 +7,7 @@
  */
 import Basis from "../layouts/Basis.astro";
 import Konfigurator from "../components/Konfigurator.astro";
-import { brand } from "../config/brand";
+import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import {
   pakete,
   euro,
@@ -119,25 +119,7 @@ import {
     </div>
   </section>
 
-  <section class="abschnitt band--tinte">
-    <div class="breite abschluss">
-      <div>
-        <h2>Unsicher, welches Paket passt?</h2>
-        <p>
-          Ruf an und beschreib mir deinen Betrieb in zwei Sätzen. Dann sage ich
-          dir, was du brauchst — auch wenn das das kleinste Paket ist.
-        </p>
-      </div>
-      <div class="abschluss__knoepfe">
-        <a class="knopf" href={`tel:${brand.telefonE164}`}>
-          {brand.telefonAnzeige}
-        </a>
-        <a class="knopf knopf--rand knopf--hell" href="/kontakt">
-          Zum Formular
-        </a>
-      </div>
-    </div>
-  </section>
+  <Kontaktabschluss />
 </Basis>
 
 <style>
@@ -285,42 +267,6 @@ import {
 
   .liste--zwei {
     margin-bottom: var(--raum-3);
-  }
-
-  /* Abschluss ------------------------------------------------------------ */
-
-  .abschluss {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--raum-3);
-  }
-
-  .abschluss h2 {
-    margin-bottom: var(--raum-2);
-  }
-
-  .abschluss p {
-    margin: 0;
-  }
-
-  .abschluss__knoepfe {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--raum-2);
-  }
-
-  /* Zweite Wahl auf dunklem Grund: nur Rahmen, keine Fläche. */
-  .band--tinte .knopf--hell {
-    background: transparent;
-    border-color: var(--auf-tinte);
-    color: var(--auf-tinte);
-  }
-
-  .band--tinte .knopf--hell:hover {
-    background: var(--auf-tinte);
-    color: var(--tinte);
   }
 
   @media (min-width: 48em) {

@@ -224,6 +224,108 @@ strong { font-weight: 600; }
 }
 
 /* --------------------------------------------------------------------------
+   Kacheln
+
+   Übersichtsseiten zeigen ihre Unterseiten als Karten mit ein bis zwei Sätzen.
+   Weil das auf jeder Übersichtsseite gleich aussehen soll, steht es hier und
+   nicht fünfmal in einzelnen Seiten.
+   -------------------------------------------------------------------------- */
+
+.kacheln {
+  display: grid;
+  gap: var(--raum-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: none;
+}
+
+.kachel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--raum-3);
+  border: 2px solid var(--eisblau);
+  border-radius: var(--radius);
+  background: var(--karte);
+  color: var(--tinte);
+}
+
+.kachel h3 {
+  margin-bottom: var(--raum-1);
+  color: var(--tinte);
+}
+
+.kachel p {
+  margin: 0 0 var(--raum-3);
+  max-width: none;
+}
+
+/* Der Verweis unten trägt die ganze Kachel: überall anklickbar, aber nur ein
+   einziger Halt für die Tabulatortaste. */
+.kachel__mehr {
+  margin-top: auto;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kachel__mehr::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+.kachel:hover {
+  border-color: var(--stahl);
+}
+
+.kachel__mehr:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.kachel:has(.kachel__mehr:focus-visible) {
+  outline: 3px solid var(--stahl);
+  outline-offset: 2px;
+}
+
+.kachel__mehr:focus-visible {
+  outline: none;
+}
+
+/* Kennzeichnung oben in der Kachel, etwa "Konzeptprojekt". */
+.kachel__marke {
+  margin: 0 0 var(--raum-2);
+  font-size: var(--gr-klein);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--stahl);
+}
+
+@media (min-width: 40em) {
+  .kacheln--2,
+  .kacheln--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 60em) {
+  .kacheln--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kacheln--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .kacheln--5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --------------------------------------------------------------------------
    Formularfelder
 
    Mindesthöhe 2,875 rem, damit man sie auf dem Handy mit dem Daumen trifft.

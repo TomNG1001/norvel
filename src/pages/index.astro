@@ -1,74 +1,270 @@
 ---
 /**
- * PLATZHALTER-Startseite.
+ * Die Startseite.
  *
- * Steht nur da, damit Farben, Schriften, Navigation und Fußbereich sichtbar
- * sind. Die echte Startseite entsteht in Schritt 5 — dieser Text fliegt dann
- * komplett raus.
+ * Hauptziel: Anfrage. Nächster Schritt: Preise ansehen oder anrufen.
+ * Aufbau nach dem Hell-Dunkel-Rhythmus, die beiden Tinte-Bänder sitzen beim
+ * 24–72-Stunden-Abschnitt und beim Abschluss.
+ *
+ * Branchen, Leistungen, Pakete und Projekte kommen aus den Datendateien.
+ * Trägst du dort etwas ein, steht es hier.
  */
 import Basis from "../layouts/Basis.astro";
+import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import { brand } from "../config/brand";
+import { branchen } from "../data/branchen";
+import { leistungen } from "../data/leistungen";
+import { pakete, euro, umsatzsteuerHinweis } from "../data/pakete";
+import {
+  projekte,
+  hinweisKonzeptprojekte,
+  zeigeKonzepthinweis,
+  kennzeichnung,
+} from "../data/projekte";
+
+/** Was jemand findet, der einen kleinen Betrieb googelt. Immer dasselbe. */
+const befunde = [
+  {
+    titel: "Die Karte ist ein Foto",
+    text: "Google liest keine Bilder. Wer abends nach Pizza in Weinheim sucht, findet dich nicht — auch wenn du seit zwölf Jahren dort kochst.",
+  },
+  {
+    titel: "Die Öffnungszeiten stehen im Impressum",
+    text: "Oder bei Google, und dort falsch. Dabei ist es die Frage, die am häufigsten gestellt wird.",
+  },
+  {
+    titel: "Auf dem Handy muss man zoomen",
+    text: "Fast alle schauen auf dem Handy. Wer wischen und vergrößern muss, ist nach zehn Sekunden wieder weg.",
+  },
+];
 ---
 
 <Basis
-  titel="PLATZHALTER Startseite"
-  beschreibung="PLATZHALTER — diese Beschreibung wird in Schritt 5 geschrieben."
+  titel="Websites für kleine Betriebe"
+  beschreibung="Ich baue Websites für Restaurants, Bars, Kosmetikstudios, Hundefriseure und Handwerk im Rhein-Neckar-Kreis. Grundgerüst in 24 bis 72 Stunden."
 >
   <section class="abschnitt">
     <div class="breite">
-      <p class="hinweis">Schritt 1 — Grundgerüst. Noch kein Inhalt.</p>
-      <h1>Überschrift in Bricolage Grotesque</h1>
+      <h1>Deine Kunden suchen dich auf dem Handy. Was finden sie?</h1>
       <p class="vorspann">
-        Vorspann in Public Sans. Hier steht später der Satz, der in zwei Zeilen
-        erklärt, was du für einen Gastronomen tust.
+        Ich bin {brand.inhaber} und baue Websites für kleine Betriebe im
+        {" "}{brand.region}: Restaurants, Bars, Kosmetikstudios, Hundefriseure
+        und Handwerk. Das Grundgerüst steht in 24 bis 72 Stunden.
       </p>
-      <p>
-        Fließtext in Public Sans. An diesem Absatz kannst du Zeilenabstand,
-        Zeilenlänge und Kontrast beurteilen. Die Zeilenlänge ist absichtlich
-        begrenzt, damit das Auge die nächste Zeile wiederfindet.
+      <p class="knoepfe">
+        <a class="knopf" href="/preise">Was es kostet</a>
+        <a class="knopf knopf--rand" href="/kontakt">Anfrage schicken</a>
       </p>
-      <p>
-        <a href="/kontakt" class="knopf">Beispiel-Knopf</a>
-      </p>
-    </div>
-  </section>
-
-  <section class="abschnitt band--tinte">
-    <div class="breite">
-      <h2>Dunkles Band über die ganze Breite</h2>
-      <p>
-        So sieht ein Tinte-Band aus. Diese Bänder bekommen später der
-        24–72-Stunden-Abschnitt, die Preistabelle und jeder Seitenabschluss.
-      </p>
-      <p>
-        <a href="/preise" class="knopf">Knopf auf dunklem Grund</a>
+      <p class="leise">
+        Oder ruf einfach an:{" "}
+        <a href={`tel:${brand.telefonE164}`}>{brand.telefonAnzeige}</a>
       </p>
     </div>
   </section>
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Heller Abschnitt auf Kartenweiß</h2>
-      <p>
-        Dazwischen liegen helle Abschnitte. Der Wechsel aus hell und dunkel
-        gibt der Seite ihren Rhythmus.
+      <h2>Was ich vor jedem Gespräch sehe</h2>
+      <p class="vorspann">
+        Bevor ich mit jemandem telefoniere, suche ich seinen Betrieb bei
+        Google. Meistens finde ich dasselbe:
       </p>
-      <p class="leise">
-        Markenname aus brand.ts, einmal zur Kontrolle: {brand.name}
+      <ul class="kacheln kacheln--3">
+        {
+          befunde.map((b) => (
+            <li class="kachel">
+              <h3>{b.titel}</h3>
+              <p>{b.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="fazit">
+        Das sind keine Geschmacksfragen. Das sind Anrufe, die nicht ankommen.
       </p>
     </div>
   </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>In 24 bis 72 Stunden steht dein Grundgerüst</h2>
+      <p class="vorspann">
+        Sobald deine Texte und Bilder da sind, siehst du deine Seite unter
+        einer Vorschauadresse. Nicht als Bild zum Abnicken, sondern als echte
+        Seite, die du auf deinem eigenen Handy aufmachen kannst.
+      </p>
+      <p>
+        Ehrlich gesagt hängt es fast immer an derselben Stelle, und das ist
+        nicht das Bauen: Es hängt an deinem Material. Stichpunkte reichen mir,
+        die Sätze mache ich daraus.
+      </p>
+      <p>
+        <a href="/ablauf">Der ganze Ablauf, Schritt für Schritt</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Für wen ich baue</h2>
+      <p class="vorspann">
+        Fünf Branchen, die ich kenne. Jede hat eigene Fragen, die vor dem
+        ersten Anruf beantwortet sein müssen.
+      </p>
+      <ul class="kacheln kacheln--5">
+        {
+          branchen.map((b) => (
+            <li class="kachel">
+              <h3>{b.name}</h3>
+              <p>{b.kurz}</p>
+              <a class="kachel__mehr" href={`/branchen/${b.slug}`}>
+                Für {b.name} ansehen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Was ich mache</h2>
+      <ul class="kacheln kacheln--4">
+        {
+          leistungen.map((l) => (
+            <li class="kachel">
+              <h3>{l.name}</h3>
+              <p>{l.kurz}</p>
+              <a class="kachel__mehr" href={`/leistungen/${l.slug}`}>
+                Mehr dazu
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Was es kostet</h2>
+      <p class="vorspann">
+        Drei Pakete. Der Preis hängt an der Seitenzahl, sonst an nichts. Auf
+        der Preisseite klickst du dir deine Seiten zusammen und siehst deinen
+        Betrag sofort.
+      </p>
+
+      <ul class="preise">
+        {
+          pakete.map((p) => (
+            <li class:list={["preis", p.hervorgehoben && "preis--wahl"]}>
+              <span class="preis__name">{p.name}</span>
+              <span class="preis__betrag">ab {euro(p.preisAb)}</span>
+              <span class="preis__zusatz">
+                {p.seitenMin}–{p.seitenMax} Seiten · {euro(p.pflegeMonat)} im
+                Monat
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="leise">{umsatzsteuerHinweis}. Der angezeigte Preis ist der Preis.</p>
+      <p>
+        <a class="knopf" href="/preise">Preise zusammenklicken</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Beispiele</h2>
+      {zeigeKonzepthinweis && <p class="vorspann">{hinweisKonzeptprojekte}</p>}
+
+      <ul class="kacheln kacheln--3">
+        {
+          projekte.map((p) => (
+            <li class="kachel">
+              {kennzeichnung(p) && (
+                <p class="kachel__marke">{kennzeichnung(p)}</p>
+              )}
+              <h3>{p.name}</h3>
+              <p>{p.kurz}</p>
+              <a class="kachel__mehr" href={`/arbeiten/${p.slug}`}>
+                Projekt ansehen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
 </Basis>
 
 <style>
-  .hinweis {
-    display: inline-block;
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
     margin-bottom: var(--raum-3);
-    padding: 0.375rem 0.75rem;
-    border: 2px dashed var(--stahl);
-    border-radius: var(--radius);
-    font-size: var(--gr-klein);
+  }
+
+  .fazit {
+    margin-top: var(--raum-4);
+    margin-bottom: 0;
+    font-size: var(--gr-gross);
     font-weight: 600;
-    color: var(--stahl);
+  }
+
+  /* Preisübersicht: knapp, die eigentliche Tabelle steht auf /preise. */
+  .preise {
+    display: grid;
+    gap: 0;
+    margin: 0 0 var(--raum-3);
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .preis {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 var(--raum-2);
+    padding: var(--raum-3);
+    border-bottom: 1px solid var(--eisblau);
+  }
+
+  .preis:last-child {
+    border-bottom: 0;
+  }
+
+  .preis--wahl {
+    border-left: 4px solid var(--stahl);
+  }
+
+  .preis__name {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+  }
+
+  .preis__betrag {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .preis__zusatz {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+    font-size: var(--gr-klein);
+    color: color-mix(in srgb, var(--tinte) 70%, var(--karte));
   }
 </style>
