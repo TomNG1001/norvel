@@ -26,6 +26,16 @@ export interface Leistung {
   enthalten: string[];
   /** Ab welchem Paket es das gibt, oder null, wenn es in allen steckt. */
   abPaket: PaketId | null;
+  /**
+   * Welche Zahl aus pakete.ts für diese Leistung die richtige ist. Die Zahl
+   * selbst steht nicht hier — nur, welche gemeint ist.
+   *
+   * einmalig   → der Grundpreis des kleinsten Pakets
+   * monatlich  → die monatliche Pflege des kleinsten Pakets
+   * aufpreis   → der einmalige SEO-Aufpreis des kleinsten Pakets
+   * imPaket    → kein eigener Preis, ab `abPaket` enthalten
+   */
+  preisArt: "einmalig" | "monatlich" | "aufpreis" | "imPaket";
   faq: FaqEintrag[];
 }
 
@@ -49,6 +59,7 @@ export const leistungen: Leistung[] = [
       "Übergabe mit Einweisung, was du wie ändern lässt",
     ],
     abPaket: null,
+    preisArt: "einmalig",
     faq: [
       {
         frage: "Wie lange dauert das wirklich?",
@@ -86,6 +97,7 @@ export const leistungen: Leistung[] = [
       "Ein Ansprechpartner, kein Ticketsystem",
     ],
     abPaket: null,
+    preisArt: "monatlich",
     faq: [
       {
         frage: "Was zählt als kleine Änderung?",
@@ -123,6 +135,7 @@ export const leistungen: Leistung[] = [
       "Ladezeit geprüft, weil Google langsame Seiten abwertet",
     ],
     abPaket: null,
+    preisArt: "aufpreis",
     faq: [
       {
         frage: "Garantierst du Platz eins?",
@@ -159,6 +172,7 @@ export const leistungen: Leistung[] = [
       "Einweisung, wie du Beiträge und Feiertage selbst einträgst",
     ],
     abPaket: "standard",
+    preisArt: "imPaket",
     faq: [
       {
         frage: "Ich habe schon ein Profil, es ist nur alt.",

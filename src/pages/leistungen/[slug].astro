@@ -1,0 +1,246 @@
+---
+/**
+ * Vorlage für alle Leistungsseiten. Vier Seiten, eine Datei.
+ *
+ * Aufbau, fünf Abschnitte plus Abschluss:
+ * 1. Kopf mit Brotkrumen
+ * 2. Was ohne diese Leistung passiert
+ * 3. Was enthalten ist
+ * 4. Was es kostet — Zahl kommt aus pakete.ts
+ * 5. Häufige Fragen
+ * 6. Kontaktabschluss
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { leistungen, type Leistung } from "../../data/leistungen";
+import { pakete, paketNach, euro, umsatzsteuerHinweis } from "../../data/pakete";
+
+export function getStaticPaths() {
+  return leistungen.map((leistung) => ({
+    params: { slug: leistung.slug },
+    props: { leistung },
+  }));
+}
+
+interface Props {
+  leistung: Leistung;
+}
+
+const { leistung } = Astro.props;
+
+/** Das kleinste Paket liefert die "ab"-Zahlen. */
+const kleinstes = pakete[0];
+
+/** Welche Zahl gehört zu dieser Leistung? Steht als Art in leistungen.ts. */
+const preis = {
+  einmalig: {
+    betrag: `ab ${euro(kleinstes.preisAb)}`,
+    zusatz: "einmalig, je nach Seitenzahl",
+  },
+  monatlich: {
+    betrag: `ab ${euro(kleinstes.pflegeMonat)}`,
+    zusatz: "im Monat, je nach Paket",
+  },
+  aufpreis: {
+    betrag: `ab ${euro(kleinstes.seoAufpreis)}`,
+    zusatz: "einmalig zum Paket dazu",
+  },
+  imPaket: {
+    betrag: leistung.abPaket
+      ? `Ab ${paketNach(leistung.abPaket).name}`
+      : "In jedem Paket",
+    zusatz: "ohne Aufpreis enthalten",
+  },
+}[leistung.preisArt];
+
+/** Die anderen drei Leistungen, für den Weiterweg unten. */
+const andere = leistungen.filter((l) => l.slug !== leistung.slug);
+---
+
+<Basis titel={leistung.seoTitel} beschreibung={leistung.seoText}>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen
+        krumen={[
+          { text: "Leistungen", pfad: "/leistungen" },
+          { text: leistung.name },
+        ]}
+      />
+      <h1>{leistung.name}</h1>
+      <p class="vorspann">{leistung.kurz}</p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Warum das zählt</h2>
+      <p class="vorspann">{leistung.problem}</p>
+
+      <h3 class="untertitel">Was dabei ist</h3>
+      <ul class="liste">
+        {leistung.enthalten.map((z) => <li>{z}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite preisband">
+      <div>
+        <h2>Was es kostet</h2>
+        <p class="preisband__betrag">{preis.betrag}</p>
+        <p class="preisband__zusatz">{preis.zusatz}</p>
+        <p class="leise">{umsatzsteuerHinweis}</p>
+      </div>
+      <div class="preisband__knoepfe">
+        <a class="knopf" href="/preise">Preise ansehen</a>
+        <a class="knopf knopf--umriss" href="/kontakt">Anfrage schicken</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Häufige Fragen</h2>
+      <dl class="fragen">
+        {
+          leistung.faq.map((f) => (
+            <div class="frage">
+              <dt>{f.frage}</dt>
+              <dd>{f.antwort}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p>
+        <a href="/faq">Alle häufigen Fragen</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Die anderen Leistungen</h2>
+      <ul class="kacheln kacheln--3">
+        {
+          andere.map((l) => (
+            <li class="kachel">
+              <h3>{l.name}</h3>
+              <p>{l.kurz}</p>
+              <a class="kachel__mehr" href={`/leistungen/${l.slug}`}>
+                {l.name} ansehen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .untertitel {
+    margin-top: var(--raum-5);
+  }
+
+  .liste {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .liste li {
+    position: relative;
+    padding-left: 1.125rem;
+  }
+
+  .liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--stahl);
+  }
+
+  /* Preisband ------------------------------------------------------------ */
+
+  .preisband {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--raum-4);
+  }
+
+  .preisband h2 {
+    margin-bottom: var(--raum-2);
+  }
+
+  .preisband__betrag {
+    margin: 0;
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .preisband__zusatz {
+    margin: var(--raum-1) 0;
+  }
+
+  .preisband p.leise {
+    margin: 0;
+  }
+
+  .preisband__knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+
+  /* Fragen --------------------------------------------------------------- */
+
+  .fragen {
+    margin: 0 0 var(--raum-4);
+    max-width: 44rem;
+  }
+
+  .frage + .frage {
+    margin-top: var(--raum-3);
+    padding-top: var(--raum-3);
+    border-top: 1px solid var(--eisblau);
+  }
+
+  .fragen dt {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: var(--raum-1);
+  }
+
+  .fragen dd {
+    margin: 0;
+    max-width: var(--breite-text);
+  }
+</style>

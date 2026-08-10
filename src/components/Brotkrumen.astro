@@ -1,0 +1,77 @@
+---
+/**
+ * Brotkrumennavigation. Steht laut Vorgabe auf jeder Unterseite.
+ *
+ * Der letzte Eintrag ist die Seite, auf der man gerade steht — er ist kein
+ * Verweis, sondern trägt aria-current. In Schritt 11 kommt daraus zusätzlich
+ * die BreadcrumbList für Google.
+ */
+
+export interface Krume {
+  text: string;
+  /** Fehlt beim letzten Eintrag: das ist die aktuelle Seite. */
+  pfad?: string;
+}
+
+interface Props {
+  krumen: Krume[];
+}
+
+const { krumen } = Astro.props;
+---
+
+<nav class="brotkrumen" aria-label="Brotkrumennavigation">
+  <ol>
+    <li><a href="/">Start</a></li>
+    {
+      krumen.map((k) => (
+        <li>
+          {k.pfad ? (
+            <a href={k.pfad}>{k.text}</a>
+          ) : (
+            <span aria-current="page">{k.text}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .brotkrumen {
+    margin-bottom: var(--raum-3);
+  }
+
+  .brotkrumen ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+    font-size: var(--gr-klein);
+  }
+
+  /* Das Trennzeichen gehört zur Darstellung, nicht zum Text. Deshalb per
+     CSS und nicht als Zeichen im Markup — Vorleseprogramme lesen es nicht. */
+  .brotkrumen li + li::before {
+    content: "›";
+    margin-right: 0.5rem;
+    color: var(--eisblau);
+  }
+
+  .brotkrumen a {
+    color: color-mix(in srgb, var(--tinte) 70%, var(--papier));
+  }
+
+  .brotkrumen a:hover {
+    color: var(--stahl);
+  }
+
+  .brotkrumen [aria-current="page"] {
+    color: var(--tinte);
+    font-weight: 600;
+  }
+</style>

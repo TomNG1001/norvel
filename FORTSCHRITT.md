@@ -11,7 +11,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 3 | /kontakt und /danke | erledigt und geprüft | 2026-08-10 |
 | 4 | /preise | erledigt und geprüft | 2026-08-10 |
 | 5 | Startseite | erledigt und geprüft | 2026-08-10 |
-| 6 | /leistungen und die 4 Unterseiten | offen | – |
+| 6 | /leistungen und die 4 Unterseiten | erledigt und geprüft | 2026-08-10 |
 | 7 | /branchen und die 5 Unterseiten | offen | – |
 | 8 | /arbeiten und die 3 Projektseiten | offen | – |
 | 9 | /ueber-mich, /ablauf, /faq | offen | – |
@@ -313,3 +313,52 @@ Geprüft:
    die Seite verweisen, auf der man schon steht.
 2. Die drei Projektnamen stehen als PLATZHALTER auf der Startseite — sichtbar,
    wie es sein soll, aber sie gehören ersetzt, bevor jemand die Seite sieht.
+
+---
+
+## Schritt 6 — /leistungen und die vier Unterseiten · erledigt am 2026-08-10
+
+Fünf Seiten aus **einer** Vorlage plus einer Übersicht:
+
+- `src/components/Brotkrumen.astro` — Brotkrumennavigation, ab jetzt auf jeder
+  Unterseite. Das Trennzeichen kommt aus CSS, damit Vorleseprogramme es nicht
+  mitlesen. Der letzte Eintrag ist kein Verweis, sondern trägt `aria-current`.
+- `src/pages/leistungen/index.astro` — Übersicht, vier Abschnitte.
+- `src/pages/leistungen/[slug].astro` — die Vorlage, sechs Abschnitte:
+  Kopf · Warum das zählt + Was dabei ist · Was es kostet (Tinte) ·
+  Häufige Fragen · Die anderen Leistungen · Kontaktabschluss.
+- `leistungen.ts` hat ein Feld `preisArt` bekommen. Es sagt nur, **welche**
+  Zahl aus pakete.ts gemeint ist — die Zahl selbst steht weiterhin nur dort.
+
+Jede Leistung zeigt dadurch die für sie richtige Zahl:
+
+| Seite | Preisband |
+|---|---|
+| Website | ab 449 € — einmalig, je nach Seitenzahl |
+| Hosting und Pflege | ab 39 € — im Monat, je nach Paket |
+| Auffindbarkeit bei Google | ab 149 € — einmalig zum Paket dazu |
+| Google-Unternehmensprofil | Ab Standard — ohne Aufpreis enthalten |
+
+Geprüft:
+
+- Alle vier Unterseiten haben **genau 6 Abschnitte**, eine `h1` und
+  Brotkrumen. Die Übersicht hat 4.
+- Brotkrumenpfade stimmen: `Start › Leistungen › Hosting und Pflege`.
+- Alle neun Seiten: Titel unter 60, Beschreibung unter 160 Zeichen —
+  einschließlich des angehängten Markennamens. Keine zwei Titel gleich.
+- § 19-Hinweis auf jeder Leistungsseite unter dem Preis.
+- Alle Adressen antworten mit 200, keine fehlgeschlagenen Ressourcen.
+
+**Nachgebessert:** Meine erste Fassung der Vorlage hatte sieben Abschnitte —
+erlaubt sind vier bis sechs. „Warum das zählt" und „Was dabei ist" sind jetzt
+ein Abschnitt mit Unterüberschrift.
+
+### Offene Punkte
+
+1. Startseite (8 Abschnitte) und `/danke` (2) liegen außerhalb von 4–6. Die
+   Regel gilt laut Vorgabe für Unterseiten; beide sind keine. Falls sie doch
+   gelten soll, sag Bescheid.
+2. Die Listen unter `enthalten` sind weiterhin mein Vorschlag und stehen jetzt
+   sichtbar auf den Leistungsseiten. Sie gehören durchgesehen.
+3. Zwei PLATZHALTER-Antworten stehen jetzt öffentlich auf
+   `/leistungen/hosting-pflege`: Kündigung und Verbleib der Dateien.

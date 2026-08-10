@@ -1,0 +1,99 @@
+---
+/**
+ * /leistungen — Übersicht mit vier Karten.
+ *
+ * Die Karten kommen aus leistungen.ts. Kommt dort eine fünfte Leistung dazu,
+ * steht sie hier, ohne dass diese Datei angefasst wird.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { leistungen } from "../../data/leistungen";
+import { branchen } from "../../data/branchen";
+---
+
+<Basis
+  titel="Leistungen"
+  beschreibung="Website, Hosting und Pflege, Auffindbarkeit bei Google, Google-Unternehmensprofil. Vier Leistungen für kleine Betriebe im Rhein-Neckar-Kreis."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen krumen={[{ text: "Leistungen" }]} />
+      <h1>Was ich mache</h1>
+      <p class="vorspann">
+        Vier Dinge, mehr nicht. Die Website selbst, der laufende Betrieb, die
+        Auffindbarkeit bei Google und dein Eintrag in der Karte. Du brauchst
+        nicht alles — die meisten fangen mit den ersten beiden an.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2 class="nur-vorlesen">Die vier Leistungen</h2>
+      <ul class="kacheln kacheln--2">
+        {
+          leistungen.map((l) => (
+            <li class="kachel">
+              <h3>{l.name}</h3>
+              <p>{l.kurz}</p>
+              <a class="kachel__mehr" href={`/leistungen/${l.slug}`}>
+                {l.name} ansehen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Was für deine Branche zählt</h2>
+      <p class="vorspann">
+        Ein Restaurant braucht anderes als ein Handwerksbetrieb. Auf den
+        Branchenseiten steht, worauf es bei dir konkret ankommt.
+      </p>
+      <ul class="branchenreihe">
+        {
+          branchen.map((b) => (
+            <li>
+              <a href={`/branchen/${b.slug}`}>{b.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        <a class="knopf" href="/preise">Was das kostet</a>
+      </p>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .branchenreihe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-4);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .branchenreihe a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .branchenreihe a:hover {
+    border-color: var(--stahl);
+  }
+</style>
