@@ -1,0 +1,44 @@
+---
+/**
+ * Grundgerüst jeder Seite: Kopf, Inhalt, Fuß.
+ *
+ * Titel und Beschreibung kommen von der jeweiligen Seite, damit sie nie
+ * doppelt sind. Die feinere SEO-Arbeit (Canonical, JSON-LD, Sitemap) kommt
+ * laut Plan erst in Schritt 11 dazu.
+ */
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/public-sans";
+import "../styles/global.css";
+
+import Kopfbereich from "../components/Kopfbereich.astro";
+import Fussbereich from "../components/Fussbereich.astro";
+import { brand } from "../config/brand";
+
+interface Props {
+  titel: string;
+  beschreibung: string;
+}
+
+const { titel, beschreibung } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titel} – {brand.name}</title>
+    <meta name="description" content={beschreibung} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0a1a30" />
+  </head>
+
+  <body>
+    <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+    <Kopfbereich />
+    <main id="inhalt">
+      <slot />
+    </main>
+    <Fussbereich />
+  </body>
+</html>

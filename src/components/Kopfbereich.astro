@@ -1,0 +1,185 @@
+---
+/**
+ * Kopfbereich mit Hauptnavigation.
+ *
+ * Genau fünf Punkte plus Kontakt-Knopf. Auf schmalen Bildschirmen klappt die
+ * Liste über einen Knopf auf. Ohne JavaScript bleibt die Liste sichtbar —
+ * die Seite ist dann untereinander bedienbar, aber nie kaputt.
+ */
+import Logo from "./Logo.astro";
+import { hauptnavigation, kontaktKnopf } from "../config/navigation";
+
+const pfad = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+function istAktiv(ziel: string) {
+  return pfad === ziel || pfad.startsWith(ziel + "/");
+}
+---
+
+<header class="kopf">
+  <div class="breite kopf__innen">
+    <a class="kopf__marke" href="/" aria-label="Zur Startseite">
+      <Logo />
+    </a>
+
+    <button
+      class="kopf__menue"
+      type="button"
+      aria-expanded="false"
+      aria-controls="hauptmenue"
+      hidden
+    >
+      Menü
+    </button>
+
+    <div class="kopf__navigation" id="hauptmenue">
+      <nav aria-label="Hauptnavigation">
+        <ul class="kopf__liste">
+          {
+            hauptnavigation.map((punkt) => (
+              <li>
+                <a
+                  href={punkt.pfad}
+                  aria-current={istAktiv(punkt.pfad) ? "page" : undefined}
+                >
+                  {punkt.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <a class="knopf" href={kontaktKnopf.pfad}>{kontaktKnopf.text}</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const knopf = document.querySelector<HTMLButtonElement>(".kopf__menue");
+  const menue = document.getElementById("hauptmenue");
+
+  if (knopf && menue) {
+    // Erst wenn JavaScript läuft, wird eingeklappt.
+    knopf.hidden = false;
+    menue.setAttribute("data-eingeklappt", "");
+
+    const umschalten = (offen: boolean) => {
+      knopf.setAttribute("aria-expanded", String(offen));
+      if (offen) menue.removeAttribute("data-eingeklappt");
+      else menue.setAttribute("data-eingeklappt", "");
+    };
+
+    knopf.addEventListener("click", () => {
+      umschalten(knopf.getAttribute("aria-expanded") !== "true");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && knopf.getAttribute("aria-expanded") === "true") {
+        umschalten(false);
+        knopf.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .kopf {
+    background: var(--papier);
+    border-bottom: var(--linie);
+  }
+
+  .kopf__innen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--raum-2);
+    padding-block: var(--raum-2);
+  }
+
+  .kopf__marke {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .kopf__menue {
+    min-height: 2.75rem;
+    padding: 0.5rem var(--raum-2);
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--stahl);
+    font-family: var(--schrift-text);
+    font-size: var(--gr-text);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .kopf__menue[hidden] {
+    display: none;
+  }
+
+  .kopf__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--raum-3);
+    width: 100%;
+    padding-block: var(--raum-2) var(--raum-1);
+  }
+
+  .kopf__navigation[data-eingeklappt] {
+    display: none;
+  }
+
+  .kopf__liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kopf__liste a {
+    display: inline-block;
+    padding-block: 0.25rem;
+    color: var(--tinte);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .kopf__liste a:hover {
+    color: var(--stahl);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Die Seite, auf der man gerade ist. */
+  .kopf__liste a[aria-current="page"] {
+    color: var(--stahl);
+    border-bottom: 2px solid var(--stahl);
+  }
+
+  @media (min-width: 60em) {
+    .kopf__menue {
+      display: none;
+    }
+
+    .kopf__navigation,
+    .kopf__navigation[data-eingeklappt] {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--raum-4);
+      width: auto;
+      padding-block: 0;
+    }
+
+    .kopf__liste {
+      flex-direction: row;
+      gap: var(--raum-4);
+    }
+  }
+</style>

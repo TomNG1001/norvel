@@ -1,0 +1,20 @@
+# Abhängigkeiten
+node_modules/
+
+# Ergebnis des Builds
+dist/
+.astro/
+
+# Zur Build-Zeit erzeugt
+public/favicon.svg
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Umgebungsvariablen
+.env
+.env.production

@@ -1,0 +1,74 @@
+---
+/**
+ * PLATZHALTER-Startseite.
+ *
+ * Steht nur da, damit Farben, Schriften, Navigation und Fußbereich sichtbar
+ * sind. Die echte Startseite entsteht in Schritt 5 — dieser Text fliegt dann
+ * komplett raus.
+ */
+import Basis from "../layouts/Basis.astro";
+import { brand } from "../config/brand";
+---
+
+<Basis
+  titel="PLATZHALTER Startseite"
+  beschreibung="PLATZHALTER — diese Beschreibung wird in Schritt 5 geschrieben."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <p class="hinweis">Schritt 1 — Grundgerüst. Noch kein Inhalt.</p>
+      <h1>Überschrift in Bricolage Grotesque</h1>
+      <p class="vorspann">
+        Vorspann in Public Sans. Hier steht später der Satz, der in zwei Zeilen
+        erklärt, was du für einen Gastronomen tust.
+      </p>
+      <p>
+        Fließtext in Public Sans. An diesem Absatz kannst du Zeilenabstand,
+        Zeilenlänge und Kontrast beurteilen. Die Zeilenlänge ist absichtlich
+        begrenzt, damit das Auge die nächste Zeile wiederfindet.
+      </p>
+      <p>
+        <a href="/kontakt" class="knopf">Beispiel-Knopf</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Dunkles Band über die ganze Breite</h2>
+      <p>
+        So sieht ein Tinte-Band aus. Diese Bänder bekommen später der
+        24–72-Stunden-Abschnitt, die Preistabelle und jeder Seitenabschluss.
+      </p>
+      <p>
+        <a href="/preise" class="knopf">Knopf auf dunklem Grund</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Heller Abschnitt auf Kartenweiß</h2>
+      <p>
+        Dazwischen liegen helle Abschnitte. Der Wechsel aus hell und dunkel
+        gibt der Seite ihren Rhythmus.
+      </p>
+      <p class="leise">
+        Markenname aus brand.ts, einmal zur Kontrolle: {brand.name}
+      </p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .hinweis {
+    display: inline-block;
+    margin-bottom: var(--raum-3);
+    padding: 0.375rem 0.75rem;
+    border: 2px dashed var(--stahl);
+    border-radius: var(--radius);
+    font-size: var(--gr-klein);
+    font-weight: 600;
+    color: var(--stahl);
+  }
+</style>

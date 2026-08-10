@@ -1,0 +1,160 @@
+---
+/**
+ * Fußbereich. Dunkles Band über die ganze Breite — laut Projektregeln bekommt
+ * jeder Seitenabschluss eines.
+ *
+ * Hier stehen Ablauf, FAQ und Rechtliches. In der Hauptnavigation haben sie
+ * nichts zu suchen.
+ */
+import Logo from "./Logo.astro";
+import { brand } from "../config/brand";
+import { fussnavigation } from "../config/navigation";
+
+const jahr = new Date().getFullYear();
+---
+
+<footer class="fuss band--tinte">
+  <div class="breite fuss__innen">
+    <div class="fuss__marke">
+      <Logo />
+      <p class="fuss__satz">
+        Websites für kleine Betriebe im {brand.region}.
+      </p>
+      <ul class="fuss__kontakt">
+        <li>
+          <a href={`tel:${brand.telefonE164}`}>{brand.telefonAnzeige}</a>
+        </li>
+        <li>
+          <a href={`mailto:${brand.mail}`}>{brand.mail}</a>
+        </li>
+      </ul>
+    </div>
+
+    <nav class="fuss__spalten" aria-label="Fußnavigation">
+      {
+        fussnavigation.map((spalte) => (
+          <div class="fuss__spalte">
+            <h2 class="fuss__titel">{spalte.titel}</h2>
+            <ul>
+              {spalte.punkte.map((punkt) => (
+                <li>
+                  <a href={punkt.pfad}>{punkt.text}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="breite fuss__zeile">
+    <p class="leise">© {jahr} {brand.inhaber}</p>
+    <p class="leise">Kein Ausweis von Umsatzsteuer nach § 19 UStG</p>
+  </div>
+</footer>
+
+<style>
+  .fuss {
+    margin-top: var(--abschnitt);
+    padding-top: var(--abschnitt);
+  }
+
+  .fuss__innen {
+    display: grid;
+    gap: var(--raum-5);
+  }
+
+  .fuss :global(.marke) {
+    color: var(--auf-tinte);
+  }
+
+  .fuss :global(.marke__zeichen) {
+    color: var(--auf-tinte);
+  }
+
+  .fuss__satz {
+    margin: var(--raum-2) 0 var(--raum-3);
+    max-width: 22rem;
+    color: var(--auf-tinte-leise);
+  }
+
+  .fuss__kontakt {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--raum-1);
+  }
+
+  .fuss__kontakt a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .fuss__kontakt a:hover {
+    text-decoration: underline;
+  }
+
+  .fuss__spalten {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--raum-4);
+  }
+
+  .fuss__titel {
+    margin: 0 0 var(--raum-2);
+    font-family: var(--schrift-text);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--auf-tinte-leise);
+  }
+
+  .fuss__spalte ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--raum-1);
+  }
+
+  .fuss__spalte a {
+    color: var(--auf-tinte);
+    text-decoration: none;
+  }
+
+  .fuss__spalte a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .fuss__zeile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--raum-2);
+    margin-top: var(--raum-5);
+    padding-top: var(--raum-3);
+    padding-bottom: var(--raum-4);
+    border-top: 1px solid color-mix(in srgb, var(--auf-tinte) 25%, transparent);
+  }
+
+  .fuss__zeile p {
+    margin: 0;
+  }
+
+  @media (min-width: 48em) {
+    .fuss__spalten {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 60em) {
+    .fuss__innen {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: var(--raum-6);
+    }
+  }
+</style>

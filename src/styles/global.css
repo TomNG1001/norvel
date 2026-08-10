@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Grundlagen — Farben, Schriften, Abstände.
+
+   Alles, was Tom selbst ändern will, steht hier oben in :root. Eine Zahl
+   ändern, und sie gilt auf der ganzen Seite. Kein Tailwind, keine
+   Hilfsklassen-Wüste.
+
+   Achtung: scripts/make-favicon.mjs liest --stahl und --papier aus dieser
+   Datei aus. Die Zeilenform "--stahl: #hexwert;" bitte beibehalten.
+   ========================================================================== */
+
+:root {
+  /* --- Farben ------------------------------------------------------------ */
+  --papier: #f1f4f7;  /* Grundfläche der Seite */
+  --karte: #ffffff;   /* Karten und Formulare */
+  --eisblau: #c9d8e6; /* nur Linien und Rahmen, nie als Fläche */
+  --stahl: #1c4f82;   /* Knöpfe und Verweise */
+  --tinte: #0a1a30;   /* Fließtext und ganze dunkle Abschnitte */
+
+  /* Textfarbe auf dunklen Bändern. Nicht reines Weiß, das flimmert. */
+  --auf-tinte: #e8eef5;
+  --auf-tinte-leise: #a9bdd3;
+
+  /* --- Schriften --------------------------------------------------------- */
+  --schrift-titel: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --schrift-text: "Public Sans Variable", system-ui, sans-serif;
+
+  /* Schriftgrößen, mobil zuerst, wachsen mit dem Fenster. */
+  --gr-klein: 0.875rem;
+  --gr-text: 1.0625rem;
+  --gr-gross: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  --gr-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --gr-h2: clamp(1.625rem, 1.35rem + 1.4vw, 2.375rem);
+  --gr-h1: clamp(2.125rem, 1.6rem + 2.6vw, 3.5rem);
+
+  /* --- Abstände ---------------------------------------------------------- */
+  --raum-1: 0.5rem;
+  --raum-2: 1rem;
+  --raum-3: 1.5rem;
+  --raum-4: 2rem;
+  --raum-5: 3rem;
+  --raum-6: 4rem;
+
+  /* Abstand über und unter einem Seitenabschnitt. */
+  --abschnitt: clamp(3rem, 2rem + 5vw, 6rem);
+
+  /* --- Maße -------------------------------------------------------------- */
+  --breite: 72rem;      /* maximale Inhaltsbreite */
+  --breite-text: 38rem; /* maximale Zeilenlänge für Fließtext */
+  --seitenrand: 1.25rem;
+  --linie: 1px solid var(--eisblau);
+  --radius: 4px;        /* sparsam, kein weiches Baukasten-Aussehen */
+}
+
+/* --------------------------------------------------------------------------
+   Zurücksetzen
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  font-family: var(--schrift-text);
+  font-size: var(--gr-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Text
+   -------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--schrift-titel);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0 0 var(--raum-3);
+}
+
+h1 { font-size: var(--gr-h1); }
+h2 { font-size: var(--gr-h2); }
+h3 { font-size: var(--gr-h3); font-weight: 600; }
+
+p,
+ul,
+ol {
+  margin: 0 0 var(--raum-3);
+  max-width: var(--breite-text);
+}
+
+p { text-wrap: pretty; }
+
+/* Einleitungssatz unter einer Überschrift. */
+.vorspann {
+  font-size: var(--gr-gross);
+  line-height: 1.55;
+}
+
+.leise {
+  color: color-mix(in srgb, var(--tinte) 70%, var(--papier));
+  font-size: var(--gr-klein);
+}
+
+a {
+  color: var(--stahl);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+strong { font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   Aufbau
+   -------------------------------------------------------------------------- */
+
+.breite {
+  width: 100%;
+  max-width: var(--breite);
+  margin-inline: auto;
+  padding-inline: var(--seitenrand);
+}
+
+/* Ein Abschnitt der Seite. Der Rhythmus der Seite entsteht aus dem Wechsel
+   von hellen Abschnitten und ganzflächigen dunklen Bändern. */
+.abschnitt {
+  padding-block: var(--abschnitt);
+}
+
+.band--papier { background: var(--papier); }
+.band--karte  { background: var(--karte); border-block: var(--linie); }
+
+.band--tinte {
+  background: var(--tinte);
+  color: var(--auf-tinte);
+}
+
+.band--tinte h1,
+.band--tinte h2,
+.band--tinte h3 { color: var(--auf-tinte); }
+
+.band--tinte a { color: #ffffff; }
+
+.band--tinte .leise { color: var(--auf-tinte-leise); }
+
+/* --------------------------------------------------------------------------
+   Knöpfe
+   -------------------------------------------------------------------------- */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--raum-1);
+  min-height: 2.875rem;
+  padding: 0.6875rem var(--raum-3);
+  border: 2px solid var(--stahl);
+  border-radius: var(--radius);
+  background: var(--stahl);
+  color: #ffffff;
+  font-family: var(--schrift-text);
+  font-size: var(--gr-text);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.knopf:hover {
+  background: var(--tinte);
+  border-color: var(--tinte);
+}
+
+/* Zweite Wahl auf hellem Grund. */
+.knopf--rand {
+  background: transparent;
+  color: var(--stahl);
+}
+
+.knopf--rand:hover {
+  background: var(--stahl);
+  color: #ffffff;
+}
+
+/* Auf dunklem Band. */
+.band--tinte .knopf {
+  background: var(--papier);
+  border-color: var(--papier);
+  color: var(--tinte);
+  text-decoration: none;
+}
+
+.band--tinte .knopf:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Bedienbarkeit
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 3px solid var(--stahl);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.band--tinte :focus-visible,
+.kopf__menue:focus-visible {
+  outline-color: var(--auf-tinte);
+}
+
+/* Verweis zum Überspringen der Navigation. Erst sichtbar, wenn er den
+   Tastaturfokus bekommt. */
+.sprung {
+  position: absolute;
+  left: var(--seitenrand);
+  top: var(--raum-2);
+  z-index: 100;
+  padding: var(--raum-1) var(--raum-2);
+  background: var(--tinte);
+  color: var(--auf-tinte);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.sprung:focus {
+  transform: translateY(0);
+}
+
+/* Nur für Vorleseprogramme. */
+.nur-vorlesen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

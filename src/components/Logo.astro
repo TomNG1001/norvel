@@ -1,0 +1,48 @@
+---
+/**
+ * Wortmarke plus geometrisches Zeichen.
+ * Der Name kommt aus brand.ts, die Form aus zeichen.mjs — beides nur dort.
+ * Das Zeichen erbt die Textfarbe, damit es auf dunklen Bändern mitgeht.
+ */
+import { brand } from "../config/brand";
+import { zeichen } from "../config/zeichen.mjs";
+
+interface Props {
+  groesse?: number;
+}
+
+const { groesse = 26 } = Astro.props;
+
+const svg = zeichen({
+  linie: "currentColor",
+  flaeche: "currentColor",
+  groesse,
+});
+---
+
+<span class="marke">
+  <span class="marke__zeichen" set:html={svg} />
+  <span class="marke__text">{brand.name}</span>
+</span>
+
+<style>
+  .marke {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--tinte);
+  }
+
+  .marke__zeichen {
+    display: flex;
+    color: var(--stahl);
+  }
+
+  .marke__text {
+    font-family: var(--schrift-titel);
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+</style>
