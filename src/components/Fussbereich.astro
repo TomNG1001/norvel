@@ -55,8 +55,10 @@ const jahr = new Date().getFullYear();
 </footer>
 
 <style>
+  /* Kein Außenabstand nach oben: sonst steht ein heller Streifen zwischen
+     dem letzten Abschnitt und dem dunklen Fuß. Das Band soll direkt
+     anschließen. */
   .fuss {
-    margin-top: var(--abschnitt);
     padding-top: var(--abschnitt);
   }
 

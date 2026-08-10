@@ -6,7 +6,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | Schritt | Inhalt | Status | Datum |
 |---|---|---|---|
 | 0 | Skills prüfen | erledigt | 2026-08-10 |
-| 1 | Grundgerüst | erledigt (Abnahme offen) | 2026-08-10 |
+| 1 | Grundgerüst | erledigt und geprüft | 2026-08-10 |
 | 2 | Datenmodelle | offen | – |
 | 3 | /kontakt und /danke | offen | – |
 | 4 | /preise | offen | – |
@@ -68,18 +68,32 @@ Gebaut:
   und den Farben aus `global.css`.
 - Git-Repository angelegt, Commit „Schritt 1".
 
-Geprüft: Die Markennamen-Regel hält — ein Nachbau der Prüfung in Python fand
-null Treffer außerhalb von `brand.ts`.
+### Abnahme am 2026-08-10, nachdem Node 24.19.0 installiert war
 
-Nicht geprüft: `npm install`, `npm run dev`, `npm run build`. Dafür fehlt Node.
+- `npm install` — 194 Pakete, 0 Sicherheitswarnungen.
+- `npm run build` — läuft durch, 1 Seite in 764 ms.
+- `npm run check:brand` — bestanden. Gegenprobe mit absichtlichem Verstoß im
+  Text **und** im Dateinamen: beide Male Exit-Code 1 mit Fundstelle. Der
+  Wächter greift wirklich.
+- `npm run dev` auf Port 3489 — Seite lädt, keine Fehler in der Konsole.
+- Beide Schriften geladen, **null Anfragen an fremde Server**. Selbst
+  gehostet, wie es sein muss.
+- Kontraste: Fließtext 15,8:1 · Verweise 7,6:1 · Knopf 8,4:1 · heller Text auf
+  Tinte 14,9:1 · gedämpfter Text auf Tinte 9,1:1. Alle deutlich über AA (4,5:1).
+- Handy-Menü: auf, fünf Punkte sichtbar, zu — `aria-expanded` stimmt jeweils.
+- Nachgebessert: Der Fußbereich hatte einen Außenabstand nach oben, dadurch
+  stand ein hellgrauer Streifen zwischen weißem Abschnitt und dunklem Fuß.
+  Entfernt, das Band schließt jetzt direkt an.
 
 ### Offene Punkte
 
-1. **Node fehlt** — ohne Node kein `npm install`, kein Dev-Server, kein Build.
-   Die Abnahme von Schritt 1 steht deshalb aus.
-2. Port 3489 gesetzt, weil unbeantwortet. Ändern in `package.json` und
+1. Port 3489 gesetzt, weil unbeantwortet. Ändern in `package.json` und
    `astro.config.mjs`.
-3. Domain und geschäftliche Mailadresse fehlen (PLATZHALTER in `brand.ts`).
-4. Astro-Version auf 7.2.0 gesetzt (aktuell laut npm). Ungetestet.
-5. Die Verweise in Kopf- und Fußbereich zeigen auf Seiten, die es noch nicht
+2. Domain und geschäftliche Mailadresse fehlen (PLATZHALTER in `brand.ts`).
+3. Astro sendet anonyme Nutzungsdaten. Abschaltbar mit
+   `npx astro telemetry disable`. Nicht gemacht, weil nicht abgesprochen.
+4. Die Verweise in Kopf- und Fußbereich zeigen auf Seiten, die es noch nicht
    gibt — bis Schritt 10 laufen die meisten ins Leere. So geplant.
+5. Node liegt unter `~/.local/node`, nicht in `/usr/local`. Der Dev-Server
+   startet deshalb über absolute Pfade in `.claude/launch.json`. In Toms
+   eigenem Terminal reicht `npm run dev`.
