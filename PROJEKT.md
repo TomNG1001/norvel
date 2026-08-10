@@ -15,36 +15,9 @@
 
 ## Stand
 
-**Aktueller Stand:** Regeln erfasst. Es wurde noch nichts gebaut.
-**Als Nächstes dran:** Schritt 0 — Skills prüfen (wartet auf „mach Schritt 0").
-
-Ab Schritt 1 führt `FORTSCHRITT.md` (im selben Ordner) den Stand pro Schritt.
-Diese Datei hier bleibt die Regel-Quelle und wird nur geändert, wenn Tom die
-Regeln ändert.
-
-### Schritt-Übersicht
-
-| Schritt | Inhalt | Status |
-|---|---|---|
-| 0 | Skills prüfen | offen |
-| 1 | Grundgerüst | offen |
-| 2 | Datenmodelle | offen |
-| 3 | /kontakt und /danke | offen |
-| 4 | /preise | offen |
-| 5 | Startseite | offen |
-| 6 | /leistungen + 4 Unterseiten | offen |
-| 7 | /branchen + 5 Unterseiten | offen |
-| 8 | /arbeiten + 3 Projektseiten | offen |
-| 9 | /ueber-mich, /ablauf, /faq | offen |
-| 10 | /impressum, /datenschutz, 404 | offen |
-| 11 | SEO und Qualität | offen |
-| 12 | Abschluss | offen |
-
-### Offene Punkte
-
-1. Ordnername ist `meine-website` — bewusst neutral, damit der Markenname
-   nirgends in einem Pfad steht. Wenn dir ein anderer Name lieber ist, sag
-   Bescheid, solange noch nichts gebaut ist.
+Der Stand steht ab Schritt 1 in **`FORTSCHRITT.md`** — dort, und nur dort.
+Diese Datei hier ist die Regel-Quelle und ändert sich nur, wenn Tom die Regeln
+ändert.
 
 ---
 
