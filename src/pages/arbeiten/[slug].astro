@@ -6,7 +6,7 @@
  * 1. Kopf mit Brotkrumen und der Kennzeichnung „Konzeptprojekt"
  * 2. Aufgabe und Umsetzung
  * 3. Die Eckdaten (Tinte): Paket, Seitenzahl, Dauer
- * 4. Was das für diese Branche heißt — der Weg zurück zur Branchenseite
+ * 4. Was das für diese Branche heißt, der Weg zurück zur Branchenseite
  * 5. Die anderen Projekte
  * 6. Kontaktabschluss
  *
@@ -50,7 +50,7 @@ const marke = kennzeichnung(projekt);
         ]}
       />
       {marke && <p class="marke">{marke}</p>}
-      <h1>{projekt.name}</h1>
+      <h1>{projekt.name}: {projekt.ueberschriften.seite}</h1>
       <p class="vorspann">{projekt.kurz}</p>
       {
         marke && (
@@ -65,8 +65,8 @@ const marke = kennzeichnung(projekt);
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Die Aufgabe</h2>
-      <p class="vorspann">{projekt.aufgabe}</p>
+      <h2>{projekt.ueberschriften.aufgabe}</h2>
+      <p>{projekt.aufgabe}</p>
 
       <h3 class="untertitel">Was ich gebaut habe</h3>
       <ul class="liste">
@@ -77,7 +77,7 @@ const marke = kennzeichnung(projekt);
 
   <section class="abschnitt band--tinte">
     <div class="breite">
-      <h2>Die Eckdaten</h2>
+      <h2>{projekt.ueberschriften.eckdaten}</h2>
       <dl class="eckdaten">
         <div>
           <dt>Art</dt>
@@ -117,8 +117,8 @@ const marke = kennzeichnung(projekt);
     branche && (
       <section class="abschnitt">
         <div class="breite">
-          <h2>Was das für {branche.name} heißt</h2>
-          <p class="vorspann">{branche.problem}</p>
+          <h2>{projekt.ueberschriften.branche}</h2>
+          <p>{branche.problem}</p>
           <p>
             <a class="knopf knopf--rand" href={`/branchen/${branche.slug}`}>
               Zur Seite für {branche.name}
@@ -131,7 +131,7 @@ const marke = kennzeichnung(projekt);
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Die anderen Beispiele</h2>
+      <h2>{projekt.ueberschriften.andere}</h2>
       <ul class="kacheln kacheln--2">
         {
           andere.map((p) => (

@@ -1,7 +1,7 @@
 /**
  * Die einzige Stelle im ganzen Projekt, an der der Markenname steht.
  *
- * Der Name darf nirgendwo sonst hart im Code auftauchen — nicht in
+ * Der Name darf nirgendwo sonst hart im Code auftauchen, nicht in
  * Komponenten, Texten, alt-Attributen, Dateinamen, Meta-Angaben, Manifest,
  * Favicon oder Sitemap. Überall `brand.name` importieren.
  *
@@ -13,10 +13,10 @@ export const brand = {
   /** Markenname. Eine Zeile ändern, und die ganze Seite heißt anders. */
   name: "Norvel",
 
-  /** PLATZHALTER — Domain gehört noch nicht Tom. Ohne Schrägstrich am Ende. */
+  /** PLATZHALTER. Domain gehört noch nicht Tom. Ohne Schrägstrich am Ende. */
   domain: "https://platzhalter-domain.de",
 
-  /** PLATZHALTER — geschäftliche Mailadresse fehlt noch. */
+  /** PLATZHALTER, geschäftliche Mailadresse fehlt noch. */
   mail: "platzhalter@platzhalter-domain.de",
 
   inhaber: "Tom Germeshausen",

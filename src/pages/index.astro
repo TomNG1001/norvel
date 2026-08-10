@@ -26,7 +26,7 @@ import {
 const befunde = [
   {
     titel: "Die Karte ist ein Foto",
-    text: "Google liest keine Bilder. Wer abends nach Pizza in Weinheim sucht, findet dich nicht — auch wenn du seit zwölf Jahren dort kochst.",
+    text: "Google liest keine Bilder. Wer abends nach Pizza in Weinheim sucht, findet dich nicht, auch wenn du seit zwölf Jahren dort kochst.",
   },
   {
     titel: "Die Öffnungszeiten stehen im Impressum",
@@ -48,8 +48,7 @@ const befunde = [
       <h1>Deine Kunden suchen dich auf dem Handy. Was finden sie?</h1>
       <p class="vorspann">
         Ich bin {brand.inhaber} und baue Websites für kleine Betriebe im
-        {" "}{brand.region}: Restaurants, Bars, Kosmetikstudios, Hundefriseure
-        und Handwerk. Das Grundgerüst steht in 24 bis 72 Stunden.
+        {" "}{brand.region}. Das Grundgerüst steht in 24 bis 72 Stunden.
       </p>
       <p class="knoepfe">
         <a class="knopf" href="/preise">Was es kostet</a>
@@ -90,8 +89,11 @@ const befunde = [
       <h2>In 24 bis 72 Stunden steht dein Grundgerüst</h2>
       <p class="vorspann">
         Sobald deine Texte und Bilder da sind, siehst du deine Seite unter
-        einer Vorschauadresse. Nicht als Bild zum Abnicken, sondern als echte
-        Seite, die du auf deinem eigenen Handy aufmachen kannst.
+        einer Vorschauadresse.
+      </p>
+      <p>
+        Nicht als Bild zum Abnicken, sondern als echte Seite, die du auf
+        deinem eigenen Handy aufmachen kannst.
       </p>
       <p>
         Ehrlich gesagt hängt es fast immer an derselben Stelle, und das ist
@@ -124,6 +126,13 @@ const befunde = [
           ))
         }
       </ul>
+
+      <p class="abgrenzung">
+        <strong>Für wen ich nicht der Richtige bin:</strong> Onlineshops baue
+        ich nicht, Konzerne betreue ich nicht, und für Agenturen arbeite ich
+        nicht zu. Wenn das auf dich zutrifft, sage ich dir das im ersten
+        Telefonat, statt dir etwas zu verkaufen.
+      </p>
     </div>
   </section>
 
@@ -150,9 +159,8 @@ const befunde = [
     <div class="breite">
       <h2>Was es kostet</h2>
       <p class="vorspann">
-        Drei Pakete. Der Preis hängt an der Seitenzahl, sonst an nichts. Auf
-        der Preisseite klickst du dir deine Seiten zusammen und siehst deinen
-        Betrag sofort.
+        Drei Pakete, und der Preis hängt allein an der Seitenzahl. Auf der
+        Preisseite siehst du deinen Betrag sofort.
       </p>
 
       <ul class="preise">
@@ -180,7 +188,7 @@ const befunde = [
   <section class="abschnitt band--karte">
     <div class="breite">
       <h2>Beispiele</h2>
-      {zeigeKonzepthinweis && <p class="vorspann">{hinweisKonzeptprojekte}</p>}
+      {zeigeKonzepthinweis && <p>{hinweisKonzeptprojekte}</p>}
 
       <ul class="kacheln kacheln--3">
         {
@@ -210,6 +218,16 @@ const befunde = [
     flex-wrap: wrap;
     gap: var(--raum-2);
     margin-bottom: var(--raum-3);
+  }
+
+  /* Wofür ich nicht der Richtige bin. Vellox: Jede Seite, die verkauft, sagt
+     an mindestens einer Stelle, für wen sie nicht gemacht ist. */
+  .abgrenzung {
+    margin-top: var(--raum-5);
+    padding: var(--raum-3);
+    border-left: 3px solid var(--stahl);
+    background: var(--karte);
+    max-width: 44rem;
   }
 
   .fazit {

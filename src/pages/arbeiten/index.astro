@@ -1,11 +1,11 @@
 ---
 /**
- * /arbeiten — Übersicht der Beispielprojekte.
+ * /arbeiten. Übersicht der Beispielprojekte.
  *
  * RECHTLICHES: Über den Karten steht der Hinweis, dass noch keine Kundenseite
  * live ist, und jede Karte trägt sichtbar „Konzeptprojekt". Beides kommt aus
  * projekte.ts und verschwindet automatisch, sobald dort `art` auf "kunde"
- * springt. Erfundene Kundenzitate oder Erfolgszahlen gibt es nicht — dafür
+ * springt. Erfundene Kundenzitate oder Erfolgszahlen gibt es nicht, dafür
  * existiert im Datenmodell nicht einmal ein Feld.
  */
 import Basis from "../../layouts/Basis.astro";
@@ -23,17 +23,17 @@ import { paketNach } from "../../data/pakete";
 
 <Basis
   titel="Referenzen"
-  beschreibung="Drei Konzeptprojekte: Restaurant, Kosmetikstudio, Hundesalon. Echte Aufgabenstellungen, durchgeplant und gebaut — noch ohne Auftraggeber."
+  beschreibung="Drei Konzeptprojekte: Restaurant, Kosmetikstudio, Hundesalon. Echte Aufgabenstellungen, durchgeplant und gebaut, noch ohne Auftraggeber."
 >
   <section class="abschnitt">
     <div class="breite">
       <Brotkrumen krumen={[{ text: "Referenzen" }]} />
       <h1>Beispiele</h1>
-      {zeigeKonzepthinweis && <p class="vorspann">{hinweisKonzeptprojekte}</p>}
+      {zeigeKonzepthinweis && <p>{hinweisKonzeptprojekte}</p>}
       <p>
         Warum ich sie trotzdem zeige: Du sollst sehen, wie ich eine Aufgabe
         angehe, bevor du Geld ausgibst. Was in den Projekten steht, ist keine
-        Erfindung — es sind die Fragen, die mir Betriebe seit Jahren stellen.
+        Erfindung, es sind die Fragen, die mir Betriebe seit Jahren stellen.
       </p>
     </div>
   </section>

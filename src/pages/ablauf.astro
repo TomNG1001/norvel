@@ -1,6 +1,6 @@
 ---
 /**
- * /ablauf — die sechs Schritte von der Anfrage bis online.
+ * /ablauf, die sechs Schritte von der Anfrage bis online.
  *
  * Alles aus ablauf.ts. Wer dort einen Schritt ergänzt, ändert diese Seite,
  * ohne diese Datei anzufassen.
@@ -9,7 +9,7 @@ import Basis from "../layouts/Basis.astro";
 import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import { ablauf } from "../data/ablauf";
 
-/** Was Tom vom Kunden braucht — steht bei den Schritten, hier gesammelt. */
+/** Was Tom vom Kunden braucht, steht bei den Schritten, hier gesammelt. */
 const gebrauchtVonDir = ablauf
   .filter((s) => s.vonDir !== null)
   .map((s) => ({ nummer: s.nummer, was: s.vonDir as string }));
@@ -23,9 +23,8 @@ const gebrauchtVonDir = ablauf
     <div class="breite">
       <h1>So läuft es ab</h1>
       <p class="vorspann">
-        Sechs Schritte, keine Überraschungen. Du weißt nach dem ersten Telefonat,
-        was es kostet und wie lange es dauert. Am längsten dauert meistens der
-        dritte Schritt — und der liegt bei dir.
+        Sechs Schritte, keine Überraschungen. Am längsten dauert meistens der
+        dritte Schritt, und der liegt bei dir.
       </p>
     </div>
   </section>

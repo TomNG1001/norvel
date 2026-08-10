@@ -1,5 +1,5 @@
 /**
- * Das Bildzeichen der Marke — rein geometrisch, kein Buchstabe, kein
+ * Das Bildzeichen der Marke, rein geometrisch, kein Buchstabe, kein
  * Monogramm. Ein Quadrat mit einer stehenden Raute darin.
  *
  * Bewusst als .mjs, damit sowohl Astro-Komponenten als auch das

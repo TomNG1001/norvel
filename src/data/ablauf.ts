@@ -21,7 +21,7 @@ export const ablauf: Ablaufschritt[] = [
   {
     nummer: 1,
     titel: "Du meldest dich",
-    text: "Über das Formular, per WhatsApp oder am Telefon. Wenn du dir auf der Preisseite schon Seiten zusammengeklickt hast, kommt deine Auswahl mit — dann weiß ich sofort, worum es geht.",
+    text: "Über das Formular, per WhatsApp oder am Telefon. Wenn du dir auf der Preisseite schon Seiten zusammengeklickt hast, kommt deine Auswahl mit, dann weiß ich sofort, worum es geht.",
     vonDir: "Ein paar Sätze zu deinem Betrieb und was dir fehlt",
     dauer: "5 Minuten",
   },
@@ -35,7 +35,7 @@ export const ablauf: Ablaufschritt[] = [
   {
     nummer: 3,
     titel: "Du schickst mir dein Material",
-    text: "Texte oder Stichpunkte, Fotos, Öffnungszeiten, Preise, die Angaben fürs Impressum. Stichpunkte reichen völlig, die Sätze baue ich daraus. An dieser Stelle hängt es meistens — nicht am Bauen.",
+    text: "Texte oder Stichpunkte, Fotos, Öffnungszeiten, Preise, die Angaben fürs Impressum. Stichpunkte reichen völlig, die Sätze baue ich daraus. An dieser Stelle hängt es meistens, nicht am Bauen.",
     vonDir: "Texte, Fotos, Öffnungszeiten, Impressumsangaben",
     dauer: "Liegt bei dir",
   },

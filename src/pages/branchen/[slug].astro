@@ -5,7 +5,7 @@
  * Aufbau, sechs Abschnitte:
  * 1. Kopf mit Brotkrumen
  * 2. Was heute schiefläuft + was deine Seite können muss
- * 3. Das passende Paket (Tinte) — der Weg zu /preise
+ * 3. Das passende Paket (Tinte), der Weg zu /preise
  * 4. Beispielprojekt
  * 5. Häufige Fragen dieser Branche
  * 6. Kontaktabschluss
@@ -48,8 +48,8 @@ const projekt = branche.beispielProjekt
 
 /**
  * Gehört das Projekt zu dieser Branche, oder ist es nur verwandt? Ein
- * Restaurant-Beispiel auf der Bar-Seite wird als das benannt, was es ist —
- * lieber ehrlich beschriftet als so getan, als wäre es eine Bar.
+ * Restaurant-Beispiel auf der Bar-Seite wird als das benannt, was es ist.
+ * Lieber ehrlich beschriftet als so getan, als wäre es eine Bar.
  */
 const projektPasst = projekt?.branche === branche.slug;
 const projektBranche = projekt
@@ -69,15 +69,15 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
           { text: branche.name },
         ]}
       />
-      <h1>Websites für {branche.name}</h1>
+      <h1>{branche.ueberschriften.seite}</h1>
       <p class="vorspann">{branche.kurz}</p>
     </div>
   </section>
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Wie es heute meistens aussieht</h2>
-      <p class="vorspann">{branche.problem}</p>
+      <h2>{branche.ueberschriften.problem}</h2>
+      <p>{branche.problem}</p>
 
       <h3 class="untertitel">Was deine Seite können muss</h3>
       <ul class="punkte">
@@ -96,8 +96,8 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
   <section class="abschnitt band--tinte">
     <div class="breite paketband">
       <div class="paketband__text">
-        <h2>Für {branche.name} passt meistens {paket.name}</h2>
-        <p class="vorspann">{paket.fuerWen}</p>
+        <h2>{branche.ueberschriften.paket}</h2>
+        <p>{paket.fuerWen}</p>
         <p class="paketband__betrag">ab {euro(paket.preisAb)}</p>
         <p class="paketband__zusatz">
           {paket.seitenMin}–{paket.seitenMax} Seiten · {euro(paket.pflegeMonat)}
@@ -120,7 +120,7 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
 
   <section class="abschnitt">
     <div class="breite">
-      <h2>Ein Beispiel</h2>
+      <h2>{branche.ueberschriften.beispiel}</h2>
 
       {
         projekt ? (
@@ -128,7 +128,7 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
             <p class="vorspann">
               {projektPasst
                 ? `So sieht das für ${branche.name} aus:`
-                : `Für ${branche.name} habe ich noch kein eigenes Beispiel. Am nächsten dran ist dieses hier — es kommt aus einer anderen Branche (${projektBranche?.name}), der Aufbau ist aber derselbe:`}
+                : `Für ${branche.name} habe ich noch kein eigenes Beispiel. Am nächsten dran ist dieses hier, es kommt aus einer anderen Branche (${projektBranche?.name}), der Aufbau ist aber derselbe:`}
             </p>
 
             <ul class="kacheln beispiel__kachel">
@@ -145,9 +145,9 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
             </ul>
           </div>
         ) : (
-          <p class="vorspann">
+          <p>
             Für {branche.name} habe ich noch kein Beispielprojekt. Sieh dir die
-            anderen an — der Aufbau ist überall derselbe, nur die Inhalte sind
+            anderen an, der Aufbau ist überall derselbe, nur die Inhalte sind
             andere. <a href="/arbeiten">Alle Beispiele ansehen</a>
           </p>
         )
@@ -157,7 +157,7 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Häufige Fragen von {branche.name}</h2>
+      <h2>{branche.ueberschriften.fragen}</h2>
       <dl class="fragen">
         {
           branche.faq.map((f) => (

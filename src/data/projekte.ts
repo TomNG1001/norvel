@@ -2,12 +2,12 @@
  * Die drei Beispielprojekte. Aus dieser Datei entstehen in Schritt 8 die
  * Übersicht und die drei Detailseiten.
  *
- * RECHTLICHES — nicht verhandelbar:
+ * RECHTLICHES, nicht verhandelbar:
  * Es gibt noch keine Kundenprojekte. Jedes Projekt hier ist ein Konzept und
  * muss auf jeder Ansicht sichtbar als Konzeptprojekt gekennzeichnet sein.
  * Erfundene Kundenzitate oder Erfolgszahlen sind verboten (§ 5 UWG,
  * irreführende Werbung). Deshalb gibt es hier keine Felder für Zitate oder
- * Zahlen — was es nicht gibt, kann auch niemand versehentlich füllen.
+ * Zahlen, was es nicht gibt, kann auch niemand versehentlich füllen.
  *
  * Wird aus einem Konzept ein echtes Kundenprojekt, springt `art` von
  * "konzept" auf "kunde". Der Hinweis über den Karten verschwindet dann von
@@ -34,6 +34,18 @@ export interface Projekt {
   seoTitel: string;
   /** Unter 160 Zeichen. */
   seoText: string;
+  /**
+   * Eigene Überschriften je Projekt. Ohne sie tragen alle drei Seiten
+   * dieselbe Gliederung, und `npm run check:schablone` bricht den Bau ab.
+   */
+  ueberschriften: {
+    /** Steht hinter dem Projektnamen in der h1. Ein Name allein ist keine Überschrift. */
+    seite: string;
+    aufgabe: string;
+    eckdaten: string;
+    branche: string;
+    andere: string;
+  };
   /** Die Ausgangslage: was der Betrieb braucht. */
   aufgabe: string;
   /** Was gebaut wurde und warum so. */
@@ -58,6 +70,13 @@ export const projekte: Projekt[] = [
     seoTitel: "Konzeptprojekt: Website für ein Restaurant",
     seoText:
       "Wie eine Restaurantseite aufgebaut ist, die Google lesen kann: Karte als Text, Öffnungszeiten oben, Reservierung ohne Anruf.",
+    ueberschriften: {
+      seite: "Karte, Zeiten, Reservierung",
+      aufgabe: "PDF-Karte und Telefon zur Stoßzeit",
+      eckdaten: "Umfang und Paket",
+      branche: "Was Gastronomen daraus mitnehmen",
+      andere: "Zwei weitere Konzepte",
+    },
     aufgabe:
       "Die Speisekarte liegt als PDF auf der alten Seite und als Foto auf Facebook. Beides findet Google nicht. Abends klingelt das Telefon für Reservierungen, während der Service läuft.",
     umsetzung: [
@@ -69,7 +88,7 @@ export const projekte: Projekt[] = [
     ],
     paket: "standard",
     seitenzahl: 6,
-    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
     bild: null,
     liveUrl: null,
   },
@@ -83,6 +102,13 @@ export const projekte: Projekt[] = [
     seoTitel: "Konzeptprojekt: Website für ein Kosmetikstudio",
     seoText:
       "Wie eine Studioseite aufgebaut ist, die Anfragen sortiert: Behandlungen mit Preis und Dauer, Termine online, Anfahrt und Parken.",
+    ueberschriften: {
+      seite: "Behandlungen mit Preis und Dauer",
+      aufgabe: "Anfragen zwischen zwei Kundinnen",
+      eckdaten: "Umfang und Dauer",
+      branche: "Was das für ein Studio heißt",
+      andere: "Die anderen beiden Konzepte",
+    },
     aufgabe:
       "Anfragen kommen über Instagram, oft spätabends, und werden zwischen zwei Kundinnen beantwortet. Preise stehen nirgends, deshalb dreht sich der erste Kontakt immer um Grundsätzliches.",
     umsetzung: [
@@ -94,7 +120,7 @@ export const projekte: Projekt[] = [
     ],
     paket: "standard",
     seitenzahl: 6,
-    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
     bild: null,
     liveUrl: null,
   },
@@ -108,6 +134,13 @@ export const projekte: Projekt[] = [
     seoTitel: "Konzeptprojekt: Website für einen Hundesalon",
     seoText:
       "Wie eine Salonseite aufgebaut ist, die Rückfragen spart: Preise nach Größe, Wartezeit offen genannt, Termine über ein Formular.",
+    ueberschriften: {
+      seite: "Preise nach Größe, Wartezeit offen",
+      aufgabe: "Dreimal dieselbe Frage",
+      eckdaten: "Paket und Seitenzahl",
+      branche: "Übertragen auf deinen Salon",
+      andere: "Zwei andere Beispiele",
+    },
     aufgabe:
       "Halter rufen an und fragen dreimal dasselbe: Nimmst du meine Rasse, was kostet das, wie lange dauert es. Die Wartezeit beträgt mehrere Wochen, das erfahren die Anrufer erst am Ende des Gesprächs.",
     umsetzung: [
@@ -119,7 +152,7 @@ export const projekte: Projekt[] = [
     ],
     paket: "start",
     seitenzahl: 4,
-    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
     bild: null,
     liveUrl: null,
   },
@@ -130,7 +163,7 @@ export const projekte: Projekt[] = [
  * Verschwindet automatisch, sobald alle Projekte auf "kunde" stehen.
  */
 export const hinweisKonzeptprojekte =
-  "Ich baue seit Kurzem Websites für Betriebe in der Region. Es ist noch keine Kundenseite live. Die folgenden Projekte sind Konzepte: echte Aufgabenstellungen, von mir durchgeplant und gebaut — aber ohne Auftraggeber.";
+  "Ich baue seit Kurzem Websites für Betriebe in der Region. Es ist noch keine Kundenseite live. Die folgenden Projekte sind Konzepte: echte Aufgabenstellungen, von mir durchgeplant und gebaut, aber ohne Auftraggeber.";
 
 /** True, solange irgendein Projekt noch ein Konzept ist. */
 export const zeigeKonzepthinweis = projekte.some((p) => p.art === "konzept");

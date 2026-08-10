@@ -6,7 +6,7 @@
  * 1. Kopf mit Brotkrumen
  * 2. Was ohne diese Leistung passiert
  * 3. Was enthalten ist
- * 4. Was es kostet — Zahl kommt aus pakete.ts
+ * 4. Was es kostet. Zahl kommt aus pakete.ts
  * 5. Häufige Fragen
  * 6. Kontaktabschluss
  */
@@ -67,15 +67,15 @@ const andere = leistungen.filter((l) => l.slug !== leistung.slug);
           { text: leistung.name },
         ]}
       />
-      <h1>{leistung.name}</h1>
+      <h1>{leistung.ueberschriften.seite}</h1>
       <p class="vorspann">{leistung.kurz}</p>
     </div>
   </section>
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Warum das zählt</h2>
-      <p class="vorspann">{leistung.problem}</p>
+      <h2>{leistung.ueberschriften.warum}</h2>
+      <p>{leistung.problem}</p>
 
       <h3 class="untertitel">Was dabei ist</h3>
       <ul class="liste">
@@ -87,7 +87,7 @@ const andere = leistungen.filter((l) => l.slug !== leistung.slug);
   <section class="abschnitt band--tinte">
     <div class="breite preisband">
       <div>
-        <h2>Was es kostet</h2>
+        <h2>{leistung.ueberschriften.preis}</h2>
         <p class="preisband__betrag">{preis.betrag}</p>
         <p class="preisband__zusatz">{preis.zusatz}</p>
         <p class="leise">{umsatzsteuerHinweis}</p>
@@ -101,7 +101,7 @@ const andere = leistungen.filter((l) => l.slug !== leistung.slug);
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Häufige Fragen</h2>
+      <h2>{leistung.ueberschriften.fragen}</h2>
       <dl class="fragen">
         {
           leistung.faq.map((f) => (
@@ -120,7 +120,7 @@ const andere = leistungen.filter((l) => l.slug !== leistung.slug);
 
   <section class="abschnitt">
     <div class="breite">
-      <h2>Die anderen Leistungen</h2>
+      <h2>{leistung.ueberschriften.weiter}</h2>
       <ul class="kacheln kacheln--3">
         {
           andere.map((l) => (

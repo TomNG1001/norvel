@@ -1,21 +1,27 @@
 ---
 /**
- * Der Abschluss, der unter jeder Seite steht — überall derselbe.
+ * Der Abschluss, der unter jeder Seite steht, überall derselbe.
  *
  * Regel aus dem Projekt: jede Seite hat ein Hauptziel, einen sichtbaren
  * nächsten Schritt und denselben Kontakt-Abschluss. Deshalb hat diese
  * Komponente bewusst keine Einstellmöglichkeiten. Wer hier Text ändert,
- * ändert ihn auf allen Seiten gleichzeitig — genau so ist es gedacht.
+ * ändert ihn auf allen Seiten gleichzeitig, genau so ist es gedacht.
  */
 import { brand } from "../config/brand";
 ---
 
-<section class="abschnitt band--tinte">
+<!--
+  data-gemeinsam: Dieser Abschnitt ist auf jeder Seite absichtlich derselbe.
+  PROJEKT.md verlangt denselben Kontakt-Abschluss überall. Der
+  Schablonen-Wächter überspringt Überschriften in so markierten Abschnitten,
+  weil ihre Gleichheit die Regel ist und nicht ihr Bruch.
+-->
+<section class="abschnitt band--tinte" data-gemeinsam>
   <div class="breite abschluss">
     <div class="abschluss__text">
       <h2>Erzähl mir von deinem Betrieb</h2>
       <p>
-        Zwei Sätze reichen für den Anfang. Ich sage dir, was du brauchst — und
+        Zwei Sätze reichen für den Anfang. Ich sage dir, was du brauchst, und
         was du nicht brauchst.
       </p>
       <p class="leise">

@@ -2,8 +2,8 @@
  * Die vier Leistungen. Aus dieser Datei entstehen in Schritt 6 die Übersicht
  * und die vier Unterseiten.
  *
- * Preise stehen hier nicht. Wo ein Paket gemeint ist, steht seine Kennung —
- * die Zahlen holt die Seite aus pakete.ts.
+ * Preise stehen hier nicht. Wo ein Paket gemeint ist, steht seine Kennung.
+ * Die Zahlen holt die Seite aus pakete.ts.
  *
  * PLATZHALTER-HINWEIS: Die Listen unter `enthalten` beschreiben, was Tom
  * tatsächlich macht. Sie sind aus den Paketen abgeleitet und müssen von ihm
@@ -21,6 +21,17 @@ export interface Leistung {
   seoTitel: string;
   /** Unter 160 Zeichen. */
   seoText: string;
+  /**
+   * Eigene Überschriften je Leistung. Ohne sie tragen alle vier Seiten
+   * dieselbe Gliederung, und `npm run check:schablone` bricht den Bau ab.
+   */
+  ueberschriften: {
+    seite: string;
+    warum: string;
+    preis: string;
+    fragen: string;
+    weiter: string;
+  };
   /** Was ohne diese Leistung schiefgeht. */
   problem: string;
   enthalten: string[];
@@ -28,7 +39,7 @@ export interface Leistung {
   abPaket: PaketId | null;
   /**
    * Welche Zahl aus pakete.ts für diese Leistung die richtige ist. Die Zahl
-   * selbst steht nicht hier — nur, welche gemeint ist.
+   * selbst steht nicht hier, nur, welche gemeint ist.
    *
    * einmalig   → der Grundpreis des kleinsten Pakets
    * monatlich  → die monatliche Pflege des kleinsten Pakets
@@ -47,6 +58,13 @@ export const leistungen: Leistung[] = [
     seoTitel: "Website für kleine Betriebe im Rhein-Neckar-Kreis",
     seoText:
       "Eine Seite, die auf dem Handy schnell lädt, deine Öffnungszeiten zeigt und bei Google gefunden wird. Grundgerüst in 24 bis 72 Stunden.",
+    ueberschriften: {
+      seite: "Zwei bis zwölf Seiten, fest gebaut",
+      warum: "Warum die alte Seite Anrufe kostet",
+      preis: "Was eine Seite kostet",
+      fragen: "Fragen zum Bau",
+      weiter: "Was noch dazugehört",
+    },
     problem:
       "Die meisten Betriebsseiten sind vor Jahren gebaut worden, laden langsam und sind auf dem Handy kaum zu bedienen. Genau dort schauen aber neun von zehn Leuten nach.",
     enthalten: [
@@ -64,7 +82,7 @@ export const leistungen: Leistung[] = [
       {
         frage: "Wie lange dauert das wirklich?",
         antwort:
-          "Das Grundgerüst steht in 24 bis 72 Stunden, sobald deine Texte und Bilder da sind. Genau daran hängt es meistens — nicht am Bauen.",
+          "Das Grundgerüst steht in 24 bis 72 Stunden, sobald deine Texte und Bilder da sind. Genau daran hängt es meistens, nicht am Bauen.",
       },
       {
         frage: "Was brauchst du von mir?",
@@ -86,6 +104,13 @@ export const leistungen: Leistung[] = [
     seoTitel: "Hosting und Pflege für kleine Betriebe",
     seoText:
       "Seite läuft, wird täglich gesichert, Änderungen setze ich um. Ein fester Betrag im Monat, keine versteckten Posten.",
+    ueberschriften: {
+      seite: "Damit die Seite läuft und aktuell bleibt",
+      warum: "Eine Website ist kein Möbelstück",
+      preis: "Was der laufende Betrieb kostet",
+      fragen: "Fragen zum Betrieb",
+      weiter: "Was sonst noch ansteht",
+    },
     problem:
       "Eine Website ist kein Möbelstück. Öffnungszeiten ändern sich, Feiertage kommen, Zertifikate laufen ab. Ohne Pflege steht in zwei Jahren die Weihnachtskarte von vorletztem Jahr online.",
     enthalten: [
@@ -107,12 +132,12 @@ export const leistungen: Leistung[] = [
       {
         frage: "Kann ich kündigen?",
         antwort:
-          "PLATZHALTER — Tom muss Laufzeit und Kündigungsfrist festlegen. Ohne diese Angabe steht hier nichts.",
+          "PLATZHALTER. Tom muss Laufzeit und Kündigungsfrist festlegen. Ohne diese Angabe steht hier nichts.",
       },
       {
         frage: "Was passiert mit meiner Seite, wenn ich kündige?",
         antwort:
-          "PLATZHALTER — Tom muss festlegen, ob die fertigen Dateien übergeben werden und wie es mit der Domain weitergeht.",
+          "PLATZHALTER. Tom muss festlegen, ob die fertigen Dateien übergeben werden und wie es mit der Domain weitergeht.",
       },
     ],
   },
@@ -121,9 +146,16 @@ export const leistungen: Leistung[] = [
     slug: "seo",
     name: "Auffindbarkeit bei Google",
     kurz: "Damit deine Seite bei den Suchen auftaucht, die für dich Geld bringen. Einmalige Einrichtung, kein Abo.",
-    seoTitel: "Bei Google gefunden werden — für kleine Betriebe",
+    seoTitel: "Bei Google gefunden werden, für kleine Betriebe",
     seoText:
       "Titel, Beschreibungen, Struktur und Ortsbezug so eingerichtet, dass Google deine Seite versteht und in der Umgebung anzeigt.",
+    ueberschriften: {
+      seite: "Bei Google gefunden werden",
+      warum: "Warum niemand auf deiner Seite landet",
+      preis: "Was die Einrichtung kostet",
+      fragen: "Fragen zur Auffindbarkeit",
+      weiter: "Womit das zusammenhängt",
+    },
     problem:
       "Deine Seite existiert, aber niemand landet dort. Weil jede Unterseite denselben Titel trägt, kein Ort im Text steht und Google nicht erkennt, was du eigentlich anbietest.",
     enthalten: [
@@ -162,6 +194,13 @@ export const leistungen: Leistung[] = [
     seoTitel: "Google-Unternehmensprofil einrichten lassen",
     seoText:
       "Eintrag in Google Maps und im Suchergebnis: Öffnungszeiten, Fotos, Telefonnummer, Bewertungen. Eingerichtet und mit der Seite verknüpft.",
+    ueberschriften: {
+      seite: "Der Eintrag in Karte und Suchergebnis",
+      warum: "Der Kasten, den fast alle zuerst sehen",
+      preis: "Ab welchem Paket es dabei ist",
+      fragen: "Fragen zum Profil",
+      weiter: "Was daneben zählt",
+    },
     problem:
       "Die meisten Leute sehen deine Öffnungszeiten nie auf deiner Website, sondern im Kasten neben dem Suchergebnis. Steht dort nichts oder etwas Falsches, hilft die schönste Seite nicht.",
     enthalten: [

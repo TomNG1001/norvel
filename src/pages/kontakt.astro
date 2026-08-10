@@ -1,6 +1,6 @@
 ---
 /**
- * /kontakt — Hauptziel der ganzen Seite. Hier landet jeder Weg.
+ * /kontakt. Hauptziel der ganzen Seite. Hier landet jeder Weg.
  *
  * Drei gleichwertige Wege: WhatsApp, Formular, Anruf. Wer nicht schreiben
  * mag, ruft an. Wer nicht reden mag, schreibt.
@@ -22,15 +22,14 @@ const naechsteSchritte = ablauf.slice(0, 3);
 
 <Basis
   titel="Kontakt"
-  beschreibung="Schreib mir über WhatsApp, das Formular oder ruf an. Ich arbeite allein — du redest immer mit derselben Person."
+  beschreibung="Schreib mir über WhatsApp, das Formular oder ruf an. Ich arbeite allein, du redest immer mit derselben Person."
 >
   <section class="abschnitt">
     <div class="breite">
       <h1>Sag mir, was du brauchst</h1>
       <p class="vorspann">
-        Am schnellsten geht es am Telefon. Wenn dir das gerade nicht passt,
-        nimm das Formular. Ich arbeite allein, du redest also immer mit
-        derselben Person.
+        Am schnellsten geht es am Telefon, sonst nimm das Formular. Ich arbeite
+        allein, du redest also immer mit derselben Person.
       </p>
     </div>
   </section>
@@ -122,7 +121,7 @@ const naechsteSchritte = ablauf.slice(0, 3);
         <h2>Lieber direkt anrufen?</h2>
         <p>
           {brand.inhaber}, {brand.region}. Wenn ich nicht rangehe, bin ich bei
-          einem Kunden — ruf einfach später noch mal an.
+          einem Kunden, ruf einfach später noch mal an.
         </p>
       </div>
       <a class="knopf" href={`tel:${brand.telefonE164}`}>

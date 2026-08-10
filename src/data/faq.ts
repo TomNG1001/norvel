@@ -5,8 +5,8 @@
  *
  * In Schritt 11 wird daraus zusätzlich FAQPage-Auszeichnung erzeugt.
  *
- * PLATZHALTER: Alles, was Tom vertraglich festlegen muss — Anzahlung,
- * Laufzeit, Kündigung, Domainübergabe — steht als erkennbarer Platzhalter da.
+ * PLATZHALTER: Alles, was Tom vertraglich festlegen muss. Anzahlung,
+ * Laufzeit, Kündigung, Domainübergabe, steht als erkennbarer Platzhalter da.
  * Da wird nichts geraten.
  */
 
@@ -29,7 +29,7 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Was musst du von mir haben, bevor es losgeht?",
         antwort:
-          "Texte oder Stichpunkte zu deinem Betrieb, Fotos, Öffnungszeiten, Preise und die Angaben fürs Impressum. Stichpunkte reichen — die Sätze mache ich daraus.",
+          "Texte oder Stichpunkte zu deinem Betrieb, Fotos, Öffnungszeiten, Preise und die Angaben fürs Impressum. Stichpunkte reichen, die Sätze mache ich daraus.",
       },
       {
         frage: "Wie viele Korrekturrunden habe ich?",
@@ -59,7 +59,7 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Wie läuft die Bezahlung?",
         antwort:
-          "PLATZHALTER — Tom muss festlegen, ob es eine Anzahlung gibt, wie hoch sie ist und wann der Rest fällig wird.",
+          "PLATZHALTER. Tom muss festlegen, ob es eine Anzahlung gibt, wie hoch sie ist und wann der Rest fällig wird.",
       },
       {
         frage: "Was kostet eine zusätzliche Seite später?",
@@ -89,12 +89,12 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Wem gehört die Domain?",
         antwort:
-          "PLATZHALTER — Tom muss festlegen, ob die Domain auf ihn oder auf den Kunden läuft und was bei einer Kündigung damit passiert.",
+          "PLATZHALTER. Tom muss festlegen, ob die Domain auf ihn oder auf den Kunden läuft und was bei einer Kündigung damit passiert.",
       },
       {
         frage: "Was passiert, wenn ich die Pflege kündige?",
         antwort:
-          "PLATZHALTER — Tom muss Laufzeit, Kündigungsfrist und Übergabe der Dateien festlegen.",
+          "PLATZHALTER. Tom muss Laufzeit, Kündigungsfrist und Übergabe der Dateien festlegen.",
       },
     ],
   },
@@ -104,17 +104,17 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Arbeitest du auch außerhalb des Rhein-Neckar-Kreises?",
         antwort:
-          "Der Schwerpunkt liegt hier, weil ich vorbeikommen kann. Grundsätzlich geht es auch weiter weg — dann läuft mehr über Telefon und Mail.",
+          "Der Schwerpunkt liegt hier, weil ich vorbeikommen kann. Grundsätzlich geht es auch weiter weg, dann läuft mehr über Telefon und Mail.",
       },
       {
         frage: "Machst du auch Logos oder Flyer?",
         antwort:
-          "PLATZHALTER — Tom muss entscheiden, ob er das anbietet. Wenn nicht, gehört hier ein klares Nein hin.",
+          "PLATZHALTER. Tom muss entscheiden, ob er das anbietet. Wenn nicht, gehört hier ein klares Nein hin.",
       },
       {
         frage: "Machst du Fotos für meinen Betrieb?",
         antwort:
-          "PLATZHALTER — Tom muss festlegen, ob er fotografiert, vermittelt oder nur vorhandene Bilder aufbereitet.",
+          "PLATZHALTER. Tom muss festlegen, ob er fotografiert, vermittelt oder nur vorhandene Bilder aufbereitet.",
       },
       {
         frage: "Kann ich Beispiele deiner Arbeit sehen?",

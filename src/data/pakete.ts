@@ -35,7 +35,7 @@ export interface Paket {
   /**
    * Was dieses Paket gegenüber dem darunter zusätzlich kann. Steht im Kasten
    * des Konfigurators, wenn er ins nächste Paket springt. Genau das verkauft
-   * Standard — nicht der Preis.
+   * Standard, nicht der Preis.
    */
   mehrAlsDavor: string[];
   korrekturrunden: number;
@@ -140,7 +140,7 @@ export const preisProZusatzseite = 90;
 export const umsatzsteuerHinweis =
   "Kein Ausweis von Umsatzsteuer nach § 19 UStG";
 
-/** Was in der monatlichen Pflege steckt — gilt für alle drei Pakete. */
+/** Was in der monatlichen Pflege steckt, gilt für alle drei Pakete. */
 export const pflegeEnthaelt: string[] = [
   "Hosting und Domain",
   "Sicherheitsupdates",
@@ -257,7 +257,7 @@ export const festeSeiten = seitenOptionen
   .map((o) => o.slug);
 
 // ---------------------------------------------------------------------------
-// Rechnen — hier, nicht im Template
+// Rechnen, hier, nicht im Template
 // ---------------------------------------------------------------------------
 
 export function paketNach(id: PaketId): Paket {
@@ -296,7 +296,7 @@ export interface Rechnung {
   /** Passt die Seitenzahl ohne Aufpreis in das gewählte Paket? */
   passt: boolean;
   /**
-   * Gefüllt, sobald die Seitenzahl das gewählte Paket sprengt — unabhängig
+   * Gefüllt, sobald die Seitenzahl das gewählte Paket sprengt, unabhängig
    * davon, ob das größere Paket billiger ist. Das ist der Kasten mit dem
    * Knopf zum Wechseln.
    */
@@ -319,7 +319,7 @@ export interface Empfehlung {
  * Rechnet einen Stand des Konfigurators durch.
  *
  * Überschreitet die Seitenzahl das gewählte Paket, wird immer das nächste
- * empfohlen — auch wenn Bleiben plus Zusatzseiten billiger wäre. Der Kunde
+ * empfohlen, auch wenn Bleiben plus Zusatzseiten billiger wäre. Der Kunde
  * darf bleiben, sieht aber, was ihm dabei fehlt. Genau dieser Knick verkauft
  * Standard.
  */
@@ -372,7 +372,7 @@ export function euro(betrag: number): string {
 //
 // Der Konfigurator schreibt seinen Stand in die Adresszeile, damit die Auswahl
 // teilbar ist. Die Kontaktseite liest sie dort wieder aus und legt sie ins
-// versteckte Feld. Beide Seiten benutzen dieselben Namen — deshalb stehen sie
+// versteckte Feld. Beide Seiten benutzen dieselben Namen, deshalb stehen sie
 // hier und nicht zweimal im Template.
 // ---------------------------------------------------------------------------
 
@@ -412,8 +412,8 @@ export function auswahlAusSuchparametern(
   );
 
   // Zwei Schreibweisen, dasselbe Ergebnis:
-  // ?seiten=a,b        — so schreibt es der Konfigurator mit JavaScript
-  // ?seiten=a&seiten=b — so schickt es das Formular ohne JavaScript ab
+  // ?seiten=a,b       , so schreibt es der Konfigurator mit JavaScript
+  // ?seiten=a&seiten=b, so schickt es das Formular ohne JavaScript ab
   const seitenSlugs = [
     ...new Set(
       params
@@ -432,7 +432,7 @@ export function auswahlAusSuchparametern(
 }
 
 /**
- * Die Auswahl als lesbarer Text — für das versteckte Feld im Formular und für
+ * Die Auswahl als lesbarer Text, für das versteckte Feld im Formular und für
  * den Kasten, der dem Besucher zeigt, was übernommen wurde.
  */
 export function auswahlAlsText(auswahl: Auswahl): string {

@@ -18,6 +18,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 10 | /impressum, /datenschutz, 404 | erledigt, Inhalt fehlt | 2026-08-10 |
 | 11 | SEO und Qualität | erledigt und geprüft | 2026-08-10 |
 | 12 | Abschluss | erledigt | 2026-08-10 |
+| + | VELLOX-OS-Durchgang | erledigt und geprüft | 2026-08-10 |
 
 ---
 
@@ -525,3 +526,32 @@ dokumentiert sind.
   160, genau eine `h1`, Canonical, Schriften vorabgeladen, `lang="de"`.
 - Kein verbotenes Wort, kein „wir", kein Prozentzeichen im Seitentext.
 - Unterseiten: 4–6 Abschnitte, Brotkrumen, BreadcrumbList.
+
+---
+
+## Zusatz: VELLOX OS angewandt, 2026-08-10
+
+Quelle: <https://github.com/underworlddev1-spec/Vellox-OS>. Der anwendbare
+Auszug steht in [`VELLOX-REGELN.md`](VELLOX-REGELN.md).
+
+Drei Verstöße gefunden und behoben:
+
+1. **114 Gedankenstriche** als Satzmelodie in Copy und Kommentaren. Vellox
+   nennt sie das Erkennungszeichen automatisch geglätteter Sprache. Ersetzt
+   durch Punkt oder Komma, je nachdem, ob ein neuer Hauptsatz folgt.
+   Bis-Striche in Bereichen wie „24 bis 72" bleiben, das sind keine
+   Gedankenstriche.
+2. **Alle fünf Branchenseiten trugen dieselbe Gliederung.** Nach Abzug des
+   Branchennamens blieb wortgleich „Websites für {NAME} | Wie es heute
+   meistens aussieht | Für {NAME} passt meistens Standard | Ein Beispiel".
+   Dasselbe bei den vier Leistungs- und den drei Projektseiten. Jede Seite
+   hat jetzt eigene Überschriften aus ihrem Datensatz.
+3. **Zehn von zwölf Seiten hatten zu lange Einleitungen.** Teils zu lange
+   Texte, teils falsch vergebene Auszeichnung: `vorspann` stand über
+   Fließtext, der nie eine Einleitung war.
+
+Dazu neu: Die Startseite sagt jetzt, für wen sie nicht gemacht ist. Der
+Vorspann bekommt am Telefon eine Schriftstufe weniger.
+
+Nicht übernommen: die Motion Language aus `02_BRANDING/03`. PROJEKT.md
+verbietet Scroll-Animationen, und laut Rangfolge gewinnt PROJEKT.md.

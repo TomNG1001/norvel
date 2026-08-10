@@ -3,7 +3,7 @@
  * /ueber-mich
  *
  * ACHTUNG: Diese Seite handelt von Tom. Alles, was ich nicht aus seinen
- * Vorgaben ableiten kann, steht als erkennbarer Platzhalter da — Werdegang,
+ * Vorgaben ableiten kann, steht als erkennbarer Platzhalter da. Werdegang,
  * Beweggrund, Foto. Ich erfinde hier nichts.
  *
  * Die Region wird laut Vorgabe auf genau einer Seite abgedeckt (/branchen).
@@ -13,7 +13,7 @@ import Basis from "../layouts/Basis.astro";
 import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import { brand } from "../config/brand";
 
-/** Wie ich arbeite — das ergibt sich aus den Projektregeln, nicht erfunden. */
+/** Wie ich arbeite, das ergibt sich aus den Projektregeln, nicht erfunden. */
 const arbeitsweise = [
   {
     titel: "Du redest mit mir, nicht mit einem Team",
@@ -33,7 +33,7 @@ const arbeitsweise = [
   },
 ];
 
-/** Was ich nicht mache — auch das steht so in den Projektregeln. */
+/** Was ich nicht mache, auch das steht so in den Projektregeln. */
 const nichtMeinGeschaeft = [
   "Keine Agenturen und keine Konzerne. Kleine Betriebe, bei denen der Inhaber selbst am Telefon ist.",
   "Keine Onlineshops. Das ist ein anderes Handwerk und ein anderer Preis.",
@@ -50,9 +50,9 @@ const nichtMeinGeschaeft = [
     <div class="breite">
       <h1>Wer ich bin</h1>
       <p class="vorspann">
-        Ich bin {brand.inhaber}, arbeite allein und baue Websites für kleine
-        Betriebe im {brand.region}. Meine Nummer steht auf jeder Seite dieser
-        Website, und da geht auch wirklich ich ran.
+        Ich arbeite allein und baue Websites für kleine Betriebe im
+        {brand.region}. Meine Nummer steht auf jeder Seite, und da gehe ich
+        auch wirklich ran.
       </p>
       <p>
         <a class="knopf" href={`tel:${brand.telefonE164}`}>
@@ -82,12 +82,12 @@ const nichtMeinGeschaeft = [
     <div class="breite">
       <h2>Wie ich dazu gekommen bin</h2>
       <div class="platzhalter">
-        <p class="platzhalter__marke">Platzhalter — Text fehlt noch</p>
+        <p class="platzhalter__marke">Platzhalter: Text fehlt noch</p>
         <p>
           Hier gehören drei bis fünf Sätze hin, die nur Tom schreiben kann:
           seit wann er Websites baut, was er vorher gemacht hat, und warum
           ausgerechnet kleine Betriebe. Der Absatz wird auf dieser Seite am
-          meisten gelesen — erfinden lasse ich ihn nicht.
+          meisten gelesen, erfinden lasse ich ihn nicht.
         </p>
         <p class="leise">
           Dazu fehlt noch ein Foto von Tom. Kein Bild aus einer Bilddatenbank,

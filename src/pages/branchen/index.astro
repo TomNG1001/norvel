@@ -1,11 +1,11 @@
 ---
 /**
- * /branchen — Übersicht mit fünf Karten.
+ * /branchen. Übersicht mit fünf Karten.
  *
  * Hier steht auch der Abschnitt zur Region. Das ist laut Vorgabe die **eine**
  * Seite, die Heidelberg, Mannheim, Ludwigshafen, Weinheim und Schwetzingen im
  * Fließtext nennt. Keine zweite Seite darf das wiederholen, und es gibt keine
- * Branche-mal-Stadt-Seiten — Google wertet so etwas als Türseiten ab.
+ * Branche-mal-Stadt-Seiten. Google wertet so etwas als Türseiten ab.
  */
 import Basis from "../../layouts/Basis.astro";
 import Brotkrumen from "../../components/Brotkrumen.astro";
@@ -15,17 +15,15 @@ import { branchen } from "../../data/branchen";
 
 <Basis
   titel="Branchen"
-  beschreibung="Restaurants, Bars, Kosmetikstudios, Hundefriseure, Handwerk. Fünf Branchen, die ich kenne — mit dem, was auf jeder Seite stehen muss."
+  beschreibung="Restaurants, Bars, Kosmetikstudios, Hundefriseure, Handwerk. Fünf Branchen, die ich kenne, mit dem, was auf jeder Seite stehen muss."
 >
   <section class="abschnitt">
     <div class="breite">
       <Brotkrumen krumen={[{ text: "Branchen" }]} />
       <h1>Für wen ich baue</h1>
       <p class="vorspann">
-        Fünf Branchen. Jede hat andere Fragen, die beantwortet sein müssen,
-        bevor jemand zum Telefon greift. Ein Gast will die Karte lesen, ein
-        Hundehalter den Preis für seine Rasse, ein Bauherr wissen, ob du seinen
-        Ort überhaupt fährst.
+        Fünf Branchen, fünf verschiedene Fragen. Ein Gast will die Karte lesen,
+        ein Hundehalter den Preis für seine Rasse.
       </p>
     </div>
   </section>
@@ -52,16 +50,16 @@ import { branchen } from "../../data/branchen";
   <section class="abschnitt">
     <div class="breite">
       <h2>Wo ich arbeite</h2>
-      <p class="vorspann">
+      <p>
         Ich sitze im Rhein-Neckar-Kreis und arbeite vor allem hier: Heidelberg,
         Mannheim, Ludwigshafen, Weinheim und Schwetzingen. Dazu die Orte
-        dazwischen — Leimen, Wiesloch, Eppelheim, Hockenheim.
+        dazwischen. Leimen, Wiesloch, Eppelheim, Hockenheim.
       </p>
       <p>
         Das hat einen praktischen Grund. Ich kann vorbeikommen, mir deinen
         Laden ansehen und verstehen, wer bei dir zur Tür hereinkommt. Das
         merkt man den Texten an. Weiter weg geht es auch, dann läuft mehr über
-        Telefon und Mail — sag einfach, wo du bist.
+        Telefon und Mail, sag einfach, wo du bist.
       </p>
       <p>
         Was ich <strong>nicht</strong> mache: für jede Stadt eine eigene Seite

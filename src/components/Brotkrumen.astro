@@ -2,7 +2,7 @@
 /**
  * Brotkrumennavigation. Steht laut Vorgabe auf jeder Unterseite.
  *
- * Der letzte Eintrag ist die Seite, auf der man gerade steht — er ist kein
+ * Der letzte Eintrag ist die Seite, auf der man gerade steht, er ist kein
  * Verweis, sondern trägt aria-current. In Schritt 11 kommt daraus zusätzlich
  * die BreadcrumbList für Google.
  */
@@ -21,7 +21,7 @@ const { krumen } = Astro.props;
 
 /**
  * Dieselbe Abfolge noch einmal für Google. Sie steht hier und nicht im
- * Layout, weil die Daten schon hier liegen — so kann sie nicht auseinander
+ * Layout, weil die Daten schon hier liegen, so kann sie nicht auseinander
  * laufen.
  */
 const alle = [{ text: "Start", pfad: "/" }, ...krumen];
@@ -78,7 +78,7 @@ const breadcrumbList = {
   }
 
   /* Das Trennzeichen gehört zur Darstellung, nicht zum Text. Deshalb per
-     CSS und nicht als Zeichen im Markup — Vorleseprogramme lesen es nicht. */
+     CSS und nicht als Zeichen im Markup. Vorleseprogramme lesen es nicht. */
   .brotkrumen li + li::before {
     content: "›";
     margin-right: 0.5rem;

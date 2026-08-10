@@ -3,7 +3,7 @@
  * und die fünf Unterseiten. Eine neue Branche anlegen heißt: hier einen
  * Eintrag ergänzen. Sonst nichts.
  *
- * Keine Branche-mal-Stadt-Einträge. Kein /branchen/restaurants-heidelberg —
+ * Keine Branche-mal-Stadt-Einträge. Kein /branchen/restaurants-heidelberg.
  * Google wertet so etwas als Doorway-Page ab. Die Region wird auf genau einer
  * Seite abgedeckt.
  *
@@ -21,18 +21,31 @@ export interface Branche {
   /** Einzahl, für Sätze wie "als Hundefriseur". */
   einzahl: string;
   slug: string;
-  /** Unter 60 Zeichen. Ohne Markennamen — den hängt das Layout an. */
+  /** Unter 60 Zeichen. Ohne Markennamen, den hängt das Layout an. */
   seoTitel: string;
   /** Unter 160 Zeichen. */
   seoText: string;
   /**
    * Ein bis zwei Sätze für die Karte auf der Übersicht und der Startseite.
    * Regel: Übersichtsseiten zeigen ihre Unterseiten als Karten mit einer
-   * kurzen Erklärung — dafür ist dieses Feld da.
+   * kurzen Erklärung, dafür ist dieses Feld da.
    */
   kurz: string;
   /** Was heute konkret schiefläuft. Kein Werbetext, ein Befund. */
   problem: string;
+  /**
+   * Eigene Überschriften je Branche. Ohne sie tragen alle fünf Seiten
+   * dieselbe Gliederung mit ausgetauschtem Namen, und genau das ist die
+   * Schablone, die `npm run check:schablone` abbricht.
+   */
+  ueberschriften: {
+    /** Die h1 der Seite. */
+    seite: string;
+    problem: string;
+    paket: string;
+    beispiel: string;
+    fragen: string;
+  };
   /** Mindestens drei. Was diese Branche wirklich braucht. */
   mussHaben: Punkt[];
   typischesPaket: PaketId;
@@ -53,7 +66,14 @@ export const branchen: Branche[] = [
     kurz:
       "Die Karte als Text statt als Foto, Öffnungszeiten ganz oben, Reservierung ohne Anruf zur Stoßzeit.",
     problem:
-      "Deine Speisekarte liegt als Foto auf Facebook. Google kann sie nicht lesen, also findet dich niemand, der abends Pizza in Weinheim sucht. Wer wissen will, ob heute offen ist, muss anrufen — oder geht woandershin.",
+      "Deine Speisekarte liegt als Foto auf Facebook. Google kann sie nicht lesen, also findet dich niemand, der abends Pizza in Weinheim sucht. Wer wissen will, ob heute offen ist, muss anrufen, oder geht woandershin.",
+    ueberschriften: {
+      seite: "Websites für Restaurants, die abends gefunden werden",
+      problem: "Was ein hungriger Gast um 19 Uhr findet",
+      paket: "Standard, weil Reservierung und Karte dazugehören",
+      beispiel: "Das durchgeplante Restaurant",
+      fragen: "Was Gastronomen vorher wissen wollen",
+    },
     mussHaben: [
       {
         titel: "Die Karte als Text, nicht als Bild",
@@ -87,7 +107,7 @@ export const branchen: Branche[] = [
       {
         frage: "Was ist mit Lieferando und Co.?",
         antwort:
-          "Die Seite kann auf deinen Lieferdienst verweisen. Ein eigener Bestellvorgang gehört nicht dazu — das ist ein anderes Projekt und ein anderer Preis.",
+          "Die Seite kann auf deinen Lieferdienst verweisen. Ein eigener Bestellvorgang gehört nicht dazu, das ist ein anderes Projekt und ein anderer Preis.",
       },
       {
         frage: "Ich habe keine guten Fotos vom Essen.",
@@ -109,6 +129,13 @@ export const branchen: Branche[] = [
       "Wer abends sucht, entscheidet in zehn Sekunden. Öffnungszeiten, Karte und Stimmung müssen sofort da sein.",
     problem:
       "Um 22 Uhr sucht jemand auf dem Handy eine Bar in der Altstadt. Er findet dein Instagram-Profil. Ob heute offen ist, steht in einer Story von vorletzter Woche. Also geht er in die Bar nebenan, deren Öffnungszeiten bei Google stehen.",
+    ueberschriften: {
+      seite: "Eine Bar-Website, die um 22 Uhr Antworten gibt",
+      problem: "Warum die Bar nebenan den Gast bekommt",
+      paket: "Standard, weil Gruppen anfragen wollen",
+      beispiel: "Am nächsten dran: das Gastronomie-Konzept",
+      fragen: "Fragen aus dem Nachtgeschäft",
+    },
     mussHaben: [
       {
         titel: "Öffnungszeiten, die stimmen",
@@ -137,7 +164,7 @@ export const branchen: Branche[] = [
       {
         frage: "Kann die Seite dunkel sein?",
         antwort:
-          "Ja. Für eine Bar ist ein dunkler Auftritt oft richtig. Wichtig ist nur, dass der Text lesbar bleibt — auch für Gäste, die keine 25 mehr sind.",
+          "Ja. Für eine Bar ist ein dunkler Auftritt oft richtig. Wichtig ist nur, dass der Text lesbar bleibt, auch für Gäste, die keine 25 mehr sind.",
       },
       {
         frage: "Die Karte ändert sich ständig.",
@@ -156,13 +183,20 @@ export const branchen: Branche[] = [
     seoText:
       "Behandlungen mit Preis und Dauer, Termine online statt per Nachricht um elf Uhr abends. Für Studios in Heidelberg und Umgebung.",
     kurz:
-      "Behandlungen mit Preis und Dauer, Termine online — statt Anfragen per Nachricht um elf Uhr abends.",
+      "Behandlungen mit Preis und Dauer, Termine online, statt Anfragen per Nachricht um elf Uhr abends.",
     problem:
       "Terminanfragen kommen als Instagram-Nachricht, zwischen zwei Kundinnen. Du beantwortest sie abends um elf. Wer bis dahin keine Antwort hat, hat längst woanders gebucht.",
+    ueberschriften: {
+      seite: "Kosmetikstudios: Termine kommen online, nicht nachts",
+      problem: "Warum Anfragen um elf Uhr abends teuer sind",
+      paket: "Standard, weil die Buchung der Kern ist",
+      beispiel: "So sähe ein Studio aus",
+      fragen: "Was Studios am häufigsten fragen",
+    },
     mussHaben: [
       {
         titel: "Behandlungen mit Preis und Dauer",
-        text: "Wer nicht weiß, was etwas kostet und wie lange es dauert, fragt nicht nach — sondern sucht weiter.",
+        text: "Wer nicht weiß, was etwas kostet und wie lange es dauert, fragt nicht nach, sondern sucht weiter.",
       },
       {
         titel: "Termine online buchen",
@@ -187,12 +221,12 @@ export const branchen: Branche[] = [
       {
         frage: "Welches Buchungssystem nimmst du?",
         antwort:
-          "PLATZHALTER — Tom muss festlegen, welchen Anbieter er einsetzt und was er datenschutzrechtlich prüft. Ohne diese Angabe bleibt die Frage unbeantwortet.",
+          "PLATZHALTER. Tom muss festlegen, welchen Anbieter er einsetzt und was er datenschutzrechtlich prüft. Ohne diese Angabe bleibt die Frage unbeantwortet.",
       },
       {
         frage: "Ich arbeite allein und bin oft ausgebucht.",
         antwort:
-          "Dann ist die Seite dazu da, die richtigen Anfragen zu bekommen — nicht mehr. Preise und Wartezeit offen zu nennen, sortiert schon vor dem ersten Kontakt.",
+          "Dann ist die Seite dazu da, die richtigen Anfragen zu bekommen, nicht mehr. Preise und Wartezeit offen zu nennen, sortiert schon vor dem ersten Kontakt.",
       },
       {
         frage: "Darf ich Vorher-Nachher-Bilder zeigen?",
@@ -214,6 +248,13 @@ export const branchen: Branche[] = [
       "Preise nach Größe, Wartezeit offen genannt, Termine über ein Formular. Das spart dir die immer gleichen Anrufe.",
     problem:
       "Hundehalter suchen nach einem Salon in der Nähe und wollen drei Dinge wissen: Nimmst du meine Rasse, was kostet das ungefähr, wie lange dauert es. Steht das nicht da, rufen sie beim Nächsten an.",
+    ueberschriften: {
+      seite: "Was Hundehalter wissen wollen, bevor sie anrufen",
+      problem: "Dreimal dieselbe Frage am Telefon",
+      paket: "Standard, weil Preise und Termine dazugehören",
+      beispiel: "Ein Salon mit Wartezeit",
+      fragen: "Fragen aus dem Salon",
+    },
     mussHaben: [
       {
         titel: "Preise nach Größe oder Rasse",
@@ -242,7 +283,7 @@ export const branchen: Branche[] = [
       {
         frage: "Ich habe Wartezeiten von mehreren Wochen.",
         antwort:
-          "Dann schreib es auf die Seite. Halter, die morgen einen Termin brauchen, rufen dann gar nicht erst an — und du verlierst keine Zeit.",
+          "Dann schreib es auf die Seite. Halter, die morgen einen Termin brauchen, rufen dann gar nicht erst an, und du verlierst keine Zeit.",
       },
       {
         frage: "Darf ich Fotos von Kundenhunden zeigen?",
@@ -263,11 +304,18 @@ export const branchen: Branche[] = [
     kurz:
       "Leistungen einzeln benannt, Einsatzgebiet mit Ortsnamen, und eine Seite für offene Stellen.",
     problem:
-      "Jemand sucht „Heizung Notdienst Schwetzingen“. Auf deiner Seite steht, dass du seit 1998 zuverlässig arbeitest — aber nicht, welche Orte du fährst und ob du gerade Aufträge annimmst. Also ruft er beim Nächsten an.",
+      "Jemand sucht „Heizung Notdienst Schwetzingen“. Auf deiner Seite steht, dass du seit 1998 zuverlässig arbeitest, aber nicht, welche Orte du fährst und ob du gerade Aufträge annimmst. Also ruft er beim Nächsten an.",
+    ueberschriften: {
+      seite: "Handwerk: gefunden werden für das, was du wirklich machst",
+      problem: "Warum „seit 1998 zuverlässig“ niemanden findet",
+      paket: "Komplett, weil jede Leistung eine Seite braucht",
+      beispiel: "Hier fehlt noch ein Beispiel",
+      fragen: "Fragen vom Bau",
+    },
     mussHaben: [
       {
         titel: "Leistungen einzeln benannt",
-        text: "„Sanitär, Heizung, Klima“ findet niemand. „Heizung entlüften“, „Badumbau“, „Rohrbruch“ schon — weil genau danach gesucht wird.",
+        text: "„Sanitär, Heizung, Klima“ findet niemand. „Heizung entlüften“, „Badumbau“, „Rohrbruch“ schon, weil genau danach gesucht wird.",
       },
       {
         titel: "Einsatzgebiet mit Ortsnamen",
@@ -287,7 +335,7 @@ export const branchen: Branche[] = [
       {
         frage: "Ich bekomme meine Aufträge über Empfehlungen.",
         antwort:
-          "Auch Empfohlene werden nachgeschlagen. Wer deinen Namen hört, sucht ihn — und findet entweder deine Seite oder eine alte Bewertung.",
+          "Auch Empfohlene werden nachgeschlagen. Wer deinen Namen hört, sucht ihn, und findet entweder deine Seite oder eine alte Bewertung.",
       },
       {
         frage: "Brauche ich Referenzfotos?",

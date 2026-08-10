@@ -1,6 +1,6 @@
 ---
 /**
- * Der Konfigurator. Alles kommt aus pakete.ts — keine Zahl steht hier.
+ * Der Konfigurator. Alles kommt aus pakete.ts, keine Zahl steht hier.
  *
  * Ohne JavaScript ist das ein normales GET-Formular auf /kontakt: Die
  * Auswahl landet als Adresszeile im Kontaktformular, nur eben ohne
@@ -394,7 +394,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
     /**
      * Steht auf true, wenn der Besucher bewusst in einem Paket bleibt, in das
      * seine Seiten nicht passen. Wird zurückgesetzt, sobald sich die
-     * Seitenauswahl ändert — dann greift der automatische Wechsel wieder.
+     * Seitenauswahl ändert, dann greift der automatische Wechsel wieder.
      */
     let bewusstGeblieben = false;
     /** Merkt sich, ob gerade automatisch gewechselt wurde. */
@@ -420,7 +420,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
       const passend = empfohlenesPaket(anzahl);
 
       // Automatischer Sprung ins nächste Paket, sobald die Seitenzahl das
-      // gewählte sprengt — es sei denn, der Besucher will ausdrücklich bleiben.
+      // gewählte sprengt, es sei denn, der Besucher will ausdrücklich bleiben.
       automatischGewechselt = false;
       if (!bewusstGeblieben && passend.id !== vorher) {
         const zuKlein =
@@ -514,7 +514,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
      *
      * Das Sprungziel am Ende muss erhalten bleiben. Wer von einer
      * Branchenseite über "Mit Standard rechnen" hierherkommt, landet auf
-     * /preise?paket=standard#konfigurator — ohne den Anker würde der Sprung
+     * /preise?paket=standard#konfigurator, ohne den Anker würde der Sprung
      * verloren gehen und die Seite oben stehen bleiben.
      */
     function adresseSchreiben(

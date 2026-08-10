@@ -2,7 +2,7 @@
  * Einstellungen für das Kontaktformular.
  *
  * PLATZHALTER: Der Formspree-Endpunkt fehlt noch. Solange hier "PLATZHALTER"
- * steht, zeigt die Kontaktseite beim Entwickeln einen Warnkasten — im
+ * steht, zeigt die Kontaktseite beim Entwickeln einen Warnkasten, im
  * fertigen Build sieht ihn niemand, aber Tom kann ihn beim Bauen nicht
  * übersehen.
  *

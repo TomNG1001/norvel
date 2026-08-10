@@ -14,7 +14,7 @@ import "../styles/global.css";
  * Die beiden Schriftdateien werden vorab geladen.
  *
  * Ohne das erscheint der Text zuerst in der Systemschrift und springt beim
- * Nachladen um — gemessen 0,38 an Layout-Sprüngen, erlaubt sind 0,1. Mit dem
+ * Nachladen um, gemessen 0,38 an Layout-Sprüngen, erlaubt sind 0,1. Mit dem
  * Vorabladen sind die Schriften da, bevor der Text zum ersten Mal erscheint.
  */
 import schriftTitel from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
@@ -38,7 +38,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 /**
  * Strukturierte Daten zum Betrieb, auf jeder Seite.
- * Die Anschrift fehlt bewusst — sie steht noch nicht fest, und eine erfundene
+ * Die Anschrift fehlt bewusst, sie steht noch nicht fest, und eine erfundene
  * Adresse wäre schlimmer als gar keine.
  */
 const betrieb = {
