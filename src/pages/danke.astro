@@ -1,0 +1,64 @@
+---
+/**
+ * /danke — Landeseite nach dem Absenden des Formulars.
+ *
+ * Steht auf noindex: Sie gehört niemandem in den Suchergebnissen, und ohne
+ * abgeschickte Anfrage ergibt sie keinen Sinn.
+ */
+import Basis from "../layouts/Basis.astro";
+import { brand } from "../config/brand";
+---
+
+<Basis
+  titel="Danke für deine Anfrage"
+  beschreibung="Deine Anfrage ist angekommen."
+  noindex={true}
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Angekommen.</h1>
+      <p class="vorspann">
+        Deine Anfrage liegt bei mir im Postfach. Ich schaue sie mir an und
+        melde mich bei dir.
+      </p>
+      <p>
+        Wenn es eilt oder dir noch etwas eingefallen ist, ruf einfach an. Ich
+        bin {brand.inhaber}, und am Telefon geht vieles schneller als per Mail.
+      </p>
+      <p>
+        <a class="knopf" href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige}
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Solange du wartest</h2>
+      <ul class="weiter">
+        <li>
+          <a href="/ablauf">Wie ein Projekt bei mir abläuft</a> — sechs
+          Schritte von der Anfrage bis online.
+        </li>
+        <li>
+          <a href="/arbeiten">Beispielprojekte ansehen</a> — drei Konzepte für
+          Restaurant, Kosmetikstudio und Hundesalon.
+        </li>
+        <li>
+          <a href="/faq">Häufige Fragen</a> — Preise, Dauer, Domain, Pflege.
+        </li>
+      </ul>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .weiter {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

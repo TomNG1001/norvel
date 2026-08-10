@@ -366,3 +366,89 @@ export function rechnen(optionen: {
 export function euro(betrag: number): string {
   return `${betrag.toLocaleString("de-DE")} €`;
 }
+
+// ---------------------------------------------------------------------------
+// Übergabe an das Kontaktformular
+//
+// Der Konfigurator schreibt seinen Stand in die Adresszeile, damit die Auswahl
+// teilbar ist. Die Kontaktseite liest sie dort wieder aus und legt sie ins
+// versteckte Feld. Beide Seiten benutzen dieselben Namen — deshalb stehen sie
+// hier und nicht zweimal im Template.
+// ---------------------------------------------------------------------------
+
+export const urlParameter = {
+  paket: "paket",
+  seiten: "seiten",
+  seo: "seo",
+} as const;
+
+export interface Auswahl {
+  paketId: PaketId;
+  /** Slugs aus seitenOptionen, ohne die fest gesetzten. */
+  seitenSlugs: string[];
+  mitSeo: boolean;
+}
+
+/** Baut die Adresszeile, unter der eine Auswahl teilbar ist. */
+export function auswahlAlsSuchparameter(auswahl: Auswahl): string {
+  const p = new URLSearchParams();
+  p.set(urlParameter.paket, auswahl.paketId);
+  if (auswahl.seitenSlugs.length > 0) {
+    p.set(urlParameter.seiten, auswahl.seitenSlugs.join(","));
+  }
+  if (auswahl.mitSeo) p.set(urlParameter.seo, "1");
+  return p.toString();
+}
+
+/** Liest eine Auswahl aus der Adresszeile. null, wenn nichts Gültiges drinsteht. */
+export function auswahlAusSuchparametern(
+  params: URLSearchParams
+): Auswahl | null {
+  const paketId = params.get(urlParameter.paket);
+  if (!paketId || !pakete.some((p) => p.id === paketId)) return null;
+
+  const gueltigeSlugs = new Set(
+    seitenOptionen.filter((o) => !o.fest).map((o) => o.slug)
+  );
+  const seitenSlugs = (params.get(urlParameter.seiten) ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => gueltigeSlugs.has(s));
+
+  return {
+    paketId: paketId as PaketId,
+    seitenSlugs,
+    mitSeo: params.get(urlParameter.seo) === "1",
+  };
+}
+
+/**
+ * Die Auswahl als lesbarer Text — für das versteckte Feld im Formular und für
+ * den Kasten, der dem Besucher zeigt, was übernommen wurde.
+ */
+export function auswahlAlsText(auswahl: Auswahl): string {
+  const seitenAnzahl = seitenZaehlen(auswahl.seitenSlugs);
+  const r = rechnen({
+    paketId: auswahl.paketId,
+    seitenAnzahl,
+    mitSeo: auswahl.mitSeo,
+  });
+
+  const namen = seitenOptionen
+    .filter((o) => o.zaehlt && (o.fest || auswahl.seitenSlugs.includes(o.slug)))
+    .map((o) => o.name);
+
+  // Mit Plus statt Komma verbunden: einzelne Seitennamen enthalten selbst
+  // Kommas ("Karte, Preise oder Leistungen"), sonst zählt man falsch.
+  const teile = [
+    `Paket ${r.paket.name}`,
+    `${seitenAnzahl} Seiten (${namen.join(" + ")})`,
+    auswahl.mitSeo ? "mit Auffindbarkeit bei Google" : "ohne SEO-Einrichtung",
+    `${euro(r.gesamt)} einmalig`,
+    `${euro(r.pflegeMonat)} im Monat`,
+  ];
+  if (r.zusatzseiten > 0) {
+    teile.splice(2, 0, `davon ${r.zusatzseiten} Zusatzseiten`);
+  }
+  return teile.join(" · ");
+}

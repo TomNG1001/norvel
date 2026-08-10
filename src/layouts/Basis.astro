@@ -17,9 +17,11 @@ import { brand } from "../config/brand";
 interface Props {
   titel: string;
   beschreibung: string;
+  /** Seiten, die nicht in die Suche gehören — bisher nur /danke. */
+  noindex?: boolean;
 }
 
-const { titel, beschreibung } = Astro.props;
+const { titel, beschreibung, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,6 +31,7 @@ const { titel, beschreibung } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titel} – {brand.name}</title>
     <meta name="description" content={beschreibung} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0a1a30" />
   </head>

@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/make-favicon.mjs",
-    "dev": "astro dev --port 3489",
+    "dev": "astro dev --port 3490",
     "prebuild": "node scripts/make-favicon.mjs",
     "build": "npm run check:brand && astro build",
-    "preview": "astro preview --port 3489",
+    "preview": "astro preview --port 3490",
     "check:brand": "node scripts/check-brand.mjs",
     "favicon": "node scripts/make-favicon.mjs"
   },

@@ -1,0 +1,218 @@
+---
+/**
+ * Das Kontaktformular. Ziel ist Formspree, der Endpunkt steht in
+ * src/config/formular.ts und ist bis auf Weiteres ein Platzhalter.
+ *
+ * Ohne JavaScript funktioniert das Formular vollständig: Es ist ein normales
+ * HTML-Formular mit POST. JavaScript füllt nur das versteckte Feld mit der
+ * Auswahl von der Preisseite und zeigt sie dem Besucher an.
+ */
+import { brand } from "../config/brand";
+import {
+  formspreeEndpunkt,
+  endpunktFehlt,
+  standOptionen,
+  brancheSonstiges,
+  feldNamen,
+} from "../config/formular";
+import { branchen } from "../data/branchen";
+
+const dankeAdresse = `${brand.domain}/danke/`;
+---
+
+{
+  /* Nur beim Entwickeln sichtbar. Im fertigen Build ist dieser Kasten weg. */
+  import.meta.env.DEV && endpunktFehlt && (
+    <p class="warnung">
+      <strong>Nur für dich sichtbar:</strong> In
+      <code>src/config/formular.ts</code> steht noch kein echter
+      Formspree-Endpunkt. Solange geht keine Anfrage raus.
+    </p>
+  )
+}
+
+<form
+  class="formular"
+  id="formular"
+  action={formspreeEndpunkt}
+  method="POST"
+>
+  <div class="formular__reihe">
+    <div class="feld">
+      <label for="feld-name">Dein Name</label>
+      <input
+        type="text"
+        id="feld-name"
+        name={feldNamen.name}
+        autocomplete="name"
+        required
+      />
+    </div>
+
+    <div class="feld">
+      <label for="feld-betrieb">Name deines Betriebs</label>
+      <input
+        type="text"
+        id="feld-betrieb"
+        name={feldNamen.betrieb}
+        autocomplete="organization"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="formular__reihe">
+    <div class="feld">
+      <label for="feld-mail">E-Mail</label>
+      <input
+        type="email"
+        id="feld-mail"
+        name={feldNamen.mail}
+        autocomplete="email"
+        required
+      />
+    </div>
+
+    <div class="feld">
+      <label for="feld-telefon">Telefon</label>
+      <input
+        type="tel"
+        id="feld-telefon"
+        name={feldNamen.telefon}
+        autocomplete="tel"
+      />
+      <p class="feldhinweis">Freiwillig. Vieles ist am Telefon in fünf Minuten geklärt.</p>
+    </div>
+  </div>
+
+  <div class="formular__reihe">
+    <div class="feld">
+      <label for="feld-branche">Was für ein Betrieb?</label>
+      <select id="feld-branche" name={feldNamen.branche} required>
+        <option value="">Bitte auswählen</option>
+        {branchen.map((b) => <option value={b.einzahl}>{b.einzahl}</option>)}
+        <option value={brancheSonstiges}>{brancheSonstiges}</option>
+      </select>
+    </div>
+
+    <div class="feld">
+      <label for="feld-stand">Wie sieht es gerade aus?</label>
+      <select id="feld-stand" name={feldNamen.stand} required>
+        <option value="">Bitte auswählen</option>
+        {standOptionen.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="feld">
+    <label for="feld-nachricht">Worum geht es?</label>
+    <textarea id="feld-nachricht" name={feldNamen.nachricht} required></textarea>
+    <p class="feldhinweis">
+      Stichpunkte reichen. Was dir an deiner jetzigen Seite fehlt, oder was
+      deine Kunden immer wieder fragen.
+    </p>
+  </div>
+
+  <!-- Auswahl von der Preisseite. Wird von JavaScript gefüllt. -->
+  <input type="hidden" id="feld-konfiguration" name={feldNamen.konfiguration} value="" />
+
+  <!-- Betreff der Mail und Weiterleitung nach dem Absenden. -->
+  <input type="hidden" name={feldNamen.betreff} value={`Anfrage über ${brand.name}`} />
+  <input type="hidden" name={feldNamen.weiterleitung} value={dankeAdresse} />
+
+  <!-- Falle für Werbeprogramme. Menschen sehen dieses Feld nie. -->
+  <p class="falle" aria-hidden="true">
+    <label for="feld-falle">Bitte nicht ausfüllen</label>
+    <input type="text" id="feld-falle" name={feldNamen.falle} tabindex="-1" autocomplete="off" />
+  </p>
+
+  <div class="haken">
+    <input
+      type="checkbox"
+      id="feld-datenschutz"
+      name={feldNamen.datenschutz}
+      value="einverstanden"
+      required
+    />
+    <label for="feld-datenschutz">
+      Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage
+      gespeichert werden. Mehr dazu in der
+      <a href="/datenschutz">Datenschutzerklärung</a>.
+    </label>
+  </div>
+
+  <button type="submit" class="knopf">Anfrage schicken</button>
+</form>
+
+<style>
+  .formular {
+    display: grid;
+    gap: var(--raum-3);
+    max-width: 44rem;
+  }
+
+  .formular__reihe {
+    display: grid;
+    gap: var(--raum-3);
+  }
+
+  .feld {
+    min-width: 0;
+  }
+
+  /* Das Fallenfeld muss im Textfluss bleiben, aber unsichtbar sein.
+     display: none würde von manchen Programmen erkannt. */
+  .falle {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .warnung {
+    max-width: 44rem;
+    margin-bottom: var(--raum-3);
+    padding: var(--raum-2);
+    border: 2px dashed var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+    font-size: var(--gr-klein);
+  }
+
+  .warnung code {
+    font-size: 0.95em;
+  }
+
+  @media (min-width: 40em) {
+    .formular__reihe {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { auswahlAusSuchparametern, auswahlAlsText } from "../data/pakete";
+
+  const auswahl = auswahlAusSuchparametern(
+    new URLSearchParams(window.location.search)
+  );
+
+  if (auswahl) {
+    const text = auswahlAlsText(auswahl);
+
+    const feld = document.getElementById(
+      "feld-konfiguration"
+    ) as HTMLInputElement | null;
+    if (feld) feld.value = text;
+
+    // Dem Besucher zeigen, was übernommen wurde. Nichts soll heimlich
+    // mitgeschickt werden.
+    const kasten = document.getElementById("uebernommen");
+    const ziel = kasten?.querySelector("[data-auswahl]");
+    if (kasten && ziel) {
+      ziel.textContent = text;
+      kasten.hidden = false;
+    }
+  }
+</script>

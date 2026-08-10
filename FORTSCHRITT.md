@@ -8,7 +8,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 0 | Skills prüfen | erledigt | 2026-08-10 |
 | 1 | Grundgerüst | erledigt und geprüft | 2026-08-10 |
 | 2 | Datenmodelle | erledigt und geprüft | 2026-08-10 |
-| 3 | /kontakt und /danke | offen | – |
+| 3 | /kontakt und /danke | erledigt und geprüft | 2026-08-10 |
 | 4 | /preise | offen | – |
 | 5 | Startseite | offen | – |
 | 6 | /leistungen und die 4 Unterseiten | offen | – |
@@ -142,3 +142,61 @@ nächste Paket. Jetzt tut er das, und der Kasten zeigt aus dem neuen Feld
    beschreiben, was er verkauft — er muss sie bestätigen oder streichen.
 4. Zählen Impressum und Datenschutz in die Seitenzahl? Aktuell: nein
    (`zaehlt: false`). Wirkt sich direkt auf den Preis aus.
+
+---
+
+## Schritt 3 — /kontakt und /danke · erledigt am 2026-08-10
+
+Neu:
+
+- `src/config/formular.ts` — Formspree-Endpunkt (Platzhalter), Feldnamen,
+  Antwortmöglichkeiten für „Wie sieht es gerade aus?".
+- `src/components/Kontaktformular.astro` — das Formular.
+- `src/pages/kontakt.astro` — fünf Abschnitte: Kopf, drei Wege, Formular,
+  was danach passiert, dunkler Abschluss mit Telefonnummer.
+- `src/pages/danke.astro` — auf `noindex`.
+- `global.css` um Formularfelder ergänzt (Mindesthöhe 2,875 rem,
+  Schriftgröße 1 rem gegen Safaris Zoom beim Antippen).
+- `Basis.astro` hat jetzt eine Eigenschaft `noindex`.
+- `pakete.ts` um den Übergabe-Vertrag erweitert: `auswahlAlsSuchparameter`,
+  `auswahlAusSuchparametern`, `auswahlAlsText`. Musste hierher, weil Schritt 3
+  das versteckte Feld füllt und Schritt 4 dieselben Namen schreiben muss.
+
+Formularfelder: Name, Betrieb, E-Mail, Telefon (freiwillig), Branche aus
+`branchen.ts`, aktueller Stand, Nachricht, Datenschutz-Haken, verstecktes Feld
+mit der Konfiguration, Honigtopf gegen Werbeprogramme.
+
+Geprüft im laufenden Browser:
+
+- Übergabe von der Preisseite: `?paket=start&seiten=…` füllt das versteckte
+  Feld und zeigt dem Besucher sichtbar, was mitgeschickt wird. Gerechnet:
+  Start mit 6 Seiten = 629 €, davon 2 Zusatzseiten. Stimmt.
+- Pflichtfelder: name, betrieb, email, branche, stand, nachricht, datenschutz.
+- Weiterleitung `_next` zeigt auf `<domain>/danke/`, Betreff kommt aus
+  `brand.name`.
+- `/danke` trägt `noindex, follow`, Startseite und `/kontakt` nicht.
+- Der Entwickler-Warnkasten zum fehlenden Endpunkt taucht im fertigen Build
+  **nicht** auf (0 Treffer in `dist/`).
+- Drei Karten gleich breit und gleich hoch, Formularreihen zweispaltig ab
+  40 em, Felder und Knopf 46 px hoch.
+- Keine Konsolenfehler.
+
+**Nachgebessert:** Die Seitenliste im versteckten Feld war mit Komma
+verbunden — zusammen mit dem Optionsnamen „Karte, Preise oder Leistungen"
+las sich das wie sieben Seiten statt sechs. Jetzt mit Plus verbunden.
+
+**Port:** Von 3489 auf **3490** umgezogen, weil auf 3489 inzwischen
+`serve-la-vite.py` läuft. Geändert in `package.json`, `astro.config.mjs` und
+`.claude/launch.json`.
+
+### Offene Punkte
+
+1. **Formspree-Endpunkt fehlt.** Ohne ihn geht keine Anfrage raus. Konto auf
+   formspree.io anlegen, Adresse in `src/config/formular.ts` eintragen.
+2. Die Weiterleitung nach dem Absenden zeigt auf die Platzhalter-Domain. Sie
+   funktioniert erst, wenn die echte Domain in `brand.ts` steht.
+3. Antwortzeit: Auf `/danke` steht „Ich melde mich" ohne Frist. Wenn Tom eine
+   Zusage machen will (etwa „innerhalb von 24 Stunden"), muss er sie nennen —
+   ich erfinde keine.
+4. Die Datenschutzerklärung wird vom Formular verlinkt, existiert aber erst
+   ab Schritt 10.

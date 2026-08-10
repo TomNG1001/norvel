@@ -1,0 +1,241 @@
+---
+/**
+ * /kontakt — Hauptziel der ganzen Seite. Hier landet jeder Weg.
+ *
+ * Drei gleichwertige Wege: WhatsApp, Formular, Anruf. Wer nicht schreiben
+ * mag, ruft an. Wer nicht reden mag, schreibt.
+ */
+import Basis from "../layouts/Basis.astro";
+import Kontaktformular from "../components/Kontaktformular.astro";
+import { brand } from "../config/brand";
+import { ablauf } from "../data/ablauf";
+
+/** WhatsApp erwartet die Nummer ohne Plus und ohne Leerzeichen. */
+const whatsappNummer = brand.telefonE164.replace(/\D/g, "");
+const whatsappText = encodeURIComponent(
+  "Hallo, ich habe eine Frage zu einer Website für meinen Betrieb."
+);
+
+/** Die ersten drei Schritte reichen hier. Der Rest steht unter /ablauf. */
+const naechsteSchritte = ablauf.slice(0, 3);
+---
+
+<Basis
+  titel="Kontakt"
+  beschreibung="Schreib mir über WhatsApp, das Formular oder ruf an. Ich arbeite allein — du redest immer mit derselben Person."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Sag mir, was du brauchst</h1>
+      <p class="vorspann">
+        Am schnellsten geht es am Telefon. Wenn dir das gerade nicht passt,
+        nimm das Formular. Ich arbeite allein, du redest also immer mit
+        derselben Person.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2 class="nur-vorlesen">Drei Wege zu mir</h2>
+      <ul class="wege">
+        <li class="weg">
+          <h3>WhatsApp</h3>
+          <p>
+            Kurze Frage, schnelle Antwort. Auch abends, wenn im Betrieb Ruhe
+            eingekehrt ist.
+          </p>
+          <a
+            class="knopf knopf--rand"
+            href={`https://wa.me/${whatsappNummer}?text=${whatsappText}`}
+            rel="noopener"
+          >
+            Über WhatsApp schreiben
+          </a>
+        </li>
+
+        <li class="weg">
+          <h3>Formular</h3>
+          <p>
+            Wenn du in Ruhe aufschreiben willst, worum es geht. Dauert zwei
+            Minuten.
+          </p>
+          <a class="knopf knopf--rand" href="#formular">Zum Formular</a>
+        </li>
+
+        <li class="weg">
+          <h3>Anruf</h3>
+          <p>
+            Der kürzeste Weg. Vieles ist in fünf Minuten geklärt, wofür man
+            sonst dreimal schreibt.
+          </p>
+          <a class="knopf knopf--rand" href={`tel:${brand.telefonE164}`}>
+            {brand.telefonAnzeige}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Schreib mir</h2>
+
+      <div class="uebernommen" id="uebernommen" hidden>
+        <p class="uebernommen__titel">Deine Auswahl von der Preisseite</p>
+        <p class="uebernommen__text" data-auswahl></p>
+        <p class="leise">
+          Das schicke ich mit, damit ich nicht nachfragen muss. Ändern kannst
+          du es jederzeit auf der <a href="/preise">Preisseite</a>.
+        </p>
+      </div>
+
+      <Kontaktformular />
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Was danach passiert</h2>
+      <ol class="schritte">
+        {
+          naechsteSchritte.map((s) => (
+            <li class="schritt">
+              <span class="schritt__nummer" aria-hidden="true">
+                {s.nummer}
+              </span>
+              <h3>{s.titel}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p>
+        <a href="/ablauf">Der vollständige Ablauf, Schritt für Schritt</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite abschluss">
+      <div>
+        <h2>Lieber direkt anrufen?</h2>
+        <p>
+          {brand.inhaber}, {brand.region}. Wenn ich nicht rangehe, bin ich bei
+          einem Kunden — ruf einfach später noch mal an.
+        </p>
+      </div>
+      <a class="knopf" href={`tel:${brand.telefonE164}`}>
+        {brand.telefonAnzeige}
+      </a>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .wege {
+    display: grid;
+    gap: var(--raum-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .weg {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--raum-3);
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .weg h3 {
+    margin-bottom: var(--raum-1);
+  }
+
+  .weg p {
+    flex-grow: 1;
+  }
+
+  .uebernommen {
+    max-width: 44rem;
+    margin-bottom: var(--raum-4);
+    padding: var(--raum-3);
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .uebernommen__titel {
+    margin: 0 0 var(--raum-1);
+    font-family: var(--schrift-text);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .uebernommen__text {
+    margin: 0 0 var(--raum-2);
+    font-weight: 600;
+  }
+
+  .schritte {
+    display: grid;
+    gap: var(--raum-4);
+    margin: 0 0 var(--raum-4);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .schritt h3 {
+    margin: var(--raum-1) 0 var(--raum-1);
+  }
+
+  .schritt p {
+    margin: 0;
+  }
+
+  .schritt__nummer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    font-family: var(--schrift-titel);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--stahl);
+  }
+
+  .abschluss {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--raum-3);
+  }
+
+  .abschluss h2,
+  .abschluss p {
+    margin: 0;
+  }
+
+  .abschluss h2 {
+    margin-bottom: var(--raum-2);
+  }
+
+  @media (min-width: 48em) {
+    .wege,
+    .schritte {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
