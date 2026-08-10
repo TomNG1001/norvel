@@ -17,7 +17,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 9 | /ueber-mich, /ablauf, /faq | erledigt und geprüft | 2026-08-10 |
 | 10 | /impressum, /datenschutz, 404 | erledigt, Inhalt fehlt | 2026-08-10 |
 | 11 | SEO und Qualität | erledigt und geprüft | 2026-08-10 |
-| 12 | Abschluss | offen | – |
+| 12 | Abschluss | erledigt | 2026-08-10 |
 
 ---
 
@@ -481,3 +481,47 @@ Seitengewicht: 16 kB HTML im Schnitt, 18 kB CSS, 8 kB JavaScript,
    Wenn du willst: `npx lighthouse http://localhost:3490 --view`.
 2. Für die strukturierten Daten fehlt die Anschrift — sie steht noch nicht
    fest. Eine erfundene wäre schlimmer als keine.
+
+---
+
+## Schritt 12 — Abschluss · erledigt am 2026-08-10
+
+**Was noch von Tom fehlt**, steht als abhakbare Liste in
+[`WAS-NOCH-FEHLT.md`](WAS-NOCH-FEHLT.md), sortiert nach Dringlichkeit:
+Rechtstexte und Formspree-Endpunkt zuerst, danach Inhalte, dann
+geschäftliche Festlegungen, dann meine Entscheidungen zum Gegenlesen.
+
+### Bericht: welche Skills ich benutzt habe
+
+**Keinen einzigen.** In Schritt 0 hatte ich acht als voraussichtlich nützlich
+eingestuft. Benutzt habe ich am Ende keinen davon, und das ist keine
+Nachlässigkeit, sondern das Ergebnis der Spezifikation:
+
+| Skill | in Schritt 0 vorgesehen für | warum doch nicht |
+|---|---|---|
+| `design-system` | Farb- und Abstands-Token in Schritt 1 | Der Skill schlägt eine dreischichtige Token-Architektur vor. Toms Vorgabe lautet „an einer Stelle ändern können" — die zusätzliche Schicht hätte das Gegenteil bewirkt. |
+| `frontend-design` | Gestaltung ab Schritt 5 | Farben, Schriften, Bandrhythmus und Verbote standen bereits schriftlich fest. Es gab keine offene Gestaltungsfrage. |
+| `design-taste-frontend` | Gegenlesen | Gleicher Grund. Der Skill hätte eigene Vorschläge gemacht, die laut Rangfolge ohnehin hinter Toms Vorgaben stehen. |
+| `emil-design-eng` | Formulardetails in Schritt 3 und 4 | Die Punkte, die er behandelt, standen schon in der Vorgabe: Fokus sichtbar, Mindestgrößen, kein Schnickschnack. |
+| `ui-ux-pro-max` | Schriftpaarung, Barrierefreiheit | Die Schriftpaarung war vorgegeben. Die Barrierefreiheit habe ich gemessen statt nachgeschlagen. |
+| `full-output-enforcement` | lange Dateien | Nicht nötig, es wurde nichts gekürzt. |
+| `run` | App starten | Der Dev-Server lief über die Vorschau, nicht über den Skill. |
+| `simplify` | Aufräumen | Sollte laut Vorgabe nur auf Zuruf laufen. Kein Zuruf. |
+
+Was ich stattdessen gemacht habe: nach jedem Schritt eigene Prüfskripte
+geschrieben und laufen lassen — für die Preislogik, den Ton, die
+Seitenstruktur, die SEO-Auszeichnung, die Kontraste und die Layout-Sprünge.
+Diese Prüfungen haben die Fehler gefunden, die in den Schritten 2, 5, 7 und 11
+dokumentiert sind.
+
+### Abschließende Prüfung
+
+- `npm run build` — 25 Seiten, keine Fehler.
+- `npm run check:brand` — bestanden.
+- Keine toten internen Verweise.
+- Einzige Seite ohne eingehenden Verweis: `/danke` — richtig so, sie ist nur
+  nach dem Absenden erreichbar und steht auf `noindex`.
+- Alle 25 Seiten: eigener Titel unter 60 Zeichen, eigene Beschreibung unter
+  160, genau eine `h1`, Canonical, Schriften vorabgeladen, `lang="de"`.
+- Kein verbotenes Wort, kein „wir", kein Prozentzeichen im Seitentext.
+- Unterseiten: 4–6 Abschnitte, Brotkrumen, BreadcrumbList.
