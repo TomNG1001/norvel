@@ -1,0 +1,186 @@
+---
+/**
+ * /impressum
+ *
+ * ACHTUNG: Der Inhalt kommt von Tom. Ich schreibe kein Impressum — dafür
+ * fehlen mir seine Anschrift und seine rechtlichen Angaben, und geraten wird
+ * hier nichts. Was steht, ist ein sichtbarer Platzhalter mit der Liste
+ * dessen, was hineingehört.
+ *
+ * Die Angaben aus brand.ts (Name, Mail, Telefon) sind eingesetzt, weil sie
+ * feststehen. Die Anschrift fehlt und ist Pflicht.
+ */
+import Basis from "../layouts/Basis.astro";
+import { brand } from "../config/brand";
+
+/** Was ein Impressum für einen Einzelunternehmer enthalten muss. */
+const pflichtangaben = [
+  {
+    titel: "Anschrift",
+    text: "Straße, Hausnummer, Postleitzahl, Ort. Ein Postfach reicht nicht.",
+    fehlt: true,
+  },
+  {
+    titel: "Name des Anbieters",
+    text: brand.inhaber,
+    fehlt: false,
+  },
+  {
+    titel: "Kontakt",
+    text: `${brand.telefonAnzeige} · ${brand.mail}`,
+    fehlt: false,
+  },
+  {
+    titel: "Umsatzsteuer-Identifikationsnummer",
+    text: "Entfällt bei Kleinunternehmern nach § 19 UStG. Tom muss bestätigen, dass er keine hat.",
+    fehlt: true,
+  },
+  {
+    titel: "Verantwortlich für den Inhalt",
+    text: "Name und Anschrift, meist dieselbe Person.",
+    fehlt: true,
+  },
+  {
+    titel: "Hinweis zur Streitbeilegung",
+    text: "Ob und in welcher Form ein Hinweis nötig ist, muss Tom prüfen lassen.",
+    fehlt: true,
+  },
+];
+---
+
+<Basis
+  titel="Impressum"
+  beschreibung="Anbieterkennzeichnung nach § 5 DDG."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Impressum</h1>
+
+      <div class="platzhalter">
+        <p class="platzhalter__marke">Platzhalter — Inhalt fehlt noch</p>
+        <p>
+          Diese Seite ist noch nicht fertig. Der Text muss von Tom kommen und
+          sollte rechtlich geprüft sein, bevor die Website online geht. Ein
+          fehlendes oder falsches Impressum ist abmahnfähig.
+        </p>
+      </div>
+
+      <h2>Was hier stehen muss</h2>
+      <dl class="angaben">
+        {
+          pflichtangaben.map((a) => (
+            <div class:list={["angabe", a.fehlt && "angabe--fehlt"]}>
+              <dt>{a.titel}</dt>
+              <dd>
+                {a.text}
+                {a.fehlt && <span class="angabe__marke">fehlt</span>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Kontakt</h2>
+      <p class="vorspann">
+        Bis das Impressum steht, erreichst du mich so:
+      </p>
+      <p class="knoepfe">
+        <a class="knopf" href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige}
+        </a>
+        <a class="knopf knopf--umriss" href="/kontakt">Zum Kontaktformular</a>
+      </p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .platzhalter {
+    max-width: 44rem;
+    margin-bottom: var(--raum-5);
+    padding: var(--raum-3);
+    border: 2px dashed var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .platzhalter__marke {
+    margin: 0 0 var(--raum-2);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .platzhalter p:last-child {
+    margin-bottom: 0;
+  }
+
+  .angaben {
+    margin: 0;
+    max-width: 44rem;
+  }
+
+  .angabe {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: var(--raum-2) 0;
+    border-bottom: 1px solid var(--eisblau);
+  }
+
+  .angabe dt {
+    font-weight: 600;
+  }
+
+  .angabe dd {
+    margin: 0;
+  }
+
+  .angabe--fehlt dd {
+    color: color-mix(in srgb, var(--tinte) 65%, var(--papier));
+  }
+
+  .angabe__marke {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--stahl);
+    border-radius: var(--radius);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stahl);
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+
+  @media (min-width: 40em) {
+    .angabe {
+      grid-template-columns: 18rem 1fr;
+      gap: var(--raum-2);
+    }
+  }
+</style>

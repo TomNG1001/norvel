@@ -1,0 +1,92 @@
+---
+/**
+ * 404 — Seite nicht gefunden.
+ *
+ * Wird von Cloudflare Pages automatisch ausgeliefert, wenn eine Adresse nicht
+ * existiert. Keine Sackgasse: von hier führen Wege zurück, und die
+ * Telefonnummer steht da, falls jemand über eine alte Visitenkarte kommt.
+ */
+import Basis from "../layouts/Basis.astro";
+import Kontaktabschluss from "../components/Kontaktabschluss.astro";
+import { hauptnavigation } from "../config/navigation";
+import { brand } from "../config/brand";
+---
+
+<Basis
+  titel="Seite nicht gefunden"
+  beschreibung="Diese Adresse gibt es nicht. Hier geht es zurück."
+  noindex={true}
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <p class="fehlernummer">404</p>
+      <h1>Diese Seite gibt es nicht</h1>
+      <p class="vorspann">
+        Vielleicht ein Tippfehler, vielleicht ein alter Verweis. Beides nicht
+        schlimm — hier geht es weiter.
+      </p>
+      <p>
+        <a class="knopf" href="/">Zur Startseite</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Wonach hast du gesucht?</h2>
+      <ul class="reihe">
+        {
+          hauptnavigation.map((p) => (
+            <li>
+              <a href={p.pfad}>{p.text}</a>
+            </li>
+          ))
+        }
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+      <p>
+        Wenn du über eine Visitenkarte oder einen Zettel hierhergekommen bist:
+        ruf einfach an, <a href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige}</a>.
+      </p>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .fehlernummer {
+    margin: 0 0 var(--raum-2);
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h1);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--eisblau);
+  }
+
+  .reihe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-4);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .reihe a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--papier);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .reihe a:hover {
+    border-color: var(--stahl);
+  }
+</style>

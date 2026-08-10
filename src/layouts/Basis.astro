@@ -3,12 +3,22 @@
  * Grundgerüst jeder Seite: Kopf, Inhalt, Fuß.
  *
  * Titel und Beschreibung kommen von der jeweiligen Seite, damit sie nie
- * doppelt sind. Die feinere SEO-Arbeit (Canonical, JSON-LD, Sitemap) kommt
- * laut Plan erst in Schritt 11 dazu.
+ * doppelt sind. Dazu die Angaben, die auf jede Seite gehören: Canonical,
+ * Sprache und die strukturierten Daten zum Betrieb.
  */
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/public-sans";
 import "../styles/global.css";
+
+/**
+ * Die beiden Schriftdateien werden vorab geladen.
+ *
+ * Ohne das erscheint der Text zuerst in der Systemschrift und springt beim
+ * Nachladen um — gemessen 0,38 an Layout-Sprüngen, erlaubt sind 0,1. Mit dem
+ * Vorabladen sind die Schriften da, bevor der Text zum ersten Mal erscheint.
+ */
+import schriftTitel from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
+import schriftText from "@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url";
 
 import Kopfbereich from "../components/Kopfbereich.astro";
 import Fussbereich from "../components/Fussbereich.astro";
@@ -17,11 +27,31 @@ import { brand } from "../config/brand";
 interface Props {
   titel: string;
   beschreibung: string;
-  /** Seiten, die nicht in die Suche gehören — bisher nur /danke. */
+  /** Seiten, die nicht in die Suche gehören: /danke und 404. */
   noindex?: boolean;
 }
 
 const { titel, beschreibung, noindex = false } = Astro.props;
+
+/** Eine eindeutige Adresse je Seite, damit Google keine Doppel sieht. */
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+/**
+ * Strukturierte Daten zum Betrieb, auf jeder Seite.
+ * Die Anschrift fehlt bewusst — sie steht noch nicht fest, und eine erfundene
+ * Adresse wäre schlimmer als gar keine.
+ */
+const betrieb = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: brand.name,
+  url: brand.domain,
+  telephone: brand.telefonE164,
+  email: brand.mail,
+  areaServed: { "@type": "AdministrativeArea", name: brand.region },
+  founder: { "@type": "Person", name: brand.inhaber },
+  knowsLanguage: "de",
+};
 ---
 
 <!doctype html>
@@ -29,11 +59,40 @@ const { titel, beschreibung, noindex = false } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={schriftText}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={schriftTitel}
+      crossorigin
+    />
+
     <title>{titel} – {brand.name}</title>
     <meta name="description" content={beschreibung} />
+    <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0a1a30" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${titel} – ${brand.name}`} />
+    <meta property="og:description" content={beschreibung} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="de_DE" />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(betrieb)}
+      is:inline
+    />
   </head>
 
   <body>

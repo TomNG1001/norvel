@@ -1,0 +1,122 @@
+---
+/**
+ * /arbeiten — Übersicht der Beispielprojekte.
+ *
+ * RECHTLICHES: Über den Karten steht der Hinweis, dass noch keine Kundenseite
+ * live ist, und jede Karte trägt sichtbar „Konzeptprojekt". Beides kommt aus
+ * projekte.ts und verschwindet automatisch, sobald dort `art` auf "kunde"
+ * springt. Erfundene Kundenzitate oder Erfolgszahlen gibt es nicht — dafür
+ * existiert im Datenmodell nicht einmal ein Feld.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import {
+  projekte,
+  hinweisKonzeptprojekte,
+  zeigeKonzepthinweis,
+  kennzeichnung,
+} from "../../data/projekte";
+import { branchen } from "../../data/branchen";
+import { paketNach } from "../../data/pakete";
+---
+
+<Basis
+  titel="Referenzen"
+  beschreibung="Drei Konzeptprojekte: Restaurant, Kosmetikstudio, Hundesalon. Echte Aufgabenstellungen, durchgeplant und gebaut — noch ohne Auftraggeber."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen krumen={[{ text: "Referenzen" }]} />
+      <h1>Beispiele</h1>
+      {zeigeKonzepthinweis && <p class="vorspann">{hinweisKonzeptprojekte}</p>}
+      <p>
+        Warum ich sie trotzdem zeige: Du sollst sehen, wie ich eine Aufgabe
+        angehe, bevor du Geld ausgibst. Was in den Projekten steht, ist keine
+        Erfindung — es sind die Fragen, die mir Betriebe seit Jahren stellen.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2 class="nur-vorlesen">Die drei Projekte</h2>
+      <ul class="kacheln kacheln--3">
+        {
+          projekte.map((p) => {
+            const branche = branchen.find((b) => b.slug === p.branche);
+            const paket = paketNach(p.paket);
+            return (
+              <li class="kachel">
+                {kennzeichnung(p) && (
+                  <p class="kachel__marke">{kennzeichnung(p)}</p>
+                )}
+                <h3>{p.name}</h3>
+                <p>{p.kurz}</p>
+                <p class="leise fakten">
+                  {branche?.einzahl} · Paket {paket.name} · {p.seitenzahl} Seiten
+                </p>
+                <a class="kachel__mehr" href={`/arbeiten/${p.slug}`}>
+                  Projekt ansehen
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Deine Branche ist nicht dabei?</h2>
+      <p class="vorspann">
+        Der Aufbau ist überall derselbe: Wer kommt zu dir, was muss diese
+        Person vorher wissen, und wie erreicht sie dich. Nur die Antworten sind
+        andere.
+      </p>
+      <ul class="branchenreihe">
+        {
+          branchen.map((b) => (
+            <li>
+              <a href={`/branchen/${b.slug}`}>{b.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .fakten {
+    margin-top: calc(var(--raum-3) * -1 + var(--raum-1));
+    margin-bottom: var(--raum-3);
+  }
+
+  .branchenreihe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .branchenreihe a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .branchenreihe a:hover {
+    border-color: var(--stahl);
+  }
+</style>

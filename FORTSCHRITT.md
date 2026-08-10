@@ -13,10 +13,10 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 5 | Startseite | erledigt und geprüft | 2026-08-10 |
 | 6 | /leistungen und die 4 Unterseiten | erledigt und geprüft | 2026-08-10 |
 | 7 | /branchen und die 5 Unterseiten | erledigt und geprüft | 2026-08-10 |
-| 8 | /arbeiten und die 3 Projektseiten | offen | – |
-| 9 | /ueber-mich, /ablauf, /faq | offen | – |
-| 10 | /impressum, /datenschutz, 404 | offen | – |
-| 11 | SEO und Qualität | offen | – |
+| 8 | /arbeiten und die 3 Projektseiten | erledigt und geprüft | 2026-08-10 |
+| 9 | /ueber-mich, /ablauf, /faq | erledigt und geprüft | 2026-08-10 |
+| 10 | /impressum, /datenschutz, 404 | erledigt, Inhalt fehlt | 2026-08-10 |
+| 11 | SEO und Qualität | erledigt und geprüft | 2026-08-10 |
 | 12 | Abschluss | offen | – |
 
 ---
@@ -400,3 +400,84 @@ zweite Seite darf das wiederholen. Es gibt keine Branche-mal-Stadt-Adressen.
 Geprüft: alle 15 Seiten ohne Regelverstoß — kein verbotenes Wort, kein „wir",
 kein Prozentzeichen, Titel unter 60, Beschreibung unter 160, genau eine h1,
 Unterseiten mit 4–6 Abschnitten und Brotkrumen.
+
+---
+
+## Schritt 8 — /arbeiten und die drei Projektseiten · erledigt am 2026-08-10
+
+Übersicht plus drei Projektseiten aus einer Vorlage. Aufbau je Projektseite:
+Kopf mit Kennzeichnung · Aufgabe und Umsetzung · Eckdaten (Tinte) · Was das
+für die Branche heißt · die anderen Beispiele · Kontaktabschluss.
+
+**Rechtliches geprüft:** „Konzeptprojekt" steht auf jeder Ansicht — auf der
+Übersicht 4×, auf jeder Detailseite 5×, auf der Startseite 3×. Über den Karten
+steht der Hinweis, dass keine Kundenseite live ist. Für Kundenzitate und
+Erfolgszahlen gibt es im Datenmodell nicht einmal ein Feld.
+
+Der Weg zurück ist geschlossen: Projekt → Branche → Paket → Kontakt.
+
+---
+
+## Schritt 9 — /ueber-mich, /ablauf, /faq · erledigt am 2026-08-10
+
+- **/ueber-mich** — vier Abschnitte. „Wie ich arbeite" und „Was ich nicht
+  mache" sind aus den Projektregeln abgeleitet, nicht erfunden. Der Absatz
+  „Wie ich dazu gekommen bin" ist ein sichtbarer Platzhalter: Werdegang und
+  Beweggrund kann nur Tom schreiben. Ein Foto fehlt ebenfalls.
+- **/ablauf** — die sechs Schritte aus `ablauf.ts`, dazu ein Tinte-Band mit
+  allem, was Tom vom Kunden braucht. Diese Liste entsteht aus den Feldern
+  `vonDir` und kann nicht auseinanderlaufen.
+- **/faq** — 17 Fragen in vier Gruppen mit Sprungmarken. Branchen- und
+  Leistungsfragen stehen bewusst nicht hier, sondern bei der Branche und der
+  Leistung; von hier führen nur Verweise dorthin.
+
+---
+
+## Schritt 10 — /impressum, /datenschutz, 404 · erledigt am 2026-08-10
+
+Die Seiten stehen, **die Rechtstexte fehlen** — die liefert Tom.
+
+- **/impressum** — sichtbarer Platzhalter plus die Liste der Pflichtangaben,
+  jede einzeln als „fehlt" markiert, wo sie fehlt. Die Anschrift ist Pflicht
+  und fehlt.
+- **/datenschutz** — sichtbarer Platzhalter plus technische Zuarbeit: was
+  diese Website nachweislich **nicht** tut (kein Zählwerkzeug, keine Cookies,
+  keine fremden Schriften, keine Einbettungen) und die vier Punkte, die in den
+  Text müssen.
+- **404** — keine Sackgasse: Hauptnavigation, Telefonnummer, Startseite. Auf
+  `noindex`.
+
+---
+
+## Schritt 11 — SEO und Qualität · erledigt am 2026-08-10
+
+- `@astrojs/sitemap` eingebaut, `/danke` herausgefiltert. 23 Adressen.
+- `/robots.txt` wird beim Build aus `brand.ts` erzeugt, damit die Domain nicht
+  an zweiter Stelle im Projekt steht.
+- Canonical auf allen 25 Seiten, Open-Graph-Angaben dazu.
+- **JSON-LD:** ProfessionalService 25×, BreadcrumbList 15× (jede Unterseite),
+  FAQPage 6× (genau `/faq` und die fünf Branchenseiten, sonst nirgends).
+  Die BreadcrumbList entsteht in der Brotkrumen-Komponente selbst — dieselben
+  Daten, deshalb kann sie nicht von der sichtbaren Navigation abweichen.
+
+**Der wichtigste Fund: Layout-Sprünge von 0,38.** Erlaubt sind 0,1. Ursache:
+Der Text erschien erst in der Systemschrift und sprang beim Nachladen der
+Schriften um. Beide Schriftdateien werden jetzt vorab geladen — gemessen
+**0,0000**. Kein einziger Sprung mehr.
+
+Weiter gemessen: Überschriftenfolge ohne Sprünge, kein Verweis ohne Text,
+kein Formularfeld ohne Beschriftung, Fokusumriss 3 px, `lang="de"`,
+Sprungmarke zum Inhalt, je eine Kopf-, Inhalts- und Fußlandmarke.
+
+Seitengewicht: 16 kB HTML im Schnitt, 18 kB CSS, 8 kB JavaScript,
+119 kB Schriften.
+
+### Offene Punkte
+
+1. **Lighthouse selbst wurde nicht ausgeführt.** Dafür wäre ein weiteres
+   npm-Paket nötig, und die Vorgabe erlaubt nur `@fontsource` und
+   `@astrojs/sitemap` ohne Rückfrage. Gemessen habe ich stattdessen einzeln:
+   Layout-Sprünge, Kontraste, Überschriften, Beschriftungen, Fokus, Gewicht.
+   Wenn du willst: `npx lighthouse http://localhost:3490 --view`.
+2. Für die strukturierten Daten fehlt die Anschrift — sie steht noch nicht
+   fest. Eine erfundene wäre schlimmer als keine.

@@ -1,0 +1,174 @@
+---
+/**
+ * /ablauf — die sechs Schritte von der Anfrage bis online.
+ *
+ * Alles aus ablauf.ts. Wer dort einen Schritt ergänzt, ändert diese Seite,
+ * ohne diese Datei anzufassen.
+ */
+import Basis from "../layouts/Basis.astro";
+import Kontaktabschluss from "../components/Kontaktabschluss.astro";
+import { ablauf } from "../data/ablauf";
+
+/** Was Tom vom Kunden braucht — steht bei den Schritten, hier gesammelt. */
+const gebrauchtVonDir = ablauf
+  .filter((s) => s.vonDir !== null)
+  .map((s) => ({ nummer: s.nummer, was: s.vonDir as string }));
+---
+
+<Basis
+  titel="So läuft es ab"
+  beschreibung="Sechs Schritte von der Anfrage bis zur fertigen Seite. Was wann passiert, wie lange es dauert und was ich dafür von dir brauche."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>So läuft es ab</h1>
+      <p class="vorspann">
+        Sechs Schritte, keine Überraschungen. Du weißt nach dem ersten Telefonat,
+        was es kostet und wie lange es dauert. Am längsten dauert meistens der
+        dritte Schritt — und der liegt bei dir.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2 class="nur-vorlesen">Die sechs Schritte</h2>
+      <ol class="schritte">
+        {
+          ablauf.map((s) => (
+            <li class="schritt">
+              <div class="schritt__kopf">
+                <span class="schritt__nummer" aria-hidden="true">
+                  {s.nummer}
+                </span>
+                <h3>{s.titel}</h3>
+                <p class="schritt__dauer">{s.dauer}</p>
+              </div>
+              <p>{s.text}</p>
+              {s.vonDir && (
+                <p class="schritt__vondir">
+                  <strong>Von dir:</strong> {s.vonDir}
+                </p>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Was ich von dir brauche</h2>
+      <p class="vorspann">
+        Alles auf einen Blick. Wenn du das beisammen hast, bevor du dich
+        meldest, geht es entsprechend schneller.
+      </p>
+      <ul class="liste">
+        {
+          gebrauchtVonDir.map((g) => (
+            <li>
+              <span class="liste__nummer">Schritt {g.nummer}</span>
+              {g.was}
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        <a class="knopf" href="/kontakt">Anfrage schicken</a>
+      </p>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .schritte {
+    display: grid;
+    gap: var(--raum-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+    counter-reset: schritt;
+  }
+
+  .schritt {
+    padding-bottom: var(--raum-4);
+    border-bottom: 1px solid var(--eisblau);
+    max-width: 48rem;
+  }
+
+  .schritt:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .schritt__kopf {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--raum-1) var(--raum-2);
+    margin-bottom: var(--raum-2);
+  }
+
+  .schritt__nummer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    font-family: var(--schrift-titel);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--stahl);
+  }
+
+  .schritt__kopf h3 {
+    margin: 0;
+  }
+
+  .schritt__dauer {
+    grid-column: 2;
+    margin: 0;
+    font-size: var(--gr-klein);
+    color: color-mix(in srgb, var(--tinte) 70%, var(--karte));
+  }
+
+  .schritt p {
+    margin-bottom: var(--raum-2);
+  }
+
+  .schritt__vondir {
+    margin: 0;
+    padding: var(--raum-2);
+    border-left: 3px solid var(--eisblau);
+    background: var(--papier);
+  }
+
+  .liste {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-4);
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .liste li {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--raum-2);
+    padding-bottom: var(--raum-2);
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--auf-tinte) 25%, transparent);
+  }
+
+  .liste__nummer {
+    font-weight: 600;
+    color: var(--auf-tinte-leise);
+  }
+</style>

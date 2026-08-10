@@ -1,0 +1,174 @@
+---
+/**
+ * /datenschutz
+ *
+ * ACHTUNG: Der Rechtstext kommt von Tom und sollte geprüft sein. Was ich
+ * beitragen kann, ist die technische Wahrheit: was diese Website tatsächlich
+ * tut und was nicht. Genau das steht hier — als Zuarbeit für den Text, nicht
+ * als Ersatz dafür.
+ */
+import Basis from "../layouts/Basis.astro";
+import { brand } from "../config/brand";
+import { formspreeEndpunkt, endpunktFehlt } from "../config/formular";
+
+/** Was diese Website nachweislich nicht tut. Nachgeprüft im Build. */
+const wirdNichtGemacht = [
+  "Kein Google Analytics und kein anderes Zählwerkzeug.",
+  "Keine Cookies. Deshalb gibt es auch kein Cookie-Banner.",
+  "Keine Schriften von fremden Servern — beide Schriften liegen auf dieser Website selbst.",
+  "Keine eingebetteten Karten, Videos oder Schaltflächen sozialer Netzwerke.",
+  "Kein Profil über Besucher, keine Wiedererkennung.",
+];
+
+/** Was tatsächlich Daten verarbeitet und deshalb in den Text muss. */
+const zuKlaeren = [
+  {
+    titel: "Kontaktformular",
+    text: endpunktFehlt
+      ? "Das Formular soll an Formspree gehen. Der Endpunkt ist noch nicht eingetragen. In den Text gehört: welche Felder erhoben werden, wofür, wie lange sie gespeichert bleiben und dass ein Dienstleister beteiligt ist."
+      : `Die Angaben gehen an ${formspreeEndpunkt}. In den Text gehört: welche Felder, wofür, wie lange gespeichert, und der Auftragsverarbeitungsvertrag mit dem Anbieter.`,
+  },
+  {
+    titel: "Hosting",
+    text: "Der Hostinganbieter schreibt technisch bedingt Zugriffsprotokolle mit, in der Regel einschließlich IP-Adresse. Welcher Anbieter das ist und wie lange er speichert, muss Tom eintragen.",
+  },
+  {
+    titel: "Rechte der Besucher",
+    text: "Auskunft, Berichtigung, Löschung, Widerspruch, Beschwerde bei der Aufsichtsbehörde. Gehört vollständig in den Text.",
+  },
+  {
+    titel: "Verantwortlicher",
+    text: `${brand.inhaber}, Anschrift wie im Impressum. Die Anschrift fehlt dort noch.`,
+  },
+];
+---
+
+<Basis
+  titel="Datenschutz"
+  beschreibung="Was diese Website mit Daten macht — und vor allem, was sie nicht macht."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Datenschutz</h1>
+
+      <div class="platzhalter">
+        <p class="platzhalter__marke">Platzhalter — Rechtstext fehlt noch</p>
+        <p>
+          Die eigentliche Datenschutzerklärung muss von Tom kommen und sollte
+          geprüft sein, bevor die Website online geht. Was unten steht, ist die
+          technische Zuarbeit dafür: was diese Website tatsächlich tut.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Was diese Website nicht tut</h2>
+      <p class="vorspann">
+        Diese Punkte sind keine Absichtserklärung, sondern im fertigen Build
+        nachgeprüft.
+      </p>
+      <ul class="liste">
+        {wirdNichtGemacht.map((z) => <li>{z}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Was in den Text gehört</h2>
+      <p class="vorspann">
+        Diese vier Punkte verarbeiten Daten oder sind gesetzlich vorgeschrieben.
+        Sie müssen in der Erklärung stehen.
+      </p>
+      <dl class="angaben">
+        {
+          zuKlaeren.map((a) => (
+            <div class="angabe">
+              <dt>{a.titel}</dt>
+              <dd>{a.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p>
+        <a class="knopf knopf--rand" href="/impressum">Zum Impressum</a>
+      </p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+  .platzhalter {
+    max-width: 44rem;
+    padding: var(--raum-3);
+    border: 2px dashed var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .platzhalter__marke {
+    margin: 0 0 var(--raum-2);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .platzhalter p:last-child {
+    margin-bottom: 0;
+  }
+
+  .liste {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .liste li {
+    position: relative;
+    padding-left: 1.375rem;
+  }
+
+  .liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 0.75rem;
+    height: 2px;
+    background: var(--auf-tinte-leise);
+  }
+
+  .angaben {
+    margin: 0 0 var(--raum-4);
+    max-width: 44rem;
+  }
+
+  .angabe {
+    padding: var(--raum-3) 0;
+    border-bottom: 1px solid var(--eisblau);
+  }
+
+  .angabe:first-child {
+    border-top: 1px solid var(--eisblau);
+  }
+
+  .angabe dt {
+    margin-bottom: var(--raum-1);
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .angabe dd {
+    margin: 0;
+    max-width: var(--breite-text);
+  }
+</style>

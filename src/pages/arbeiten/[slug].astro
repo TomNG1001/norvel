@@ -1,0 +1,249 @@
+---
+/**
+ * Vorlage für die Projektseiten. Drei Seiten, eine Datei.
+ *
+ * Aufbau, sechs Abschnitte:
+ * 1. Kopf mit Brotkrumen und der Kennzeichnung „Konzeptprojekt"
+ * 2. Aufgabe und Umsetzung
+ * 3. Die Eckdaten (Tinte): Paket, Seitenzahl, Dauer
+ * 4. Was das für diese Branche heißt — der Weg zurück zur Branchenseite
+ * 5. Die anderen Projekte
+ * 6. Kontaktabschluss
+ *
+ * RECHTLICHES: Die Kennzeichnung steht im Kopf, in der Adresszeile des
+ * Brotkrumenpfads und in den Eckdaten. Sie verschwindet erst, wenn in
+ * projekte.ts `art` auf "kunde" springt.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { projekte, kennzeichnung, type Projekt } from "../../data/projekte";
+import { branchen } from "../../data/branchen";
+import { paketNach, euro, umsatzsteuerHinweis, urlParameter } from "../../data/pakete";
+
+export function getStaticPaths() {
+  return projekte.map((projekt) => ({
+    params: { slug: projekt.slug },
+    props: { projekt },
+  }));
+}
+
+interface Props {
+  projekt: Projekt;
+}
+
+const { projekt } = Astro.props;
+
+const branche = branchen.find((b) => b.slug === projekt.branche);
+const paket = paketNach(projekt.paket);
+const andere = projekte.filter((p) => p.slug !== projekt.slug);
+const marke = kennzeichnung(projekt);
+---
+
+<Basis titel={projekt.seoTitel} beschreibung={projekt.seoText}>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen
+        krumen={[
+          { text: "Referenzen", pfad: "/arbeiten" },
+          { text: projekt.name },
+        ]}
+      />
+      {marke && <p class="marke">{marke}</p>}
+      <h1>{projekt.name}</h1>
+      <p class="vorspann">{projekt.kurz}</p>
+      {
+        marke && (
+          <p class="leise">
+            Kein Auftraggeber, keine Kundenaussagen, keine Erfolgszahlen. Was
+            hier steht, ist meine Planung für eine echte Aufgabenstellung.
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Die Aufgabe</h2>
+      <p class="vorspann">{projekt.aufgabe}</p>
+
+      <h3 class="untertitel">Was ich gebaut habe</h3>
+      <ul class="liste">
+        {projekt.umsetzung.map((z) => <li>{z}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Die Eckdaten</h2>
+      <dl class="eckdaten">
+        <div>
+          <dt>Art</dt>
+          <dd>{marke ?? "Kundenprojekt"}</dd>
+        </div>
+        <div>
+          <dt>Branche</dt>
+          <dd>{branche?.einzahl}</dd>
+        </div>
+        <div>
+          <dt>Paket</dt>
+          <dd>{paket.name}, ab {euro(paket.preisAb)}</dd>
+        </div>
+        <div>
+          <dt>Seiten</dt>
+          <dd>{projekt.seitenzahl}</dd>
+        </div>
+        <div>
+          <dt>Dauer</dt>
+          <dd>{projekt.dauer}</dd>
+        </div>
+      </dl>
+      <p class="leise">{umsatzsteuerHinweis}</p>
+      <p class="knoepfe">
+        <a
+          class="knopf"
+          href={`/preise?${urlParameter.paket}=${paket.id}#konfigurator`}
+        >
+          Mit {paket.name} rechnen
+        </a>
+        <a class="knopf knopf--umriss" href="/kontakt">Anfrage schicken</a>
+      </p>
+    </div>
+  </section>
+
+  {
+    branche && (
+      <section class="abschnitt">
+        <div class="breite">
+          <h2>Was das für {branche.name} heißt</h2>
+          <p class="vorspann">{branche.problem}</p>
+          <p>
+            <a class="knopf knopf--rand" href={`/branchen/${branche.slug}`}>
+              Zur Seite für {branche.name}
+            </a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Die anderen Beispiele</h2>
+      <ul class="kacheln kacheln--2">
+        {
+          andere.map((p) => (
+            <li class="kachel">
+              {kennzeichnung(p) && (
+                <p class="kachel__marke">{kennzeichnung(p)}</p>
+              )}
+              <h3>{p.name}</h3>
+              <p>{p.kurz}</p>
+              <a class="kachel__mehr" href={`/arbeiten/${p.slug}`}>
+                Projekt ansehen
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .marke {
+    display: inline-block;
+    margin: 0 0 var(--raum-2);
+    padding: 0.375rem 0.75rem;
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .untertitel {
+    margin-top: var(--raum-5);
+  }
+
+  .liste {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .liste li {
+    position: relative;
+    padding-left: 1.125rem;
+  }
+
+  .liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--stahl);
+  }
+
+  /* Eckdaten ------------------------------------------------------------- */
+
+  .eckdaten {
+    display: grid;
+    gap: 0;
+    margin: 0 0 var(--raum-3);
+    max-width: 44rem;
+  }
+
+  .eckdaten > div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--raum-2);
+    padding: var(--raum-2) 0;
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--auf-tinte) 25%, transparent);
+  }
+
+  .eckdaten > div:first-child {
+    border-top: 1px solid
+      color-mix(in srgb, var(--auf-tinte) 25%, transparent);
+  }
+
+  .eckdaten dt {
+    font-weight: 600;
+    color: var(--auf-tinte-leise);
+  }
+
+  .eckdaten dd {
+    margin: 0;
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin-top: var(--raum-3);
+  }
+
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+</style>

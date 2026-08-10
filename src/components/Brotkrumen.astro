@@ -18,7 +18,30 @@ interface Props {
 }
 
 const { krumen } = Astro.props;
+
+/**
+ * Dieselbe Abfolge noch einmal für Google. Sie steht hier und nicht im
+ * Layout, weil die Daten schon hier liegen — so kann sie nicht auseinander
+ * laufen.
+ */
+const alle = [{ text: "Start", pfad: "/" }, ...krumen];
+const breadcrumbList = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: alle.map((k, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: k.text,
+    ...(k.pfad ? { item: new URL(k.pfad, Astro.site).href } : {}),
+  })),
+};
 ---
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(breadcrumbList)}
+  is:inline
+/>
 
 <nav class="brotkrumen" aria-label="Brotkrumennavigation">
   <ol>

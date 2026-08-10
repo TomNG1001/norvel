@@ -16,6 +16,7 @@
 import Basis from "../../layouts/Basis.astro";
 import Brotkrumen from "../../components/Brotkrumen.astro";
 import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import FaqDaten from "../../components/FaqDaten.astro";
 import { branchen, type Branche } from "../../data/branchen";
 import { projektNach, kennzeichnung } from "../../data/projekte";
 import {
@@ -180,6 +181,8 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
       </ul>
     </div>
   </section>
+
+  <FaqDaten eintraege={branche.faq} />
 
   <Kontaktabschluss />
 </Basis>

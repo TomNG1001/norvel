@@ -1,0 +1,201 @@
+---
+/**
+ * /faq — die allgemeinen Fragen aus faq.ts.
+ *
+ * Branchen- und leistungsbezogene Fragen stehen bewusst nicht hier, sondern
+ * bei der jeweiligen Branche und Leistung. Doppelter Inhalt schadet bei
+ * Google und beim Lesen. Von hier führen nur Verweise dorthin.
+ *
+ * In Schritt 11 kommt die FAQPage-Auszeichnung dazu.
+ */
+import Basis from "../layouts/Basis.astro";
+import Kontaktabschluss from "../components/Kontaktabschluss.astro";
+import FaqDaten from "../components/FaqDaten.astro";
+import { faqGruppen, alleFaqEintraege } from "../data/faq";
+import { branchen } from "../data/branchen";
+import { leistungen } from "../data/leistungen";
+import { brand } from "../config/brand";
+---
+
+<Basis
+  titel="Häufige Fragen"
+  beschreibung="Dauer, Preise, Bezahlung, Domain, Pflege und Zusammenarbeit. Die Fragen, die mir am häufigsten gestellt werden — offen beantwortet."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <h1>Häufige Fragen</h1>
+      <p class="vorspann">
+        {alleFaqEintraege.length} Fragen, die mir immer wieder gestellt werden.
+        Wenn deine nicht dabei ist, ruf an — dann steht sie beim nächsten Mal
+        hier.
+      </p>
+      <ul class="sprungmarken">
+        {
+          faqGruppen.map((g) => (
+            <li>
+              <a href={`#${g.titel.toLowerCase().replace(/[^a-zäöüß]+/g, "-")}`}>
+                {g.titel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      {
+        faqGruppen.map((g) => (
+          <div class="gruppe">
+            <h2 id={g.titel.toLowerCase().replace(/[^a-zäöüß]+/g, "-")}>
+              {g.titel}
+            </h2>
+            <dl class="fragen">
+              {g.eintraege.map((f) => (
+                <div class="frage">
+                  <dt>{f.frage}</dt>
+                  <dd>{f.antwort}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Fragen zu deiner Branche</h2>
+      <p class="vorspann">
+        Jede Branche hat eigene Fragen. Sie stehen dort, wo sie hingehören —
+        nicht doppelt auf dieser Seite.
+      </p>
+      <ul class="reihe">
+        {
+          branchen.map((b) => (
+            <li>
+              <a href={`/branchen/${b.slug}`}>{b.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="untertitel">Fragen zu einzelnen Leistungen</h3>
+      <ul class="reihe">
+        {
+          leistungen.map((l) => (
+            <li>
+              <a href={`/leistungen/${l.slug}`}>{l.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>Deine Frage steht nicht dabei?</h2>
+      <p class="vorspann">
+        Dann ruf an. Ich beiße nicht und verkaufe dir auch nichts, was du nicht
+        brauchst.
+      </p>
+      <p class="knoepfe">
+        <a class="knopf" href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige}
+        </a>
+        <a class="knopf knopf--umriss" href="/kontakt">Schreib mir</a>
+      </p>
+    </div>
+  </section>
+
+  <FaqDaten eintraege={alleFaqEintraege} />
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .sprungmarken,
+  .reihe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-3);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .sprungmarken a,
+  .reihe a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--karte);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .sprungmarken a:hover,
+  .reihe a:hover {
+    border-color: var(--stahl);
+  }
+
+  .gruppe + .gruppe {
+    margin-top: var(--raum-6);
+  }
+
+  .gruppe h2 {
+    padding-bottom: var(--raum-2);
+    border-bottom: 2px solid var(--eisblau);
+  }
+
+  .fragen {
+    margin: 0;
+    max-width: 44rem;
+  }
+
+  .frage + .frage {
+    margin-top: var(--raum-3);
+    padding-top: var(--raum-3);
+    border-top: 1px solid var(--eisblau);
+  }
+
+  .fragen dt {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: var(--raum-1);
+  }
+
+  .fragen dd {
+    margin: 0;
+    max-width: var(--breite-text);
+  }
+
+  .untertitel {
+    margin-top: var(--raum-5);
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+</style>

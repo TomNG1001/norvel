@@ -1,0 +1,32 @@
+---
+/**
+ * FAQPage-Auszeichnung für Google. Laut Vorgabe nur auf /faq und den
+ * Branchenseiten — nicht überall, wo zufällig Fragen stehen.
+ *
+ * Wichtig: Es werden genau die Fragen ausgezeichnet, die auf derselben Seite
+ * auch sichtbar stehen. Alles andere wäre eine Falschangabe gegenüber Google.
+ */
+import type { FaqEintrag } from "../data/typen";
+
+interface Props {
+  eintraege: FaqEintrag[];
+}
+
+const { eintraege } = Astro.props;
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: eintraege.map((f) => ({
+    "@type": "Question",
+    name: f.frage,
+    acceptedAnswer: { "@type": "Answer", text: f.antwort },
+  })),
+};
+---
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(faqPage)}
+  is:inline
+/>
