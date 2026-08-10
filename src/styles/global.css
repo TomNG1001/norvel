@@ -64,7 +64,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  /* Kein weiches Scrollen. Ein Sprung zu #konfigurator führt über mehrere
+     tausend Pixel — als Animation dauert das lange und man verliert die
+     Orientierung. Sprungziele sollen sofort da sein. */
 }
 
 body {
@@ -457,8 +459,6 @@ input[type="checkbox"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-
   *,
   *::before,
   *::after {

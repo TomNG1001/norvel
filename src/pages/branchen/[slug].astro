@@ -1,0 +1,334 @@
+---
+/**
+ * Vorlage für alle Branchenseiten. Fünf Seiten, eine Datei.
+ *
+ * Aufbau, sechs Abschnitte:
+ * 1. Kopf mit Brotkrumen
+ * 2. Was heute schiefläuft + was deine Seite können muss
+ * 3. Das passende Paket (Tinte) — der Weg zu /preise
+ * 4. Beispielprojekt
+ * 5. Häufige Fragen dieser Branche
+ * 6. Kontaktabschluss
+ *
+ * Verbindungsweg laut Vorgabe: Branchenseite → passendes Paket auf /preise →
+ * /kontakt. Und jede Branchenseite verweist auf ihr Beispielprojekt.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { branchen, type Branche } from "../../data/branchen";
+import { projektNach, kennzeichnung } from "../../data/projekte";
+import {
+  paketNach,
+  euro,
+  umsatzsteuerHinweis,
+  urlParameter,
+} from "../../data/pakete";
+
+export function getStaticPaths() {
+  return branchen.map((branche) => ({
+    params: { slug: branche.slug },
+    props: { branche },
+  }));
+}
+
+interface Props {
+  branche: Branche;
+}
+
+const { branche } = Astro.props;
+
+const paket = paketNach(branche.typischesPaket);
+
+/** Kann fehlen: es gibt drei Konzeptprojekte, aber fünf Branchen. */
+const projekt = branche.beispielProjekt
+  ? projektNach(branche.beispielProjekt)
+  : undefined;
+
+/**
+ * Gehört das Projekt zu dieser Branche, oder ist es nur verwandt? Ein
+ * Restaurant-Beispiel auf der Bar-Seite wird als das benannt, was es ist —
+ * lieber ehrlich beschriftet als so getan, als wäre es eine Bar.
+ */
+const projektPasst = projekt?.branche === branche.slug;
+const projektBranche = projekt
+  ? branchen.find((b) => b.slug === projekt.branche)
+  : undefined;
+
+/** Die anderen Branchen, für den Weiterweg unter den Fragen. */
+const andere = branchen.filter((b) => b.slug !== branche.slug);
+---
+
+<Basis titel={branche.seoTitel} beschreibung={branche.seoText}>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen
+        krumen={[
+          { text: "Branchen", pfad: "/branchen" },
+          { text: branche.name },
+        ]}
+      />
+      <h1>Websites für {branche.name}</h1>
+      <p class="vorspann">{branche.kurz}</p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Wie es heute meistens aussieht</h2>
+      <p class="vorspann">{branche.problem}</p>
+
+      <h3 class="untertitel">Was deine Seite können muss</h3>
+      <ul class="punkte">
+        {
+          branche.mussHaben.map((p) => (
+            <li class="punkt">
+              <h4>{p.titel}</h4>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite paketband">
+      <div class="paketband__text">
+        <h2>Für {branche.name} passt meistens {paket.name}</h2>
+        <p class="vorspann">{paket.fuerWen}</p>
+        <p class="paketband__betrag">ab {euro(paket.preisAb)}</p>
+        <p class="paketband__zusatz">
+          {paket.seitenMin}–{paket.seitenMax} Seiten · {euro(paket.pflegeMonat)}
+          {" "}im Monat für die Pflege
+        </p>
+        <p class="leise">{umsatzsteuerHinweis}</p>
+      </div>
+
+      <div class="paketband__knoepfe">
+        <a
+          class="knopf"
+          href={`/preise?${urlParameter.paket}=${paket.id}#konfigurator`}
+        >
+          Mit {paket.name} rechnen
+        </a>
+        <a class="knopf knopf--umriss" href="/kontakt">Anfrage schicken</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Ein Beispiel</h2>
+
+      {
+        projekt ? (
+          <div class="beispiel">
+            <p class="vorspann">
+              {projektPasst
+                ? `So sieht das für ${branche.name} aus:`
+                : `Für ${branche.name} habe ich noch kein eigenes Beispiel. Am nächsten dran ist dieses hier — es kommt aus einer anderen Branche (${projektBranche?.name}), der Aufbau ist aber derselbe:`}
+            </p>
+
+            <ul class="kacheln beispiel__kachel">
+              <li class="kachel">
+                {kennzeichnung(projekt) && (
+                  <p class="kachel__marke">{kennzeichnung(projekt)}</p>
+                )}
+                <h3>{projekt.name}</h3>
+                <p>{projekt.kurz}</p>
+                <a class="kachel__mehr" href={`/arbeiten/${projekt.slug}`}>
+                  Projekt ansehen
+                </a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <p class="vorspann">
+            Für {branche.name} habe ich noch kein Beispielprojekt. Sieh dir die
+            anderen an — der Aufbau ist überall derselbe, nur die Inhalte sind
+            andere. <a href="/arbeiten">Alle Beispiele ansehen</a>
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Häufige Fragen von {branche.name}</h2>
+      <dl class="fragen">
+        {
+          branche.faq.map((f) => (
+            <div class="frage">
+              <dt>{f.frage}</dt>
+              <dd>{f.antwort}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="leise">Andere Branchen:</p>
+      <ul class="branchenreihe">
+        {
+          andere.map((b) => (
+            <li>
+              <a href={`/branchen/${b.slug}`}>{b.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .untertitel {
+    margin-top: var(--raum-5);
+  }
+
+  .punkte {
+    display: grid;
+    gap: var(--raum-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .punkt {
+    padding-left: var(--raum-3);
+    border-left: 3px solid var(--eisblau);
+  }
+
+  .punkt h4 {
+    margin: 0 0 var(--raum-1);
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .punkt p {
+    margin: 0;
+  }
+
+  /* Paketband ------------------------------------------------------------ */
+
+  .paketband {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--raum-4);
+  }
+
+  .paketband__text {
+    max-width: 34rem;
+  }
+
+  .paketband h2 {
+    margin-bottom: var(--raum-2);
+  }
+
+  .paketband__betrag {
+    margin: var(--raum-3) 0 0;
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .paketband__zusatz {
+    margin: var(--raum-1) 0;
+  }
+
+  .paketband p.leise {
+    margin: 0;
+  }
+
+  .paketband__knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+  }
+
+  .band--tinte .knopf--umriss {
+    background: transparent;
+    border-color: var(--auf-tinte);
+    color: var(--auf-tinte);
+  }
+
+  .band--tinte .knopf--umriss:hover {
+    background: var(--auf-tinte);
+    border-color: var(--auf-tinte);
+    color: var(--tinte);
+  }
+
+  /* Beispiel ------------------------------------------------------------- */
+
+  .beispiel__kachel {
+    max-width: 30rem;
+  }
+
+  /* Fragen --------------------------------------------------------------- */
+
+  .fragen {
+    margin: 0 0 var(--raum-4);
+    max-width: 44rem;
+  }
+
+  .frage + .frage {
+    margin-top: var(--raum-3);
+    padding-top: var(--raum-3);
+    border-top: 1px solid var(--eisblau);
+  }
+
+  .fragen dt {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: var(--raum-1);
+  }
+
+  .fragen dd {
+    margin: 0;
+    max-width: var(--breite-text);
+  }
+
+  .branchenreihe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .branchenreihe a {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--eisblau);
+    border-radius: var(--radius);
+    background: var(--papier);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .branchenreihe a:hover {
+    border-color: var(--stahl);
+  }
+
+  @media (min-width: 48em) {
+    .punkte {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--raum-4);
+    }
+  }
+</style>

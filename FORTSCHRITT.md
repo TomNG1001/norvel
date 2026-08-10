@@ -12,7 +12,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 | 4 | /preise | erledigt und geprüft | 2026-08-10 |
 | 5 | Startseite | erledigt und geprüft | 2026-08-10 |
 | 6 | /leistungen und die 4 Unterseiten | erledigt und geprüft | 2026-08-10 |
-| 7 | /branchen und die 5 Unterseiten | offen | – |
+| 7 | /branchen und die 5 Unterseiten | erledigt und geprüft | 2026-08-10 |
 | 8 | /arbeiten und die 3 Projektseiten | offen | – |
 | 9 | /ueber-mich, /ablauf, /faq | offen | – |
 | 10 | /impressum, /datenschutz, 404 | offen | – |
@@ -362,3 +362,41 @@ ein Abschnitt mit Unterüberschrift.
    sichtbar auf den Leistungsseiten. Sie gehören durchgesehen.
 3. Zwei PLATZHALTER-Antworten stehen jetzt öffentlich auf
    `/leistungen/hosting-pflege`: Kündigung und Verbleib der Dateien.
+
+---
+
+## Schritt 7 — /branchen und die fünf Unterseiten · erledigt am 2026-08-10
+
+Sechs Seiten aus einer Vorlage plus Übersicht. Aufbau je Branchenseite:
+Kopf · Wie es heute aussieht + Was deine Seite können muss · Das passende
+Paket (Tinte) · Ein Beispiel · Häufige Fragen · Kontaktabschluss.
+
+**Der Verbindungsweg steht:** Branchenseite → passendes Paket auf /preise →
+/kontakt. Der Knopf „Mit Standard rechnen" führt auf
+`/preise?paket=standard#konfigurator`, dort ist das Paket vorausgewählt und
+die Seite steht direkt auf dem Konfigurator.
+
+| Branche | Paket | Beispielprojekt |
+|---|---|---|
+| Restaurants | Standard, ab 849 € | eigenes |
+| Bars | Standard, ab 849 € | fremdes, ehrlich beschriftet |
+| Kosmetikstudios | Standard, ab 849 € | eigenes |
+| Hundefriseure | Standard, ab 849 € | eigenes |
+| Handwerk | Komplett, ab 1.249 € | keins, sagt es offen |
+
+Die Region wird auf **/branchen** abgedeckt — die eine Seite, die Heidelberg,
+Mannheim, Ludwigshafen, Weinheim und Schwetzingen im Fließtext nennt. Keine
+zweite Seite darf das wiederholen. Es gibt keine Branche-mal-Stadt-Adressen.
+
+**Zwei echte Fehler gefunden und behoben:**
+
+1. Der Konfigurator schrieb die Adresszeile neu und warf dabei `#konfigurator`
+   weg. Dadurch brach der Sprung von der Branchenseite ab und man stand oben
+   auf /preise. Jetzt bleibt das Sprungziel erhalten.
+2. `scroll-behavior: smooth` in global.css hat den Ankersprung **animiert** —
+   über 3000 Pixel dauert das lange und man verliert die Orientierung.
+   Entfernt. Sprungziele sind jetzt sofort da.
+
+Geprüft: alle 15 Seiten ohne Regelverstoß — kein verbotenes Wort, kein „wir",
+kein Prozentzeichen, Titel unter 60, Beschreibung unter 160, genau eine h1,
+Unterseiten mit 4–6 Abschnitten und Brotkrumen.

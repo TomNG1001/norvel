@@ -257,7 +257,7 @@ export const branchen: Branche[] = [
     name: "Handwerk",
     einzahl: "Handwerksbetrieb",
     slug: "handwerk",
-    seoTitel: "Website für Handwerksbetriebe im Rhein-Neckar-Kreis",
+    seoTitel: "Website für Handwerker im Rhein-Neckar-Kreis",
     seoText:
       "Leistungen einzeln benannt, Einsatzgebiet mit Ortsnamen, Nummer zum Antippen. Und eine Seite für offene Stellen.",
     kurz:

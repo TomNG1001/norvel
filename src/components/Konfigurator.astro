@@ -509,7 +509,14 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
       kasten.hidden = true;
     }
 
-    /** Die Auswahl in die Adresszeile schreiben, ohne die Seite neu zu laden. */
+    /**
+     * Die Auswahl in die Adresszeile schreiben, ohne die Seite neu zu laden.
+     *
+     * Das Sprungziel am Ende muss erhalten bleiben. Wer von einer
+     * Branchenseite über "Mit Standard rechnen" hierherkommt, landet auf
+     * /preise?paket=standard#konfigurator — ohne den Anker würde der Sprung
+     * verloren gehen und die Seite oben stehen bleiben.
+     */
     function adresseSchreiben(
       paketId: PaketId,
       slugs: string[],
@@ -520,7 +527,11 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
         seitenSlugs: slugs,
         mitSeo,
       });
-      history.replaceState(null, "", `${location.pathname}?${suche}`);
+      history.replaceState(
+        null,
+        "",
+        `${location.pathname}?${suche}${location.hash}`
+      );
     }
 
     // Geteilte Adresse wiederherstellen.
@@ -552,5 +563,24 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
     seoFeld.addEventListener("change", zeichnen);
 
     zeichnen();
+
+    /**
+     * Wer von einer Branchenseite über "Mit Standard rechnen" kommt, landet
+     * auf /preise?paket=standard#konfigurator und soll den Konfigurator sehen,
+     * nicht den Seitenkopf.
+     *
+     * Der Sprung des Browsers passiert zu früh: Danach zeichnet die Summe,
+     * die Schriften laden nach, und beides verschiebt das Ziel um mehrere
+     * hundert Pixel. Deshalb wird nach dem Zeichnen und noch einmal nach dem
+     * vollständigen Laden nachgesteuert.
+     */
+    function zumSprungzielSpringen() {
+      if (!location.hash) return;
+      const ziel = document.querySelector(location.hash);
+      if (ziel) ziel.scrollIntoView({ block: "start", behavior: "instant" });
+    }
+
+    zumSprungzielSpringen();
+    window.addEventListener("load", zumSprungzielSpringen);
   }
 </script>
