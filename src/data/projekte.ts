@@ -1,0 +1,149 @@
+/**
+ * Die drei Beispielprojekte. Aus dieser Datei entstehen in Schritt 8 die
+ * Übersicht und die drei Detailseiten.
+ *
+ * RECHTLICHES — nicht verhandelbar:
+ * Es gibt noch keine Kundenprojekte. Jedes Projekt hier ist ein Konzept und
+ * muss auf jeder Ansicht sichtbar als Konzeptprojekt gekennzeichnet sein.
+ * Erfundene Kundenzitate oder Erfolgszahlen sind verboten (§ 5 UWG,
+ * irreführende Werbung). Deshalb gibt es hier keine Felder für Zitate oder
+ * Zahlen — was es nicht gibt, kann auch niemand versehentlich füllen.
+ *
+ * Wird aus einem Konzept ein echtes Kundenprojekt, springt `art` von
+ * "konzept" auf "kunde". Der Hinweis über den Karten verschwindet dann von
+ * selbst, sobald kein Konzept mehr dabei ist.
+ *
+ * PLATZHALTER: Name, Bild und Dauer je Projekt muss Tom festlegen. Sie stehen
+ * bewusst als erkennbarer Platzhalter da und nicht als erfundener Inhalt.
+ */
+
+import type { Bild, PaketId } from "./typen";
+
+export type Projektart = "konzept" | "kunde";
+
+export interface Projekt {
+  slug: string;
+  /** PLATZHALTER, solange Tom keinen Namen festgelegt hat. */
+  name: string;
+  art: Projektart;
+  /** Slug aus branchen.ts. Jedes Projekt kennt seine Branche. */
+  branche: string;
+  /** Ein Satz für die Karte auf der Übersicht. */
+  kurz: string;
+  /** Unter 60 Zeichen, ohne Markennamen. */
+  seoTitel: string;
+  /** Unter 160 Zeichen. */
+  seoText: string;
+  /** Die Ausgangslage: was der Betrieb braucht. */
+  aufgabe: string;
+  /** Was gebaut wurde und warum so. */
+  umsetzung: string[];
+  paket: PaketId;
+  seitenzahl: number;
+  /** PLATZHALTER, bis Tom eine belastbare Angabe macht. */
+  dauer: string;
+  /** null, solange kein Bild vorliegt. Kein Stockfoto. */
+  bild: Bild | null;
+  /** Bei Konzeptprojekten immer null. Es gibt nichts Erreichbares. */
+  liveUrl: string | null;
+}
+
+export const projekte: Projekt[] = [
+  {
+    slug: "restaurant",
+    name: "PLATZHALTER Restaurantname",
+    art: "konzept",
+    branche: "restaurants",
+    kurz: "Ein Restaurant mit Mittagstisch, wechselnder Karte und Reservierung am Abend.",
+    seoTitel: "Konzeptprojekt: Website für ein Restaurant",
+    seoText:
+      "Wie eine Restaurantseite aufgebaut ist, die Google lesen kann: Karte als Text, Öffnungszeiten oben, Reservierung ohne Anruf.",
+    aufgabe:
+      "Die Speisekarte liegt als PDF auf der alten Seite und als Foto auf Facebook. Beides findet Google nicht. Abends klingelt das Telefon für Reservierungen, während der Service läuft.",
+    umsetzung: [
+      "Karte als Text angelegt, nach Gängen sortiert, auf dem Handy ohne Zoomen lesbar",
+      "Öffnungszeiten und Küchenzeiten direkt unter dem ersten Bildschirm",
+      "Reservierung über ein Formular statt über das Telefon zur Stoßzeit",
+      "Mittagstisch als eigene Seite, damit die Woche einzeln auffindbar ist",
+      "Telefonnummer im Kopfbereich zum Antippen",
+    ],
+    paket: "standard",
+    seitenzahl: 6,
+    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    bild: null,
+    liveUrl: null,
+  },
+
+  {
+    slug: "kosmetikstudio",
+    name: "PLATZHALTER Studioname",
+    art: "konzept",
+    branche: "kosmetik",
+    kurz: "Ein Studio mit einer Behandlerin, festen Behandlungen und Terminen nach Feierabend.",
+    seoTitel: "Konzeptprojekt: Website für ein Kosmetikstudio",
+    seoText:
+      "Wie eine Studioseite aufgebaut ist, die Anfragen sortiert: Behandlungen mit Preis und Dauer, Termine online, Anfahrt und Parken.",
+    aufgabe:
+      "Anfragen kommen über Instagram, oft spätabends, und werden zwischen zwei Kundinnen beantwortet. Preise stehen nirgends, deshalb dreht sich der erste Kontakt immer um Grundsätzliches.",
+    umsetzung: [
+      "Behandlungen mit Preis und Dauer, nach Bereichen gruppiert",
+      "Online-Terminbuchung als Hauptweg, Telefon als zweiter",
+      "Fotos aus dem Studio statt gekaufter Bilder",
+      "Ein Absatz zu Anfahrt und Parken, weil das die häufigste Rückfrage ist",
+      "Häufige Fragen als eigene Seite, um Erstgespräche zu entlasten",
+    ],
+    paket: "standard",
+    seitenzahl: 6,
+    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    bild: null,
+    liveUrl: null,
+  },
+
+  {
+    slug: "hundesalon",
+    name: "PLATZHALTER Salonname",
+    art: "konzept",
+    branche: "hundefriseure",
+    kurz: "Ein Hundesalon mit Preisen nach Größe und Wartezeit von mehreren Wochen.",
+    seoTitel: "Konzeptprojekt: Website für einen Hundesalon",
+    seoText:
+      "Wie eine Salonseite aufgebaut ist, die Rückfragen spart: Preise nach Größe, Wartezeit offen genannt, Termine über ein Formular.",
+    aufgabe:
+      "Halter rufen an und fragen dreimal dasselbe: Nimmst du meine Rasse, was kostet das, wie lange dauert es. Die Wartezeit beträgt mehrere Wochen, das erfahren die Anrufer erst am Ende des Gesprächs.",
+    umsetzung: [
+      "Preisspannen nach Größe, mit Beispielrassen zur Einordnung",
+      "Wartezeit offen auf der Startseite genannt",
+      "Terminanfrage über ein Formular, auch nach Feierabend",
+      "Was mitzubringen ist: Impfpass, letzte Behandlung, Besonderheiten",
+      "Bilder aus dem Salon, mit Einverständnis der Halter",
+    ],
+    paket: "start",
+    seitenzahl: 4,
+    dauer: "PLATZHALTER — Dauer von Tom bestätigen lassen",
+    bild: null,
+    liveUrl: null,
+  },
+];
+
+/**
+ * Steht über den Projektkarten, solange mindestens ein Konzept dabei ist.
+ * Verschwindet automatisch, sobald alle Projekte auf "kunde" stehen.
+ */
+export const hinweisKonzeptprojekte =
+  "Ich baue seit Kurzem Websites für Betriebe in der Region. Es ist noch keine Kundenseite live. Die folgenden Projekte sind Konzepte: echte Aufgabenstellungen, von mir durchgeplant und gebaut — aber ohne Auftraggeber.";
+
+/** True, solange irgendein Projekt noch ein Konzept ist. */
+export const zeigeKonzepthinweis = projekte.some((p) => p.art === "konzept");
+
+/** Beschriftung, die auf jeder Karte und jeder Detailseite sichtbar sein muss. */
+export function kennzeichnung(projekt: Projekt): string | null {
+  return projekt.art === "konzept" ? "Konzeptprojekt" : null;
+}
+
+export function projektNach(slug: string): Projekt | undefined {
+  return projekte.find((p) => p.slug === slug);
+}
+
+export function projekteDerBranche(brancheSlug: string): Projekt[] {
+  return projekte.filter((p) => p.branche === brancheSlug);
+}

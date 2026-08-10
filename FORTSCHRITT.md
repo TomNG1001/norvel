@@ -7,7 +7,7 @@ fortgeschrieben, nie neu geschrieben. Regeln stehen in `PROJEKT.md`.
 |---|---|---|---|
 | 0 | Skills prüfen | erledigt | 2026-08-10 |
 | 1 | Grundgerüst | erledigt und geprüft | 2026-08-10 |
-| 2 | Datenmodelle | offen | – |
+| 2 | Datenmodelle | erledigt und geprüft | 2026-08-10 |
 | 3 | /kontakt und /danke | offen | – |
 | 4 | /preise | offen | – |
 | 5 | Startseite | offen | – |
@@ -97,3 +97,48 @@ Gebaut:
 5. Node liegt unter `~/.local/node`, nicht in `/usr/local`. Der Dev-Server
    startet deshalb über absolute Pfade in `.claude/launch.json`. In Toms
    eigenem Terminal reicht `npm run dev`.
+
+---
+
+## Schritt 2 — Datenmodelle · erledigt am 2026-08-10
+
+Angelegt unter `src/data`:
+
+| Datei | Inhalt |
+|---|---|
+| `typen.ts` | Gemeinsame Typen: `PaketId`, `FaqEintrag`, `Bild`, `Punkt` |
+| `pakete.ts` | 3 Pakete, 12 Seitenoptionen, Konfigurator-Rechnung |
+| `leistungen.ts` | 4 Leistungen mit je 3 eigenen FAQ |
+| `branchen.ts` | 5 Branchen mit je 3–4 Muss-Haben und 3–4 eigenen FAQ |
+| `projekte.ts` | 3 Konzeptprojekte, Kennzeichnung, Umschaltung auf „kunde" |
+| `faq.ts` | 17 allgemeine Fragen in 4 Gruppen |
+| `ablauf.ts` | 6 Schritte von der Anfrage bis online |
+
+Noch keine Seiten daraus erzeugt — das ist Schritt 6 bis 9.
+
+Geprüft mit einem Skript außerhalb des Projekts (35 Zusicherungen): Anzahlen,
+alle Preise gegen die Vorgabe, der gewollte Knick bei Start, Länge aller
+SEO-Titel und -Beschreibungen, Querverweise Branche ↔ Projekt, und die
+Konfigurator-Rechnung an sieben Fällen. Alles bestanden. `npm run build` und
+`npm run check:brand` laufen weiter durch.
+
+**Nachgebessert während der Prüfung:** Die Empfehlung im Konfigurator hing am
+Preis — Start mit 6 Seiten kostet 629 €, Standard 849 €, also wurde kein
+Hinweis gezeigt. Falsch: Laut Spezifikation springt der Konfigurator immer ins
+nächste Paket. Jetzt tut er das, und der Kasten zeigt aus dem neuen Feld
+`mehrAlsDavor`, was der Wechsel bringt. Der Knick verkauft, nicht der Preis.
+
+### Offene Punkte
+
+1. **Nur 3 Konzeptprojekte für 5 Branchen.** Bars verweist ersatzweise auf das
+   Restaurant-Projekt, Handwerk hat `beispielProjekt: null`. Muss vor
+   Schritt 7 geklärt werden.
+2. **14 Platzhalter** in den Daten — alles, was nur Tom festlegen kann:
+   Anzahlung, Laufzeit, Kündigung, Domaininhaber, Buchungssystem, ob er
+   fotografiert, ob er Logos macht, die drei Projektnamen, die drei
+   Projektdauern.
+3. Die Listen `enthalten`, `nichtEnthalten`, `mehrAlsDavor` und
+   `pflegeEnthaelt` sind mein Vorschlag, abgeleitet aus Toms Vorgaben. Sie
+   beschreiben, was er verkauft — er muss sie bestätigen oder streichen.
+4. Zählen Impressum und Datenschutz in die Seitenzahl? Aktuell: nein
+   (`zaehlt: false`). Wirkt sich direkt auf den Preis aus.
