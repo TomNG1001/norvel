@@ -41,17 +41,17 @@ const befunde = [
 
 <Basis
   titel="Websites für kleine Betriebe"
-  beschreibung="Ich baue Websites für Restaurants, Bars, Kosmetikstudios, Hundefriseure und Handwerk im Rhein-Neckar-Kreis. Grundgerüst in 24 bis 72 Stunden."
+  beschreibung="Ich baue Websites für kleine Betriebe im Rhein-Neckar-Kreis: Gastronomie, Handwerk, Studios, Läden. Grundgerüst in 24 bis 72 Stunden."
 >
   <section class="abschnitt">
     <div class="breite">
-      <h1>Deine Kunden suchen dich auf dem Handy. Was finden sie?</h1>
+      <h1>Du machst gute Arbeit. Nur findet sie online keiner.</h1>
       <p class="vorspann">
         Ich bin {brand.inhaber} und baue Websites für kleine Betriebe im
         {" "}{brand.region}. Das Grundgerüst steht in 24 bis 72 Stunden.
       </p>
       <p class="knoepfe">
-        <a class="knopf" href="/preise">Was es kostet</a>
+        <a class="knopf" href="/preise">Preise ansehen</a>
         <a class="knopf knopf--rand" href="/kontakt">Anfrage schicken</a>
       </p>
       <p class="leise">
@@ -63,10 +63,10 @@ const befunde = [
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Was ich vor jedem Gespräch sehe</h2>
+      <h2>Woran es fast immer hängt</h2>
       <p class="vorspann">
-        Bevor ich mit jemandem telefoniere, suche ich seinen Betrieb bei
-        Google. Meistens finde ich dasselbe:
+        Drei Dinge halten Anrufe auf, bevor sie überhaupt entstehen. Mit
+        Geschmack hat keines davon zu tun.
       </p>
       <ul class="kacheln kacheln--3">
         {
@@ -95,6 +95,30 @@ const befunde = [
         Nicht als Bild zum Abnicken, sondern als echte Seite, die du auf
         deinem eigenen Handy aufmachen kannst.
       </p>
+
+      <ol class="zeitplan">
+        <li>
+          <span class="zeitplan__wann">Tag 1, vormittags</span>
+          <span class="zeitplan__was">
+            Zwanzig Minuten am Telefon. Danach weißt du, was es kostet.
+          </span>
+        </li>
+        <li>
+          <span class="zeitplan__wann">Sobald dein Material da ist</span>
+          <span class="zeitplan__was">
+            Texte oder Stichpunkte, Fotos, Öffnungszeiten. Mehr brauche ich
+            nicht zum Anfangen.
+          </span>
+        </li>
+        <li>
+          <span class="zeitplan__wann">24 bis 72 Stunden später</span>
+          <span class="zeitplan__was">
+            Deine Seite steht unter einer Vorschauadresse. Du gehst sie durch,
+            ich setze deine Änderungen um.
+          </span>
+        </li>
+      </ol>
+
       <p>
         Ehrlich gesagt hängt es fast immer an derselben Stelle, und das ist
         nicht das Bauen: Es hängt an deinem Material. Stichpunkte reichen mir,
@@ -110,8 +134,8 @@ const befunde = [
     <div class="breite">
       <h2>Für wen ich baue</h2>
       <p class="vorspann">
-        Fünf Branchen, die ich kenne. Jede hat eigene Fragen, die vor dem
-        ersten Anruf beantwortet sein müssen.
+        Diese fünf kenne ich am besten, weil ich sie am häufigsten baue. Sie
+        sind keine Grenze.
       </p>
       <ul class="kacheln kacheln--5">
         {
@@ -126,6 +150,13 @@ const befunde = [
           ))
         }
       </ul>
+
+      <p class="offen">
+        <strong>Deine Branche ist nicht dabei?</strong> Macht nichts. Werkstatt,
+        Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro: Ich baue für jeden
+        Betrieb, hinter dem ein Mensch steht, der selbst ans Telefon geht. Die
+        Fragen sind überall dieselben, nur die Antworten sind andere.
+      </p>
 
       <p class="abgrenzung">
         <strong>Für wen ich nicht der Richtige bin:</strong> Onlineshops baue
@@ -157,7 +188,7 @@ const befunde = [
 
   <section class="abschnitt">
     <div class="breite">
-      <h2>Was es kostet</h2>
+      <h2>Preise, die vorher feststehen</h2>
       <p class="vorspann">
         Drei Pakete, und der Preis hängt allein an der Seitenzahl. Auf der
         Preisseite siehst du deinen Betrag sofort.
@@ -180,7 +211,7 @@ const befunde = [
 
       <p class="leise">{umsatzsteuerHinweis}. Der angezeigte Preis ist der Preis.</p>
       <p>
-        <a class="knopf" href="/preise">Preise zusammenklicken</a>
+        <a class="knopf" href="/preise">Preise vergleichen</a>
       </p>
     </div>
   </section>
@@ -220,10 +251,38 @@ const befunde = [
     margin-bottom: var(--raum-3);
   }
 
+  /* Zeitplan im Tinte-Band. Ohne ihn stand dort nur Fließtext. */
+  .zeitplan {
+    display: grid;
+    gap: var(--raum-3);
+    margin: var(--raum-4) 0;
+    padding: 0;
+    list-style: none;
+    max-width: 48rem;
+  }
+
+  .zeitplan li {
+    display: grid;
+    gap: 0.25rem;
+    padding-left: var(--raum-3);
+    border-left: 3px solid var(--auf-tinte-leise);
+  }
+
+  .zeitplan__wann {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .zeitplan__was {
+    color: var(--auf-tinte-leise);
+  }
+
   /* Wofür ich nicht der Richtige bin. Vellox: Jede Seite, die verkauft, sagt
      an mindestens einer Stelle, für wen sie nicht gemacht ist. */
   .abgrenzung {
-    margin-top: var(--raum-5);
+    margin-top: var(--raum-3);
     padding: var(--raum-3);
     border-left: 3px solid var(--stahl);
     background: var(--karte);

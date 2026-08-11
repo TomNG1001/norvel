@@ -153,7 +153,7 @@ im Fließtext nennt.
 ## Farben
 
 ```
---papier  #F1F4F7   Grundfläche
+--papier  #E9EDF1   Grundfläche (kühles Kreideweiß, am 10.08. von #F1F4F7 geändert)
 --karte   #FFFFFF   Karten und Formulare
 --eisblau #C9D8E6   nur Linien und Rahmen, nie als Fläche
 --stahl   #1C4F82   Buttons und Links

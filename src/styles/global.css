@@ -11,7 +11,7 @@
 
 :root {
   /* --- Farben ------------------------------------------------------------ */
-  --papier: #f1f4f7;  /* Grundfläche der Seite */
+  --papier: #e9edf1;  /* Grundfläche der Seite, kühles Kreideweiß */
   --karte: #ffffff;   /* Karten und Formulare */
   --eisblau: #c9d8e6; /* nur Linien und Rahmen, nie als Fläche */
   --stahl: #1c4f82;   /* Knöpfe und Verweise */
@@ -303,6 +303,16 @@ strong { font-weight: 600; }
 
 .kachel__mehr:focus-visible {
   outline: none;
+}
+
+/* Hinweiskasten: was auch noch geht, obwohl es nicht in der Liste steht. */
+.offen {
+  margin-top: var(--raum-4);
+  padding: var(--raum-3);
+  border: 2px solid var(--eisblau);
+  border-radius: var(--radius);
+  background: var(--karte);
+  max-width: 44rem;
 }
 
 /* Kennzeichnung oben in der Kachel, etwa "Konzeptprojekt". */
