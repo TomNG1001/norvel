@@ -103,7 +103,7 @@ Qualitätskontrolle statt in ein Gate.
 
 | Seite | Bildschirme (max 12) | Vorspann-Zeilen (max 4) |
 |---|---|---|
-| / | 11,4 | 4 |
+| / | 11,6 | 4 |
 | /preise | 8,9 | 3 |
 | /faq | 8,2 | 3 |
 | /branchen/restaurants | 6,2 | 3 |
@@ -119,10 +119,11 @@ Qualitätskontrolle statt in ein Gate.
 Vorher lagen zehn von zwölf Seiten über der Vorspann-Grenze, die Startseite
 bei sieben Zeilen.
 
-Die Startseite ist seitdem zweimal gewachsen: um den Zuschnitt-Kasten und die
-drei Befund-Kacheln, dann um den Fahrplan mit dem Handy. Sie liegt jetzt bei
-**11,4 von 12** Bildschirmen. Wer dort etwas ergänzt, muss an anderer Stelle
-kürzen.
+Die Startseite ist seitdem dreimal gewachsen: um den Zuschnitt und die drei
+Befund-Kacheln, dann um den Fahrplan mit dem Handy, zuletzt um die Fläche
+unter dem Zuschnitt. Sie liegt jetzt bei **11,6 von 12** Bildschirmen, das
+sind noch rund 340 Pixel Abstand zur Grenze. Wer dort etwas ergänzt, muss an
+anderer Stelle kürzen.
 
 ## Was Vellox nicht leisten kann
 

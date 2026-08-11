@@ -202,11 +202,13 @@ import {
       </ul>
 
       <div class="zuschnitt">
-        <p>
-          <strong>Deine Branche ist nicht dabei? Macht nichts.</strong>
-          {" "}Werkstatt, Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro:
-          Ich baue für jede Branche. Die Fragen sind überall dieselben, nur die
-          Antworten sind andere.
+        <h3 class="zuschnitt__titel">
+          Die fünf oben sind Beispiele, keine Liste
+        </h3>
+        <p class="zuschnitt__gross">
+          Werkstatt, Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro:
+          Ich baue für jede Branche. Die Fragen sind überall dieselben, nur
+          die Antworten sind andere.
         </p>
         <p>
           <strong>Worauf es mir ankommt: Es muss ein Einzelbetrieb sein.</strong>
@@ -216,9 +218,8 @@ import {
         </p>
         <p class="zuschnitt__nein">
           <strong>Was ich nicht baue:</strong> Onlineshops, Auftritte für
-          Konzerne, und Zulieferarbeit für Agenturen. Trifft eines davon auf
-          dich zu, sage ich dir das im ersten Telefonat, statt dir etwas zu
-          verkaufen.
+          Konzerne, Zulieferarbeit für Agenturen. Trifft eines davon auf dich
+          zu, sage ich dir das im ersten Telefonat.
         </p>
       </div>
     </div>
@@ -562,8 +563,56 @@ import {
     color: color-mix(in srgb, var(--tinte) 75%, var(--papier));
   }
 
+  /* Zuschnitt ------------------------------------------------------------ */
   /* Wofür ich nicht der Richtige bin. Vellox: Jede Seite, die verkauft, sagt
-     an mindestens einer Stelle, für wen sie nicht gemacht ist. */
+     an mindestens einer Stelle, für wen sie nicht gemacht ist.
+
+     Der Block klebte bündig unter den Kacheln und ging darin unter. Kein
+     zweiter Kasten, darüber stehen schon fünf. Stattdessen Luft, eine
+     kräftige Linie und eine eigene Überschrift. */
+
+  /* Kein zweiter Kasten: Die Kacheln darüber sind weiß mit Rahmen, dieser
+     Block ist kreidefarben ohne Rahmen und mit kantigen Ecken. Dadurch
+     liest er sich als eigene Aussage und nicht als sechste Kachel. */
+  .zuschnitt {
+    max-width: 46rem;
+    margin-top: var(--raum-6);
+    padding: var(--raum-4);
+    border-top: 3px solid var(--stahl);
+    background: var(--papier);
+  }
+
+  @media (min-width: 48em) {
+    .zuschnitt {
+      padding: var(--raum-5);
+    }
+  }
+
+  .zuschnitt__titel {
+    margin-bottom: var(--raum-2);
+  }
+
+  /* Der Satz, auf den es ankommt, ist der einzige in großer Schrift. */
+  .zuschnitt__gross {
+    font-size: var(--gr-gross);
+    max-width: none;
+  }
+
+  .zuschnitt p {
+    margin-bottom: var(--raum-3);
+    max-width: none;
+  }
+
+  .zuschnitt p:last-child {
+    margin-bottom: 0;
+  }
+
+  .zuschnitt__nein {
+    color: color-mix(in srgb, var(--tinte) 78%, var(--papier));
+  }
+
+  /* Fazit ---------------------------------------------------------------- */
+
   .fazit {
     margin-top: var(--raum-4);
     margin-bottom: 0;

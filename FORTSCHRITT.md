@@ -679,3 +679,35 @@ unangetastet, sonst wäre „in neuem Tab öffnen" kaputt.
 Am Telefon steht nur „Zurück", ab 480 Pixel der Name des Ziels. Grund:
 Das längste Ziel heißt „Häufige Probleme", und damit brach die Kopfzeile bei
 390 Pixeln in zwei Zeilen um, gemessen 136 statt 76 Pixel Höhe.
+
+---
+
+## Der Zuschnitt unter den Branchen, 2026-08-11
+
+Tom: „direkt nach diesen vier Ecken steht direkt: deine Branche ist nicht
+dabei". Nachgemessen, und er hatte recht: **0 Pixel** zwischen der letzten
+Kachel und dem Block darunter. Es war die einzige Stelle auf der Startseite
+unter 24 Pixeln, alle anderen Übergänge waren in Ordnung.
+
+Der Block hatte bis dahin überhaupt keine eigenen Stile. Drei Absätze,
+bündig an die Kacheln geklebt, und der erste fing mit fett gesetztem Text an
+statt mit einer Überschrift.
+
+Jetzt:
+
+- **64 Pixel Luft** über dem Block.
+- **Eine eigene Überschrift**: „Die fünf oben sind Beispiele, keine Liste".
+  Damit steht Toms Punkt in der Überschrift und nicht erst im dritten
+  Nebensatz.
+- **Eine kreidefarbene Fläche mit kräftiger Linie oben.** Bewusst kein
+  zweiter Kasten: Die Kacheln darüber sind weiß mit Rahmen und runden Ecken,
+  dieser Block ist kreidefarben, rahmenlos und kantig. Er liest sich dadurch
+  als eigene Aussage und nicht als sechste Branche.
+- Der Einstiegssatz eine Schriftstufe größer als der Rest.
+
+Kontraste auf der neuen Fläche: 14,8:1 für Überschrift und Fließtext,
+7,9:1 für den leiseren Abschnitt „Was ich nicht baue". Beide über AA.
+
+Höhe: **11,6 Bildschirme.** Die Fläche kostet Polsterung, deshalb ist der
+letzte Satz von „Was ich nicht baue" gekürzt. Der Abstand zur Vellox-Grenze
+liegt jetzt bei rund 340 Pixeln.
