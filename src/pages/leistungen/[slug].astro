@@ -14,7 +14,7 @@ import Basis from "../../layouts/Basis.astro";
 import Brotkrumen from "../../components/Brotkrumen.astro";
 import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
 import { leistungen, type Leistung } from "../../data/leistungen";
-import { pakete, paketNach, euro, umsatzsteuerHinweis } from "../../data/pakete";
+import { pakete, euro, umsatzsteuerHinweis } from "../../data/pakete";
 
 export function getStaticPaths() {
   return leistungen.map((leistung) => ({
@@ -45,12 +45,6 @@ const preis = {
   aufpreis: {
     betrag: `ab ${euro(kleinstes.seoAufpreis)}`,
     zusatz: "einmalig zum Paket dazu",
-  },
-  imPaket: {
-    betrag: leistung.abPaket
-      ? `Ab ${paketNach(leistung.abPaket).name}`
-      : "In jedem Paket",
-    zusatz: "ohne Aufpreis enthalten",
   },
 }[leistung.preisArt];
 

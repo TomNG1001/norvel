@@ -66,7 +66,6 @@ export const pakete: Paket[] = [
     nichtEnthalten: [
       "Keine Online-Terminbuchung",
       "Kein WhatsApp-Knopf",
-      "Kein Google-Unternehmensprofil",
       "Nur 1 Korrekturrunde",
     ],
     mehrAlsDavor: [],
@@ -88,7 +87,6 @@ export const pakete: Paket[] = [
       "Alles aus Start",
       "Online-Terminbuchung oder Reservierung",
       "WhatsApp-Knopf",
-      "Google-Unternehmensprofil eingerichtet",
       "Eigene Seite für Karte, Preise oder Leistungen",
       "3 Korrekturrunden",
     ],
@@ -97,7 +95,6 @@ export const pakete: Paket[] = [
       "3 Seiten mehr",
       "Online-Terminbuchung oder Reservierung",
       "WhatsApp-Knopf",
-      "Google-Unternehmensprofil eingerichtet",
       "3 statt 1 Korrekturrunde",
     ],
     korrekturrunden: 3,

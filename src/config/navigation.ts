@@ -33,7 +33,6 @@ export const fussnavigation: FussSpalte[] = [
       { text: "Website", pfad: "/leistungen/website" },
       { text: "Hosting und Pflege", pfad: "/leistungen/hosting-pflege" },
       { text: "SEO", pfad: "/leistungen/seo" },
-      { text: "Google-Profil", pfad: "/leistungen/google-profil" },
     ],
   },
   {

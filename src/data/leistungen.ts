@@ -1,6 +1,9 @@
 /**
- * Die vier Leistungen. Aus dieser Datei entstehen in Schritt 6 die Übersicht
- * und die vier Unterseiten.
+ * Die drei Leistungen. Aus dieser Datei entstehen die Übersicht und die drei
+ * Unterseiten.
+ *
+ * Das Google-Unternehmensprofil war ursprünglich die vierte Leistung. Am
+ * 10.08. auf Ansage entfernt: Tom bietet es nicht an.
  *
  * Preise stehen hier nicht. Wo ein Paket gemeint ist, steht seine Kennung.
  * Die Zahlen holt die Seite aus pakete.ts.
@@ -10,7 +13,7 @@
  * bestätigt werden, bevor Schritt 6 gebaut wird.
  */
 
-import type { FaqEintrag, PaketId } from "./typen";
+import type { FaqEintrag } from "./typen";
 
 export interface Leistung {
   slug: string;
@@ -22,7 +25,7 @@ export interface Leistung {
   /** Unter 160 Zeichen. */
   seoText: string;
   /**
-   * Eigene Überschriften je Leistung. Ohne sie tragen alle vier Seiten
+   * Eigene Überschriften je Leistung. Ohne sie tragen alle drei Seiten
    * dieselbe Gliederung, und `npm run check:schablone` bricht den Bau ab.
    */
   ueberschriften: {
@@ -35,8 +38,6 @@ export interface Leistung {
   /** Was ohne diese Leistung schiefgeht. */
   problem: string;
   enthalten: string[];
-  /** Ab welchem Paket es das gibt, oder null, wenn es in allen steckt. */
-  abPaket: PaketId | null;
   /**
    * Welche Zahl aus pakete.ts für diese Leistung die richtige ist. Die Zahl
    * selbst steht nicht hier, nur, welche gemeint ist.
@@ -44,9 +45,8 @@ export interface Leistung {
    * einmalig   → der Grundpreis des kleinsten Pakets
    * monatlich  → die monatliche Pflege des kleinsten Pakets
    * aufpreis   → der einmalige SEO-Aufpreis des kleinsten Pakets
-   * imPaket    → kein eigener Preis, ab `abPaket` enthalten
    */
-  preisArt: "einmalig" | "monatlich" | "aufpreis" | "imPaket";
+  preisArt: "einmalig" | "monatlich" | "aufpreis";
   faq: FaqEintrag[];
 }
 
@@ -76,7 +76,6 @@ export const leistungen: Leistung[] = [
       "Impressum und Datenschutz angelegt, Inhalt kommt von dir",
       "Übergabe mit Einweisung, was du wie ändern lässt",
     ],
-    abPaket: null,
     preisArt: "einmalig",
     faq: [
       {
@@ -121,7 +120,6 @@ export const leistungen: Leistung[] = [
       "Regelmäßige Prüfung, ob die Seite erreichbar ist",
       "Ein Ansprechpartner, kein Ticketsystem",
     ],
-    abPaket: null,
     preisArt: "monatlich",
     faq: [
       {
@@ -166,7 +164,6 @@ export const leistungen: Leistung[] = [
       "Bilder mit Beschreibungstexten",
       "Ladezeit geprüft, weil Google langsame Seiten abwertet",
     ],
-    abPaket: null,
     preisArt: "aufpreis",
     faq: [
       {
@@ -183,50 +180,6 @@ export const leistungen: Leistung[] = [
         frage: "Warum keine eigene Seite je Stadt?",
         antwort:
           "Weil Google fast gleiche Seiten für verschiedene Orte als Türseiten erkennt und abwertet. Der Ortsbezug gehört in den Text, nicht in zwanzig Kopien.",
-      },
-    ],
-  },
-
-  {
-    slug: "google-profil",
-    name: "Google-Unternehmensprofil",
-    kurz: "Der Kasten rechts neben der Suche und der Eintrag in der Karte. Für Laufkundschaft oft wichtiger als die Website selbst.",
-    seoTitel: "Google-Unternehmensprofil einrichten lassen",
-    seoText:
-      "Eintrag in Google Maps und im Suchergebnis: Öffnungszeiten, Fotos, Telefonnummer, Bewertungen. Eingerichtet und mit der Seite verknüpft.",
-    ueberschriften: {
-      seite: "Der Eintrag in Karte und Suchergebnis",
-      warum: "Der Kasten, den fast alle zuerst sehen",
-      preis: "Ab welchem Paket es dabei ist",
-      fragen: "Fragen zum Profil",
-      weiter: "Was daneben zählt",
-    },
-    problem:
-      "Die meisten Leute sehen deine Öffnungszeiten nie auf deiner Website, sondern im Kasten neben dem Suchergebnis. Steht dort nichts oder etwas Falsches, hilft die schönste Seite nicht.",
-    enthalten: [
-      "Profil angelegt oder übernommen",
-      "Öffnungszeiten, Adresse, Telefonnummer eingetragen",
-      "Deine Fotos hochgeladen",
-      "Verknüpfung mit deiner Website",
-      "Einweisung, wie du Beiträge und Feiertage selbst einträgst",
-    ],
-    abPaket: "standard",
-    preisArt: "imPaket",
-    faq: [
-      {
-        frage: "Ich habe schon ein Profil, es ist nur alt.",
-        antwort:
-          "Dann übernehme ich es, statt ein zweites anzulegen. Zwei Einträge zum selben Betrieb schaden mehr, als sie nützen.",
-      },
-      {
-        frage: "Kümmerst du dich um Bewertungen?",
-        antwort:
-          "Nein. Bewertungen beantwortest du selbst, das gehört dir. Ich zeige dir, wie es geht und was du besser nicht schreibst.",
-      },
-      {
-        frage: "Warum ist das erst ab Standard dabei?",
-        antwort:
-          "Weil es Zeit kostet: Anlegen, Bestätigung abwarten, Fotos aufbereiten. Im kleinsten Paket wäre das nicht ehrlich kalkuliert.",
       },
     ],
   },

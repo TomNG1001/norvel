@@ -102,7 +102,7 @@ export const probleme: Problem[] = [
     ursache: [
       "Öffnungszeiten wirken beim Bauen wie eine Fußnote. Sie sind kurz, sie ändern sich selten, also landen sie im Fußbereich, neben dem Impressum. Für den Betrieb ist das logisch. Für jemanden, der um halb sieben wissen will, ob noch offen ist, ist es das Gegenteil.",
       "Oft stehen sie zusätzlich in einem Bild, weil sich das schöner setzen lässt. Damit sind sie für Google unsichtbar, und ein Vorleseprogramm findet sie auch nicht.",
-      "Die zweite Hälfte des Problems liegt außerhalb der Website: Bei Google steht meist eine ältere Fassung. Wenn beide Angaben sich widersprechen, glaubt der Besucher der, die er zuerst sieht, und das ist fast immer Google.",
+      "Die zweite Hälfte des Problems liegt außerhalb der Website: In Googles eigenem Eintrag steht meist eine ältere Fassung. Wenn beide Angaben sich widersprechen, glaubt der Besucher der, die er zuerst sieht.",
     ],
     kosten: [
       "Wer nicht in wenigen Sekunden sieht, ob offen ist, ruft beim Nächsten an.",
@@ -114,7 +114,6 @@ export const probleme: Problem[] = [
       "Sie stehen an genau einer Stelle im Datenbestand und erscheinen überall daraus. Sie können nicht auseinanderlaufen.",
       "Die Telefonnummer ist antippbar. Ein Tipp, ein Anruf.",
       "Die Adresse steht als Text, damit Google sie der Karte zuordnet.",
-      "Auf Wunsch trage ich dieselben Zeiten in dein Google-Profil ein, damit beide Angaben übereinstimmen.",
     ],
     probe: [
       "Nimm dein Handy, öffne deine Seite und zähle die Sekunden, bis du die heutigen Öffnungszeiten siehst. Über zehn ist zu lang.",

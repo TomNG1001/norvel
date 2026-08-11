@@ -84,13 +84,16 @@ Git-Repository zu Beginn anlegen, nach jeder abgeschlossenen Phase ein Commit.
 
 25 Seiten, zwei Ebenen, nie drei.
 
+> Stand 10.08.: **28 Seiten.** Eine Leistungsseite weniger (Google-Profil
+> raus), dazu die Familie `/probleme` mit Übersicht und drei Seiten. Zwei
+> Ebenen bleiben eingehalten.
+
 ```
 /
-/leistungen              Übersicht, 4 Karten
+/leistungen              Übersicht, 3 Karten
   /leistungen/website
   /leistungen/hosting-pflege
   /leistungen/seo
-  /leistungen/google-profil
 /branchen                Übersicht, 5 Karten
   /branchen/restaurants
   /branchen/bars
@@ -134,7 +137,7 @@ Datei anlegen, fertig.
 ```
 src/config/brand.ts      Name, Domain, Kontakt
 src/data/pakete.ts       3 Pakete, Konfigurator-Logik, Seitenoptionen
-src/data/leistungen.ts   4 Leistungen → /leistungen/[slug]
+src/data/leistungen.ts   3 Leistungen → /leistungen/[slug]
 src/data/branchen.ts     5 Branchen  → /branchen/[slug]
 src/data/projekte.ts     3 Projekte  → /arbeiten/[slug]
 src/data/faq.ts
@@ -208,6 +211,12 @@ Start hat bewusst keine Terminbuchung, keinen WhatsApp-Button, kein
 Google-Profil, nur 1 Korrekturrunde. Standard hat das alles. Dieser Knick ist
 gewollt und darf nicht weggeglättet werden — er verkauft Standard, nicht der
 Preis.
+
+> Geändert am 10.08. auf Ansage: Tom bietet **kein Google-Unternehmensprofil**
+> an. Die Leistung `/leistungen/google-profil` ist entfernt, aus vier
+> Leistungen sind drei geworden. Der Knick bei Start läuft jetzt über
+> Terminbuchung, WhatsApp-Knopf und die eine Korrekturrunde. Damit sind es
+> 28 statt 25 Seiten: eine Leistungsseite weniger, vier Problemseiten mehr.
 
 Konfigurator: Checkboxen für die Seiten, Startseite und Kontakt fest gesetzt,
 Summe rechnet live mit. Überschreitet die Seitenzahl das gewählte Paket, springt

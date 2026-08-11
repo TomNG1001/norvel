@@ -56,7 +56,7 @@ export const ablauf: Ablaufschritt[] = [
   {
     nummer: 6,
     titel: "Die Seite geht online",
-    text: "Deine Domain wird umgehängt, das Google-Profil verknüpft, und ich prüfe alles auf dem Handy durch. Danach zeige ich dir, wie du mir künftig Änderungen schickst.",
+    text: "Deine Domain wird umgehängt, und ich prüfe alles auf dem Handy durch. Danach zeige ich dir, wie du mir künftig Änderungen schickst.",
     vonDir: "Zugang zu deiner Domain, falls du schon eine hast",
     dauer: "1 Tag",
   },
