@@ -120,6 +120,11 @@ Regeln, in Zahlen:
 - Maximal 2 Ebenen tief.
 - Übersichtsseiten zeigen ihre Unterseiten als Karten, je 1–2 Sätze Erklärung.
 - Brotkrumennavigation auf jeder Unterseite.
+  > Ergänzt am 11.08. auf Ansage: Dazu ein Zurück-Pfeil oben links im
+  > Kopfbereich, auf jeder Seite außer der Startseite. Er ist kein sechster
+  > Navigationspunkt, die Regel darüber bleibt also unangetastet. Ohne
+  > JavaScript führt er eine Ebene höher, mit JavaScript dorthin zurück, wo
+  > der Besucher hergekommen ist.
 - Jede Seite: 1 Hauptziel, 1 sichtbarer nächster Schritt, gleicher
   Kontakt-Abschluss.
 - Pro Unterseite 4–6 Abschnitte, nicht mehr.

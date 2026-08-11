@@ -5,11 +5,22 @@
  * Genau fünf Punkte plus Kontakt-Knopf. Auf schmalen Bildschirmen klappt die
  * Liste über einen Knopf auf. Ohne JavaScript bleibt die Liste sichtbar.
  * Die Seite ist dann untereinander bedienbar, aber nie kaputt.
+ *
+ * Links davor der Zurück-Pfeil. Er steht auf jeder Seite außer der
+ * Startseite, und weil er hier steht und nicht in den einzelnen Seiten, kann
+ * ihn keine neue Seite vergessen.
  */
 import Logo from "./Logo.astro";
-import { hauptnavigation, kontaktKnopf } from "../config/navigation";
+import {
+  hauptnavigation,
+  kontaktKnopf,
+  uebergeordnet,
+} from "../config/navigation";
 
 const pfad = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+/** Ziel und Beschriftung, solange kein JavaScript läuft. */
+const zurueck = uebergeordnet(pfad);
 
 function istAktiv(ziel: string) {
   return pfad === ziel || pfad.startsWith(ziel + "/");
@@ -18,9 +29,43 @@ function istAktiv(ziel: string) {
 
 <header class="kopf">
   <div class="breite kopf__innen">
-    <a class="kopf__marke" href="/" aria-label="Zur Startseite">
-      <Logo />
-    </a>
+    <div class="kopf__links">
+
+      {
+        zurueck && (
+          <a
+            class="zurueck"
+            href={zurueck.pfad}
+            aria-label={`Zurück zu ${zurueck.text}`}
+            data-zurueck
+          >
+            <svg
+              class="zurueck__pfeil"
+              viewBox="0 0 16 16"
+              width="16"
+              height="16"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M9.75 3 4.75 8l5 5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+            <span data-zurueck-text>
+              <span class="zurueck__kurz">Zurück</span>
+              <span class="zurueck__lang">{zurueck.text}</span>
+            </span>
+          </a>
+        )
+      }
+
+      <a class="kopf__marke" href="/" aria-label="Zur Startseite">
+        <Logo />
+      </a>
+    </div>
 
     <button
       class="kopf__menue"
@@ -54,6 +99,7 @@ function istAktiv(ziel: string) {
   </div>
 </header>
 
+
 <script>
   const knopf = document.querySelector<HTMLButtonElement>(".kopf__menue");
   const menue = document.getElementById("hauptmenue");
@@ -80,6 +126,45 @@ function istAktiv(ziel: string) {
       }
     });
   }
+
+  /**
+   * Der Zurück-Pfeil.
+   *
+   * Im Markup steht er als gewöhnlicher Verweis eine Ebene höher. Er
+   * funktioniert also auch ohne JavaScript und führt immer irgendwohin.
+   *
+   * Kam der Besucher von einer Seite dieser Website, ist die Ebene darüber
+   * aber nicht das, was er erwartet. Dann heißt der Pfeil "Zurück" und
+   * bringt ihn genau dorthin, wo er hergekommen ist.
+   */
+  const zurueck = document.querySelector<HTMLAnchorElement>("[data-zurueck]");
+
+  if (zurueck) {
+    let vonDieserSeite = false;
+    try {
+      vonDieserSeite =
+        document.referrer !== "" &&
+        new URL(document.referrer).origin === location.origin;
+    } catch {
+      vonDieserSeite = false;
+    }
+
+    if (vonDieserSeite && history.length > 1) {
+      const beschriftung = zurueck.querySelector("[data-zurueck-text]");
+      if (beschriftung) beschriftung.textContent = "Zurück";
+      zurueck.setAttribute("aria-label", "Zurück zur vorherigen Seite");
+
+      zurueck.addEventListener("click", (e) => {
+        // Nicht bei Mittelklick oder gedrückter Taste: Wer in einem neuen
+        // Tab öffnen will, soll das Ziel aus dem href bekommen.
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+          return;
+        }
+        e.preventDefault();
+        history.back();
+      });
+    }
+  }
 </script>
 
 <style>
@@ -97,9 +182,59 @@ function istAktiv(ziel: string) {
     padding-block: var(--raum-2);
   }
 
+  .kopf__links {
+    display: flex;
+    align-items: center;
+    gap: var(--raum-2);
+  }
+
   .kopf__marke {
     text-decoration: none;
     color: inherit;
+  }
+
+  /* Zurück-Pfeil ---------------------------------------------------------- */
+
+  .zurueck {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    /* 44 Pixel hoch, damit der Daumen ihn trifft. */
+    min-height: 2.75rem;
+    padding-right: var(--raum-2);
+    border-right: var(--linie);
+    color: var(--stahl);
+    font-size: var(--gr-klein);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .zurueck:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .zurueck__pfeil {
+    flex: none;
+  }
+
+  /* Am Telefon steht nur "Zurück". Das längste Ziel heißt "Häufige
+     Probleme", und damit passen Pfeil, Marke und Menüknopf nicht mehr in
+     eine Zeile. Sobald Platz ist, steht das Ziel beim Namen, dann stimmt die
+     Beschriftung auch ohne JavaScript genau mit dem Verweis überein. */
+  .zurueck__lang {
+    display: none;
+  }
+
+  @media (min-width: 30em) {
+    .zurueck__kurz {
+      display: none;
+    }
+
+    .zurueck__lang {
+      display: inline;
+    }
   }
 
   .kopf__menue {

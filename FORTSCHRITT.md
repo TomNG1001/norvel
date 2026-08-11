@@ -638,3 +638,44 @@ untereinander; das spart rund 300 Pixel.
 
 **Der nächste Abschnitt, der auf der Startseite wächst, muss einen anderen
 verkleinern.** Sonst reißt die Zwölf.
+
+---
+
+## Zurück-Pfeil und zwei Korrekturen, 2026-08-11
+
+Drei Ansagen von Tom, alle umgesetzt:
+
+- **Die Überschrift des Fahrplans** hieß „In 24 bis 72 Stunden steht dein
+  Grundgerüst". Jetzt: „Vom Anruf bis deine Seite steht". Das
+  Zeitversprechen ist nicht verschwunden, es steht jetzt am dritten Halt,
+  wo es hingehört, und im Vorspann.
+- **Der Notiz-Kasten im zweiten Halt ist raus.** Der Satz darin war
+  richtig, der Kasten war zu viel. „Sind sie am Montag da, steht die Seite
+  am Mittwoch" hängt jetzt einfach hinten am Text des Schritts.
+- **Ein Zurück-Pfeil oben links**, auf jeder Seite außer der Startseite.
+
+Zum Pfeil, weil daran mehr hängt als es aussieht:
+
+Er steht im **Kopfbereich**, nicht in den einzelnen Seiten. Damit kann ihn
+keine neue Seite vergessen, und das Ziel kommt aus `uebergeordnet()` in
+`navigation.ts`, wird also nicht 27 Mal von Hand eingetragen.
+
+Er arbeitet auf zwei Stufen:
+
+1. **Ohne JavaScript** ist er ein gewöhnlicher Verweis eine Ebene höher, mit
+   dem Namen dieser Ebene als Beschriftung. Er führt also immer irgendwohin,
+   und die Beschriftung stimmt mit dem Ziel überein.
+2. **Mit JavaScript**, und nur wenn der Besucher von einer Seite dieser
+   Website kam, heißt er „Zurück" und ruft `history.back()` auf. Dann landet
+   man genau dort, wo man vorher war, und nicht auf der Übersichtsseite.
+
+Geprüft an Toms eigenem Beispiel: von /ablauf über „Anfrage schicken" auf
+/kontakt, Pfeil gedrückt, wieder auf /ablauf. Der statische Verweis dieser
+Seite zeigt auf die Startseite, das JavaScript hat ihn überstimmt.
+
+Mittelklick und Klick mit gedrückter Befehls- oder Strg-Taste bleiben
+unangetastet, sonst wäre „in neuem Tab öffnen" kaputt.
+
+Am Telefon steht nur „Zurück", ab 480 Pixel der Name des Ziels. Grund:
+Das längste Ziel heißt „Häufige Probleme", und damit brach die Kopfzeile bei
+390 Pixeln in zwei Zeilen um, gemessen 136 statt 76 Pixel Höhe.

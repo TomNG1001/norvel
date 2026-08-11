@@ -63,3 +63,36 @@ export const fussnavigation: FussSpalte[] = [
     ],
   },
 ];
+
+/**
+ * Wohin der Zurück-Pfeil im Kopfbereich führt, wenn kein JavaScript läuft:
+ * eine Ebene höher. Läuft JavaScript und kam der Besucher von einer Seite
+ * dieser Website, führt der Pfeil stattdessen genau dorthin zurück, wo er
+ * hergekommen ist. Das steht in Kopfbereich.astro.
+ *
+ * Die Startseite bekommt keinen Pfeil, über ihr liegt nichts.
+ */
+export function uebergeordnet(pfad: string): NavPunkt | null {
+  const rein = pfad.replace(/\/+$/, "") || "/";
+  if (rein === "/") return null;
+
+  const teile = rein.split("/").filter(Boolean);
+  if (teile.length > 1) {
+    const ziel = "/" + teile.slice(0, -1).join("/");
+    const treffer = alleZiele().find((p) => p.pfad === ziel);
+    if (treffer) return treffer;
+  }
+
+  // Alles ohne bekannte Zwischenebene führt zur Startseite. Lieber ein
+  // richtiges Ziel mit richtigem Namen als ein geratener Zwischenschritt.
+  return { text: "Startseite", pfad: "/" };
+}
+
+/** Jeder Pfad, für den es irgendwo einen Anzeigenamen gibt. */
+function alleZiele(): NavPunkt[] {
+  return [
+    ...hauptnavigation,
+    kontaktKnopf,
+    ...fussnavigation.flatMap((spalte) => spalte.punkte),
+  ];
+}
