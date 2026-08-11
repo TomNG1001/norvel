@@ -168,6 +168,11 @@ Bändern über die ganze Breite. Dunkelblau ist nie nur Button-Farbe auf weißem
 Grund — genau so sieht jede andere Handwerkerseite aus. Tinte-Bänder bekommen:
 der 24–72-Stunden-Abschnitt, die Preistabelle, jeder Seitenabschluss.
 
+> Geändert am 10.08. auf Ansage: Der 24–72-Stunden-Abschnitt auf der Startseite
+> ist **kein** Tinte-Band mehr, sondern Kreideweiß. Der Wechsel läuft dort
+> jetzt zwischen Kreide und Kartenweiß, das dunkle Band trägt nur noch der
+> Seitenabschluss. Die Preistabelle auf /preise liegt weiter auf Tinte.
+
 Keine Verläufe, keine Schlagschatten, keine Stockfotos, keine Deko-Icons.
 Mobil zuerst.
 
