@@ -3,8 +3,9 @@
  * Die Startseite.
  *
  * Hauptziel: Anfrage. Nächster Schritt: Preise ansehen oder anrufen.
- * Aufbau nach dem Hell-Dunkel-Rhythmus, die beiden Tinte-Bänder sitzen beim
- * 24–72-Stunden-Abschnitt und beim Abschluss.
+ * Aufbau nach dem Hell-Dunkel-Rhythmus: Kreide und Weiß im Wechsel, dunkel
+ * wird nur der Abschluss. Der 24–72-Stunden-Abschnitt war früher ein
+ * Tinte-Band, steht seit dem 10.08. auf Kreide.
  *
  * Branchen, Leistungen, Pakete und Projekte kommen aus den Datendateien.
  * Trägst du dort etwas ein, steht es hier.
@@ -82,37 +83,101 @@ import {
         Nach dem Telefonat brauche ich dein Material. Ein bis drei Tage später
         machst du deine Seite auf deinem eigenen Handy auf.
       </p>
-      <p>
-        Keine Vorschau als Bild, das du abnicken sollst. Eine echte Seite unter
-        einer echten Adresse, die du weiterschicken kannst, an deine Frau, an
-        deinen Koch, an wen du willst.
-      </p>
 
-      <ol class="zeitplan">
-        <li>
-          <span class="zeitplan__wann">Das Telefonat</span>
-          <span class="zeitplan__was">
-            Zwanzig Minuten. Danach weißt du, was es kostet und was ich brauche.
-          </span>
-        </li>
-        <li>
-          <span class="zeitplan__wann">Dein Material</span>
-          <span class="zeitplan__was">
-            Texte oder Stichpunkte, Fotos, Öffnungszeiten, Preise. Mehr nicht.
-          </span>
-        </li>
-        <li>
-          <span class="zeitplan__wann">Ein bis drei Tage später</span>
-          <span class="zeitplan__was">
-            Die Seite steht. Du gehst sie durch, ich setze deine Änderungen um.
-          </span>
-        </li>
-      </ol>
+      <div class="fahrplan">
+        <ol class="zeitplan">
+          <li class="halt">
+            <span class="halt__marke" aria-hidden="true">1</span>
+            <span class="halt__dauer">20 Minuten</span>
+            <h3 class="halt__titel">Das Telefonat</h3>
+            <p class="halt__text">
+              Ich frage, wer bei dir anruft, bestellt oder bucht und was diese
+              Leute vorher wissen müssen. Danach kennst du deinen Preis.
+            </p>
+          </li>
 
-      <p>
-        Woran es wirklich hängt, ist nie das Bauen. Es sind deine Texte und
-        deine Fotos. Wenn die am Montag da sind, steht die Seite am Mittwoch.
-      </p>
+          <li class="halt halt--offen">
+            <span class="halt__marke halt__marke--offen" aria-hidden="true"
+              >2</span
+            >
+            <span class="halt__dauer halt__dauer--offen">Liegt bei dir</span>
+            <h3 class="halt__titel">Dein Material</h3>
+            <p class="halt__text">
+              Texte oder Stichpunkte, Fotos, Öffnungszeiten, Preise, die
+              Angaben fürs Impressum. Stichpunkte reichen, die Sätze baue ich
+              daraus.
+            </p>
+            <p class="halt__notiz">
+              Hier hängt es fast immer, nie am Bauen. Sind deine Texte am
+              Montag da, steht die Seite am Mittwoch.
+            </p>
+          </li>
+
+          <li class="halt">
+            <span class="halt__marke" aria-hidden="true">3</span>
+            <span class="halt__dauer">24 bis 72 Stunden</span>
+            <h3 class="halt__titel">Deine Seite steht</h3>
+            <p class="halt__text">
+              Du bekommst eine Adresse aufs Handy, gehst alles in Ruhe durch
+              und sagst mir, was geändert wird.
+            </p>
+          </li>
+        </ol>
+
+        <figure class="vorschau">
+          <div class="handy" aria-hidden="true">
+            <div class="handy__leiste">
+              <svg
+                class="handy__schloss"
+                viewBox="0 0 12 14"
+                width="9"
+                height="11"
+                focusable="false"
+              >
+                <path
+                  d="M3.25 6V4a2.75 2.75 0 0 1 5.5 0v2"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"></path>
+                <rect x="1" y="6" width="10" height="7" rx="1"></rect>
+              </svg>
+              vorschau.deinbetrieb.de
+            </div>
+
+            <div class="handy__kopf">
+              <span class="handy__marke"></span>
+              <span class="handy__menue">
+                <span></span><span></span><span></span>
+              </span>
+            </div>
+
+            <div class="handy__inhalt">
+              <span class="bl bl--titel"></span>
+              <span class="bl bl--titel bl--kurz"></span>
+              <span class="bl"></span>
+              <span class="bl bl--kurz"></span>
+              <span class="handy__knopf">Jetzt anrufen</span>
+              <span class="handy__zeiten">
+                <span class="handy__zeit"><span>Mo bis Fr</span><span
+                    >11 bis 22 Uhr</span
+                  ></span>
+                <span class="handy__zeit"><span>Samstag</span><span
+                    >12 bis 23 Uhr</span
+                  ></span>
+                <span class="handy__zeit"><span>Sonntag</span><span
+                    >Ruhetag</span
+                  ></span>
+              </span>
+            </div>
+          </div>
+
+          <figcaption>
+            Keine Vorschau als Bild, das du abnicken sollst. Eine echte
+            Adresse, die du aufmachen und weiterschicken kannst.
+          </figcaption>
+        </figure>
+      </div>
+
       <p>
         <a href="/ablauf">Der ganze Ablauf, Schritt für Schritt</a>
       </p>
@@ -247,31 +312,265 @@ import {
     margin-bottom: var(--raum-3);
   }
 
-  /* Zeitplan im Tinte-Band. Ohne ihn stand dort nur Fließtext. */
+  /* Fahrplan ------------------------------------------------------------- */
+  /* Vorher stand hier eine Aufzählung mit Randlinie, also Fließtext in drei
+     Teilen. Jetzt eine Schiene mit nummerierten Halten und daneben das Handy
+     mit der Vorschauadresse. Ohne Bewegung: PROJEKT.md verbietet
+     Einblende-Animationen beim Scrollen. */
+
+  .fahrplan {
+    display: grid;
+    gap: var(--raum-4);
+    margin: var(--raum-4) 0;
+  }
+
+  @media (min-width: 62rem) {
+    .fahrplan {
+      grid-template-columns: minmax(0, 1fr) 17rem;
+      align-items: start;
+      gap: var(--raum-6);
+    }
+  }
+
   .zeitplan {
     display: grid;
-    gap: var(--raum-3);
-    margin: var(--raum-4) 0;
+    margin: 0;
     padding: 0;
     list-style: none;
-    max-width: 48rem;
+    max-width: 40rem;
   }
 
-  .zeitplan li {
+  .halt {
+    position: relative;
+    padding-left: 3.5rem;
+    padding-bottom: var(--raum-4);
+  }
+
+  .halt:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Die Schiene zwischen zwei Halten. Beim offenen Schritt gestrichelt,
+     weil dort niemand eine Dauer versprechen kann. */
+  .halt::before {
+    content: "";
+    position: absolute;
+    left: 1.1875rem;
+    top: 2.75rem;
+    bottom: 0;
+    border-left: 2px solid var(--eisblau);
+  }
+
+  .halt:last-child::before {
+    display: none;
+  }
+
+  .halt--offen::before {
+    border-left-style: dashed;
+  }
+
+  .halt__marke {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    background: var(--stahl);
+    color: var(--auf-tinte);
+    font-family: var(--schrift-titel);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  /* Der Schritt, der bei Tom nicht liegt, ist auch optisch nicht gefüllt. */
+  .halt__marke--offen {
+    background: transparent;
+    color: var(--stahl);
+  }
+
+  .halt__dauer {
+    display: block;
+    margin-bottom: 0.125rem;
+    font-size: var(--gr-klein);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--stahl);
+  }
+
+  .halt__dauer--offen {
+    color: color-mix(in srgb, var(--tinte) 65%, var(--papier));
+  }
+
+  .halt__titel {
+    margin: 0 0 var(--raum-1);
+  }
+
+  .halt__text {
+    margin: 0;
+    color: color-mix(in srgb, var(--tinte) 82%, var(--papier));
+  }
+
+  .halt__notiz {
+    margin: var(--raum-2) 0 0;
+    padding: var(--raum-2);
+    border-left: 3px solid var(--stahl);
+    background: var(--karte);
+    font-size: var(--gr-klein);
+  }
+
+  /* Handy ---------------------------------------------------------------- */
+  /* Schematisch, kein Bildschirmfoto: Balken statt Text, damit niemand ein
+     Kundenprojekt hineinliest. Die Maße darin sind kleiner als --raum-1 und
+     stehen deshalb bewusst als eigene, kleine Staffel hier unten. */
+
+  /* Am Telefon steht das Handy neben seiner Bildunterschrift. Untereinander
+     kostet es dort 300 Pixel, und die Startseite liegt ohnehin nah an der
+     Vellox-Grenze von zwölf Bildschirmen. */
+  .vorschau {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--raum-3);
+    margin: 0;
+  }
+
+  @media (min-width: 62rem) {
+    .vorschau {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: var(--raum-2);
+    }
+  }
+
+  .handy {
+    --geraet: 1.25rem; /* Geräteecken, runder als --radius. Ein Handy hat keine 4-px-Ecken. */
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 10 / 19;
+    max-width: 15rem;
+    border: 0.375rem solid var(--tinte);
+    border-radius: var(--geraet);
+    background: var(--karte);
+    overflow: hidden;
+  }
+
+  @media (min-width: 62rem) {
+    .handy {
+      border-width: 0.5rem;
+    }
+  }
+
+  .handy__leiste {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.375rem 0.25rem;
+    background: var(--papier);
+    border-bottom: 1px solid var(--eisblau);
+    font-size: 0.5rem;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--tinte) 70%, var(--papier));
+  }
+
+  @media (min-width: 62rem) {
+    .handy__leiste {
+      font-size: 0.5625rem;
+    }
+  }
+
+  .handy__schloss {
+    flex: none;
+    fill: currentColor;
+  }
+
+  .handy__kopf {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.625rem;
+    background: var(--tinte);
+  }
+
+  .handy__marke {
+    width: 2.5rem;
+    height: 0.375rem;
+    background: var(--auf-tinte);
+  }
+
+  .handy__menue {
+    display: grid;
+    gap: 0.1875rem;
+  }
+
+  .handy__menue span {
+    display: block;
+    width: 0.75rem;
+    height: 0.125rem;
+    background: var(--auf-tinte);
+  }
+
+  .handy__inhalt {
+    display: grid;
+    align-content: start;
+    gap: 0.375rem;
+    flex: 1;
+    padding: 0.75rem 0.625rem;
+  }
+
+  .bl {
+    display: block;
+    height: 0.375rem;
+    background: var(--eisblau);
+  }
+
+  .bl--titel {
+    height: 0.6875rem;
+    background: color-mix(in srgb, var(--tinte) 55%, var(--karte));
+  }
+
+  .bl--kurz {
+    width: 65%;
+  }
+
+  .handy__knopf {
+    display: block;
+    margin-top: 0.375rem;
+    padding: 0.375rem;
+    border-radius: var(--radius);
+    background: var(--stahl);
+    color: var(--auf-tinte);
+    font-family: var(--schrift-titel);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .handy__zeiten {
     display: grid;
     gap: 0.25rem;
-    padding-left: var(--raum-3);
-    border-left: 3px solid var(--stahl);
+    margin-top: 0.375rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--eisblau);
+    font-size: 0.5rem;
   }
 
-  .zeitplan__wann {
-    font-family: var(--schrift-titel);
-    font-size: var(--gr-h3);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+  .handy__zeit {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: color-mix(in srgb, var(--tinte) 75%, var(--karte));
   }
 
-  .zeitplan__was {
+  .vorschau figcaption {
+    max-width: 24rem;
+    margin: 0;
+    font-size: var(--gr-klein);
     color: color-mix(in srgb, var(--tinte) 75%, var(--papier));
   }
 

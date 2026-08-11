@@ -588,10 +588,53 @@ Farbe:
   6,0:1. Alle über AA.
 
 Zur Frage nach dem Google-Unternehmensprofil: Es ist der kostenlose
-Google-Eintrag (Kasten neben der Suche, Pin in Maps). Er steht als Leistung
-auf der Seite, weil er in Toms eigener Vorgabe steht: „Start hat bewusst keine
-Terminbuchung, keinen WhatsApp-Button, kein Google-Profil". Bleibt drin, bis
-Tom etwas anderes sagt.
+Google-Eintrag (Kasten neben der Suche, Pin in Maps). Er stand als Leistung
+auf der Seite, weil er in Toms eigener Vorgabe stand: „Start hat bewusst keine
+Terminbuchung, keinen WhatsApp-Button, kein Google-Profil".
+
+**Nachtrag vom selben Tag: Tom bietet das nicht an, also ist es raus.** Die
+vierte Leistung, die Fußzeile, der Knick bei Start und zwei versteckte
+Erwähnungen in `ablauf.ts` und `probleme.ts` sind entfernt. Aus vier
+Leistungen sind drei geworden, aus 25 Seiten sind 28 geworden (eine Leistung
+weniger, vier Problemseiten mehr).
 
 Offen geblieben: Tom sagt, fast jede Seite brauche noch Änderungen. Bisher
 liegen Anmerkungen nur zur Startseite vor.
+
+---
+
+## Der 24-bis-72-Stunden-Abschnitt, 2026-08-11
+
+Tom: „die ist noch bisschen langweilig, das ist einfach nur Text auf einer
+Seite." Stimmte. Der Abschnitt bestand aus zwei Absätzen, einer Aufzählung
+mit Randlinie und zwei weiteren Absätzen. Nichts davon war ein Bild.
+
+Neu:
+
+- **Eine Schiene statt einer Aufzählung.** Drei Halte mit nummerierten
+  Quadraten, jeweils mit Dauer darüber: „20 Minuten", „Liegt bei dir",
+  „24 bis 72 Stunden".
+- **Der zweite Halt sieht anders aus als die anderen.** Sein Quadrat ist
+  leer statt gefüllt, seine Dauer ist grau statt blau, und die Schiene unter
+  ihm ist gestrichelt. Das ist der einzige Schritt, den Tom nicht in der
+  Hand hat, und die einzige Stelle ohne Zeitversprechen. Die Form sagt
+  dasselbe wie der Text daneben.
+- **Ein Handy, in CSS gezeichnet.** Adressleiste mit
+  `vorschau.deinbetrieb.de`, dunkler Seitenkopf, Anrufknopf,
+  Öffnungszeiten. Bewusst schematisch, mit Balken statt Text: Ein
+  gezeichnetes Bildschirmfoto wäre ein Beweis, den es noch nicht gibt, und
+  Vellox verbietet erfundene Belege.
+- **Der ehrliche Satz ist dahin gewandert, wo er hingehört.** „Woran es
+  wirklich hängt, sind deine Texte" stand vorher als Absatz unter der
+  Aufzählung. Jetzt steht er als Notiz im zweiten Halt, also genau an dem
+  Schritt, um den es geht.
+
+Gemessen bei 390 × 844: keine Bewegung, kein Skript, kein Bild, also kein
+CLS-Risiko. Kontraste im Abschnitt zwischen 5,1:1 und 9,0:1, alle über AA.
+Die Startseite ist von 10,9 auf **11,4 Bildschirme** gewachsen und liegt
+damit unter der Vellox-Grenze von zwölf, aber nicht mehr weit darunter. Damit
+das reicht, stehen Handy und Bildunterschrift am Telefon nebeneinander statt
+untereinander; das spart rund 300 Pixel.
+
+**Der nächste Abschnitt, der auf der Startseite wächst, muss einen anderen
+verkleinern.** Sonst reißt die Zwölf.
