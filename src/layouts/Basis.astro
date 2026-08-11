@@ -23,6 +23,7 @@ import schriftText from "@fontsource-variable/public-sans/files/public-sans-lati
 import Kopfbereich from "../components/Kopfbereich.astro";
 import Fussbereich from "../components/Fussbereich.astro";
 import { brand } from "../config/brand";
+import { inDieSucheAufnehmen } from "../config/veroeffentlichung";
 
 interface Props {
   titel: string;
@@ -32,6 +33,12 @@ interface Props {
 }
 
 const { titel, beschreibung, noindex = false } = Astro.props;
+
+/**
+ * Zwei Gründe halten eine Seite aus der Suche: Die Seite selbst sagt es, oder
+ * die ganze Website steht noch auf unsichtbar. Siehe veroeffentlichung.ts.
+ */
+const ausDerSuche = noindex || !inDieSucheAufnehmen;
 
 /** Eine eindeutige Adresse je Seite, damit Google keine Doppel sieht. */
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -78,7 +85,7 @@ const betrieb = {
     <title>{titel} – {brand.name}</title>
     <meta name="description" content={beschreibung} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {ausDerSuche && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0a1a30" />
 
