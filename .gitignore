@@ -18,3 +18,5 @@ public/favicon.svg
 # Umgebungsvariablen
 .env
 .env.production
+.vercel
+.env*
