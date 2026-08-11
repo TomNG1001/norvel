@@ -555,3 +555,43 @@ Vorspann bekommt am Telefon eine Schriftstufe weniger.
 
 Nicht übernommen: die Motion Language aus `02_BRANDING/03`. PROJEKT.md
 verbietet Scroll-Animationen, und laut Rangfolge gewinnt PROJEKT.md.
+
+---
+
+## Überarbeitung nach Toms Durchsicht, 2026-08-11
+
+Auf der Startseite:
+
+- **Überschrift.** „Deine Kunden suchen dich auf dem Handy. Was finden sie?"
+  war eine Frage ohne Aussage. Jetzt: „Du machst gute Arbeit. Nur findet sie
+  online keiner."
+- **Zweiter Abschnitt.** „Was ich vor jedem Gespräch sehe" behauptete eine
+  Gewohnheit, die so nicht zutrifft. Jetzt „Woran es fast immer hängt", und
+  der Vorspann beschreibt den Befund statt Toms Ablauf.
+- **Der 24-bis-72-Stunden-Abschnitt war zu leer.** Dazugekommen ist ein
+  Zeitplan mit drei Stationen: Telefonat, Material, Vorschauadresse.
+- **„Was es kostet"** ist von der Startseite verschwunden. Der Abschnitt heißt
+  jetzt „Preise, die vorher feststehen", der Knopf im Kopf „Preise ansehen",
+  der Knopf im Preisabschnitt „Preise vergleichen". Auf /preise wurde aus der
+  h1 „Was deine Seite kostet".
+- **Die fünf Branchen wirkten wie eine Grenze.** Neu auf der Startseite und
+  auf /branchen ein Kasten: Werkstatt, Praxis, Fahrschule, Metzgerei,
+  Fotograf, Steuerbüro. Gebaut wird für jeden Betrieb, hinter dem ein Mensch
+  steht, der selbst ans Telefon geht. Die Abgrenzung nach unten (keine Shops,
+  keine Konzerne, keine Agenturen) bleibt daneben stehen.
+
+Farbe:
+
+- **`--papier` von `#F1F4F7` auf `#E9EDF1`**, kühleres Kreideweiß.
+  `PROJEKT.md` ist nachgezogen, sonst stünde dort ein Wert, den es nicht mehr
+  gibt. Kontraste nachgemessen: Fließtext 14,8:1, Verweise 7,2:1, leiser Text
+  6,0:1. Alle über AA.
+
+Zur Frage nach dem Google-Unternehmensprofil: Es ist der kostenlose
+Google-Eintrag (Kasten neben der Suche, Pin in Maps). Er steht als Leistung
+auf der Seite, weil er in Toms eigener Vorgabe steht: „Start hat bewusst keine
+Terminbuchung, keinen WhatsApp-Button, kein Google-Profil". Bleibt drin, bis
+Tom etwas anderes sagt.
+
+Offen geblieben: Tom sagt, fast jede Seite brauche noch Änderungen. Bisher
+liegen Anmerkungen nur zur Startseite vor.
