@@ -134,8 +134,8 @@ const befunde = [
     <div class="breite">
       <h2>Für wen ich baue</h2>
       <p class="vorspann">
-        Diese fünf kenne ich am besten, weil ich sie am häufigsten baue. Sie
-        sind keine Grenze.
+        Ich baue für jede Branche. Diese fünf kenne ich nur am besten, weil
+        sie am häufigsten anfragen.
       </p>
       <ul class="kacheln kacheln--5">
         {
@@ -151,19 +151,26 @@ const befunde = [
         }
       </ul>
 
-      <p class="offen">
-        <strong>Deine Branche ist nicht dabei?</strong> Macht nichts. Werkstatt,
-        Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro: Ich baue für jeden
-        Betrieb, hinter dem ein Mensch steht, der selbst ans Telefon geht. Die
-        Fragen sind überall dieselben, nur die Antworten sind andere.
-      </p>
-
-      <p class="abgrenzung">
-        <strong>Für wen ich nicht der Richtige bin:</strong> Onlineshops baue
-        ich nicht, Konzerne betreue ich nicht, und für Agenturen arbeite ich
-        nicht zu. Wenn das auf dich zutrifft, sage ich dir das im ersten
-        Telefonat, statt dir etwas zu verkaufen.
-      </p>
+      <div class="zuschnitt">
+        <p>
+          <strong>Deine Branche ist nicht dabei? Macht nichts.</strong>
+          {" "}Werkstatt, Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro:
+          Ich baue für jede Branche. Die Fragen sind überall dieselben, nur die
+          Antworten sind andere.
+        </p>
+        <p>
+          <strong>Worauf es mir ankommt: Es muss ein Einzelbetrieb sein.</strong>
+          {" "}Ein Standort, ein Inhaber, jemand, der selbst ans Telefon geht.
+          Bei Ketten mit mehreren Filialen entscheidet die Zentrale, und da bin
+          ich der Falsche.
+        </p>
+        <p class="zuschnitt__nein">
+          <strong>Was ich nicht baue:</strong> Onlineshops, Auftritte für
+          Konzerne, und Zulieferarbeit für Agenturen. Trifft eines davon auf
+          dich zu, sage ich dir das im ersten Telefonat, statt dir etwas zu
+          verkaufen.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -281,14 +288,6 @@ const befunde = [
 
   /* Wofür ich nicht der Richtige bin. Vellox: Jede Seite, die verkauft, sagt
      an mindestens einer Stelle, für wen sie nicht gemacht ist. */
-  .abgrenzung {
-    margin-top: var(--raum-3);
-    padding: var(--raum-3);
-    border-left: 3px solid var(--stahl);
-    background: var(--karte);
-    max-width: 44rem;
-  }
-
   .fazit {
     margin-top: var(--raum-4);
     margin-bottom: 0;

@@ -102,6 +102,21 @@ export const faqGruppen: FaqGruppe[] = [
     titel: "Zusammenarbeit",
     eintraege: [
       {
+        frage: "Baust du auch für meine Branche?",
+        antwort:
+          "Ja. Die Branche ist mir gleich, ich baue für jede. Worauf es mir ankommt, ist die Größe: ein Standort, ein Inhaber, jemand der selbst ans Telefon geht.",
+      },
+      {
+        frage: "Ich habe mehrere Filialen.",
+        antwort:
+          "Dann bin ich der Falsche. Bei mehreren Standorten hängen Freigaben, Corporate Design und oft eine Zentrale mit drin. Das ist Agenturarbeit und braucht andere Abläufe als meine.",
+      },
+      {
+        frage: "Ich will einen Onlineshop.",
+        antwort:
+          "Baue ich nicht. Zahlungsabwicklung, Versand, Rückgaberecht und Produktpflege sind ein eigenes Handwerk mit eigenen Rechtsfragen. Deine Seite kann auf einen bestehenden Shop verweisen.",
+      },
+      {
         frage: "Arbeitest du auch außerhalb des Rhein-Neckar-Kreises?",
         antwort:
           "Der Schwerpunkt liegt hier, weil ich vorbeikommen kann. Grundsätzlich geht es auch weiter weg, dann läuft mehr über Telefon und Mail.",
