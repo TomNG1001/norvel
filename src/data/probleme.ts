@@ -62,7 +62,7 @@ export const probleme: Problem[] = [
       probe: "Der Fingertest",
     },
     ursache: [
-      "Eine Suchmaschine liest Text. Ein PDF ist für sie ein Anhang, ein abfotografierter Aushang ist ein Bild. In beiden Fällen bekommt sie nicht mit, dass du Schnitzel für 16,50 Euro anbietest oder eine Damenhaarschnitt für 45 Euro machst.",
+      "Eine Suchmaschine liest Text. Ein PDF ist für sie ein Anhang, ein abfotografierter Aushang ist ein Bild. In beiden Fällen bekommt sie nicht mit, dass du Schnitzel für 16,50 Euro anbietest oder einen Damenhaarschnitt für 45 Euro machst.",
       "Dazu kommt das Gerät. Ein PDF, das für DIN A4 gesetzt wurde, erscheint auf einem Handy als winzige Fläche. Wer etwas lesen will, muss aufziehen, verschieben, wieder aufziehen. Nach dem zweiten Versuch ist er weg.",
       "Und die Pflege: Für jede Preisänderung muss die Datei neu gesetzt, exportiert und hochgeladen werden. Deshalb hängt auf den meisten Seiten noch die Karte vom letzten Sommer.",
     ],
@@ -89,7 +89,7 @@ export const probleme: Problem[] = [
     slug: "oeffnungszeiten-versteckt",
     titel: "Die Öffnungszeiten stehen ganz unten",
     kurz: "Öffnungszeiten und Anfahrt sind das, wonach am häufigsten gesucht wird. Wenn beides erst nach dreimal Wischen auftaucht oder bei Google veraltet ist, ruft der Nächste woanders an.",
-    seoTitel: "Öffnungszeiten: die häufigste Frage, am schlechtesten platziert",
+    seoTitel: "Öffnungszeiten: gesucht, aber gut versteckt",
     seoText:
       "Wonach bei lokalen Betrieben am häufigsten gesucht wird, steht auf den meisten Seiten ganz unten oder in einem Bild. Was das kostet und wie es besser geht.",
     ueberschriften: {
@@ -127,7 +127,7 @@ export const probleme: Problem[] = [
     slug: "handy-zu-langsam",
     titel: "Auf dem Handy passiert erstmal nichts",
     kurz: "Alte Seiten laden große Bilder, die für den Rechner gedacht waren. Wer warten muss, ist weg, bevor er gesehen hat, was du anbietest.",
-    seoTitel: "Website zu langsam auf dem Handy: Ursachen und Abhilfe",
+    seoTitel: "Website zu langsam auf dem Handy",
     seoText:
       "Über die Hälfte der Besucher bricht ab, wenn eine Seite auf dem Handy zu lange lädt. Woran es liegt, was es kostet, und wie eine schnelle Seite gebaut wird.",
     ueberschriften: {
