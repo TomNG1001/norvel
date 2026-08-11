@@ -26,7 +26,7 @@ const wurzel = fileURLToPath(new URL("..", import.meta.url));
 const dist = join(wurzel, "dist");
 
 /** Die Seitenfamilien, die geprüft werden. */
-const FAMILIEN = ["branchen", "leistungen", "arbeiten"];
+const FAMILIEN = ["branchen", "leistungen", "arbeiten", "probleme"];
 
 function textAus(html) {
   return html
@@ -67,12 +67,14 @@ async function namenEinerFamilie(familie) {
     branchen: ["name", "einzahl"],
     leistungen: ["name"],
     arbeiten: ["name"],
+    probleme: ["titel"],
   }[familie];
 
   const datei = {
     branchen: "branchen.ts",
     leistungen: "leistungen.ts",
     arbeiten: "projekte.ts",
+    probleme: "probleme.ts",
   }[familie];
 
   const inhalt = await readFile(join(wurzel, "src", "data", datei), "utf8");

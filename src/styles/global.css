@@ -273,18 +273,41 @@ strong { font-weight: 600; }
 }
 
 /* Der Verweis unten trägt die ganze Kachel: überall anklickbar, aber nur ein
-   einziger Halt für die Tabulatortaste. */
+   einziger Halt für die Tabulatortaste.
+
+   Der Pfeil ist keine Deko. Er sagt, dass es weitergeht, und zwar nach rechts.
+   Als Schriftzeichen gesetzt, nicht als Bilddatei. */
 .kachel__mehr {
   margin-top: auto;
+  align-self: flex-start;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
 }
 
-.kachel__mehr::after {
+.kachel__mehr::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: var(--radius);
+}
+
+.kachel__mehr::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.4em;
+  text-decoration: none;
+}
+
+.kachel:hover .kachel__mehr::after {
+  transform: translateX(0.15em);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kachel__mehr::after {
+    transition: transform 120ms ease-out;
+  }
 }
 
 .kachel:hover {

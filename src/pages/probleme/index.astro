@@ -1,0 +1,65 @@
+---
+/**
+ * /probleme, die Übersicht zu den drei Problemseiten.
+ *
+ * Steht nicht in der Hauptnavigation, die hat genau fünf Punkte. Erreichbar
+ * über die Karten auf der Startseite, über die Brotkrumen der Unterseiten und
+ * über den Fußbereich.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { probleme } from "../../data/probleme";
+---
+
+<Basis
+  titel="Häufige Probleme"
+  beschreibung="Preise im PDF, versteckte Öffnungszeiten, zu langsam auf dem Handy. Was dahintersteckt, was es kostet, und wie du es selbst nachprüfst."
+>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen krumen={[{ text: "Häufige Probleme" }]} />
+      <h1>Was Anrufe kostet, bevor einer entsteht</h1>
+      <p class="vorspann">
+        Drei Dinge tauchen bei kleinen Betrieben immer wieder auf. Zu jedem
+        steht hier, woran es liegt und wie du es selbst nachprüfst.
+      </p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2 class="nur-vorlesen">Die drei Probleme</h2>
+      <ul class="kacheln kacheln--3">
+        {
+          probleme.map((p) => (
+            <li class="kachel">
+              <h3>{p.titel}</h3>
+              <p>{p.kurz}</p>
+              <a class="kachel__mehr" href={`/probleme/${p.slug}`}>
+                Mehr erfahren
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>Keines davon ist eine Geschmacksfrage</h2>
+      <p>
+        Alle drei lassen sich messen, und alle drei kosten dasselbe: Leute, die
+        bei dir gekauft hätten, wenn sie dich gefunden hätten. Wenn du wissen
+        willst, wie deine Seite dasteht, ruf an. Ich schaue sie mir vorher an,
+        das kostet nichts.
+      </p>
+      <p>
+        <a class="knopf" href="/kontakt">Anfrage schicken</a>
+      </p>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>

@@ -13,6 +13,7 @@ import Basis from "../layouts/Basis.astro";
 import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import { brand } from "../config/brand";
 import { branchen } from "../data/branchen";
+import { probleme } from "../data/probleme";
 import { leistungen } from "../data/leistungen";
 import { pakete, euro, umsatzsteuerHinweis } from "../data/pakete";
 import {
@@ -22,21 +23,7 @@ import {
   kennzeichnung,
 } from "../data/projekte";
 
-/** Was jemand findet, der einen kleinen Betrieb googelt. Immer dasselbe. */
-const befunde = [
-  {
-    titel: "Deine Preise liegen in einem PDF",
-    text: "Speisekarte, Preisliste, Leistungsübersicht: Als PDF oder abfotografiert hochgeladen sind sie für Google nicht lesbar. Wer nach genau deiner Leistung sucht, bekommt dich nicht angezeigt. Und wer doch auf der Seite landet, muss auf dem Handy hineinzoomen.",
-  },
-  {
-    titel: "Die Öffnungszeiten stehen ganz unten",
-    text: "Öffnungszeiten und Anfahrt sind das, wonach am häufigsten gesucht wird, noch vor allem anderen. Wenn beides erst nach dreimal Wischen auftaucht oder bei Google veraltet ist, ruft der Nächste woanders an.",
-  },
-  {
-    titel: "Auf dem Handy passiert erstmal nichts",
-    text: "Alte Seiten laden große Bilder, die für den Rechner gedacht waren. Wer warten muss, ist weg, bevor er gesehen hat, was du anbietest. Und er kommt kein zweites Mal.",
-  },
-];
+
 ---
 
 <Basis
@@ -70,10 +57,13 @@ const befunde = [
       </p>
       <ul class="kacheln kacheln--3">
         {
-          befunde.map((b) => (
+          probleme.map((p) => (
             <li class="kachel">
-              <h3>{b.titel}</h3>
-              <p>{b.text}</p>
+              <h3>{p.titel}</h3>
+              <p>{p.kurz}</p>
+              <a class="kachel__mehr" href={`/probleme/${p.slug}`}>
+                Mehr erfahren
+              </a>
             </li>
           ))
         }

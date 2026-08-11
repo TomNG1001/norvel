@@ -49,6 +49,7 @@ export const fussnavigation: FussSpalte[] = [
   {
     titel: "Mehr",
     punkte: [
+      { text: "Häufige Probleme", pfad: "/probleme" },
       { text: "Ablauf", pfad: "/ablauf" },
       { text: "Häufige Fragen", pfad: "/faq" },
       { text: "Referenzen", pfad: "/arbeiten" },

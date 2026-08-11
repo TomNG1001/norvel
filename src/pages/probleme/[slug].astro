@@ -1,0 +1,195 @@
+---
+/**
+ * Vorlage für die drei Problemseiten. Drei Seiten, eine Datei.
+ *
+ * Aufbau, fünf Abschnitte:
+ * 1. Kopf mit Brotkrumen
+ * 2. Was dahintersteckt
+ * 3. Was es kostet (Tinte)
+ * 4. Wie ich es mache, dazu die Selbstprobe
+ * 5. Kontaktabschluss
+ *
+ * Der Weg dahin: Startseite, Karte, "Mehr erfahren". Der Weg zurück führt
+ * nach /preise und /kontakt, damit die Seite keine Sackgasse ist.
+ */
+import Basis from "../../layouts/Basis.astro";
+import Brotkrumen from "../../components/Brotkrumen.astro";
+import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import { probleme, type Problem } from "../../data/probleme";
+
+export function getStaticPaths() {
+  return probleme.map((problem) => ({
+    params: { slug: problem.slug },
+    props: { problem },
+  }));
+}
+
+interface Props {
+  problem: Problem;
+}
+
+const { problem } = Astro.props;
+
+/** Die anderen beiden, für den Weiterweg unten. */
+const andere = probleme.filter((p) => p.slug !== problem.slug);
+---
+
+<Basis titel={problem.seoTitel} beschreibung={problem.seoText}>
+  <section class="abschnitt">
+    <div class="breite">
+      <Brotkrumen
+        krumen={[
+          { text: "Häufige Probleme", pfad: "/probleme" },
+          { text: problem.titel },
+        ]}
+      />
+      <h1>{problem.ueberschriften.seite}</h1>
+      <p class="vorspann">{problem.kurz}</p>
+    </div>
+  </section>
+
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>{problem.ueberschriften.ursache}</h2>
+      {problem.ursache.map((absatz) => <p>{absatz}</p>)}
+    </div>
+  </section>
+
+  <section class="abschnitt band--tinte">
+    <div class="breite">
+      <h2>{problem.ueberschriften.kosten}</h2>
+      <ul class="folgen">
+        {problem.kosten.map((z) => <li>{z}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="breite">
+      <h2>{problem.ueberschriften.besser}</h2>
+      <ul class="liste">
+        {problem.besser.map((z) => <li>{z}</li>)}
+      </ul>
+
+      <div class="probe">
+        <h3>{problem.ueberschriften.probe}</h3>
+        <p class="leise">
+          Drei Schritte, die du selbst machen kannst. Dafür brauchst du mich
+          nicht.
+        </p>
+        <ol>
+          {problem.probe.map((z) => <li>{z}</li>)}
+        </ol>
+      </div>
+
+      <p class="knoepfe">
+        <a class="knopf" href="/kontakt">Sag mir, wie es bei dir aussieht</a>
+        <a class="knopf knopf--rand" href="/preise">Was das kostet</a>
+      </p>
+
+      <p class="weiter">
+        Die anderen beiden Probleme:{" "}
+        {
+          andere.map((p, i) => (
+            <>
+              {i > 0 && ", "}
+              <a href={`/probleme/${p.slug}`}>{p.titel}</a>
+            </>
+          ))
+        }
+      </p>
+    </div>
+  </section>
+
+  <Kontaktabschluss />
+</Basis>
+
+<style>
+  .folgen {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .folgen li {
+    position: relative;
+    padding-left: 1.375rem;
+    font-size: var(--gr-gross);
+  }
+
+  .folgen li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 0.75rem;
+    height: 2px;
+    background: var(--auf-tinte-leise);
+  }
+
+  .liste {
+    display: grid;
+    gap: var(--raum-2);
+    margin: 0 0 var(--raum-5);
+    padding: 0;
+    list-style: none;
+    max-width: 44rem;
+  }
+
+  .liste li {
+    position: relative;
+    padding-left: 1.125rem;
+  }
+
+  .liste li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--stahl);
+  }
+
+  /* Die Selbstprobe: was der Betrieb ohne mich nachprüfen kann. */
+  .probe {
+    max-width: 44rem;
+    margin-bottom: var(--raum-5);
+    padding: var(--raum-3);
+    border: 2px solid var(--eisblau);
+    border-left-width: 4px;
+    border-left-color: var(--stahl);
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+
+  .probe h3 {
+    margin-bottom: var(--raum-1);
+  }
+
+  .probe ol {
+    margin: var(--raum-3) 0 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: var(--raum-2);
+  }
+
+  .probe li::marker {
+    font-weight: 700;
+    color: var(--stahl);
+  }
+
+  .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin-bottom: var(--raum-4);
+  }
+
+  .weiter {
+    margin: 0;
+  }
+</style>
