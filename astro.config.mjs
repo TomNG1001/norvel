@@ -8,7 +8,7 @@ import { brand } from "./src/config/brand.ts";
 export default defineConfig({
   site: brand.domain,
   output: "static",
-  server: { port: 3490 },
+  server: { port: 3491 },
   build: {
     // Erzeugt /kontakt/index.html statt /kontakt.html — saubere Adressen.
     format: "directory",

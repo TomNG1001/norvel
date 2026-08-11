@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/make-favicon.mjs",
-    "dev": "astro dev --port 3490",
+    "dev": "astro dev --port 3491",
     "prebuild": "node scripts/make-favicon.mjs && npm run check:sprache",
     "build": "npm run check:brand && astro build",
     "postbuild": "npm run check:schablone && npm run check:vorspann",
-    "preview": "astro preview --port 3490",
+    "preview": "astro preview --port 3491",
     "check:brand": "node scripts/check-brand.mjs",
     "check:sprache": "node scripts/check-sprache.mjs",
     "check:schablone": "node scripts/check-schablone.mjs",
