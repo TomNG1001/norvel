@@ -8,13 +8,14 @@
     "dev": "astro dev --port 3491",
     "prebuild": "node scripts/make-favicon.mjs && node scripts/make-teilbild.mjs && npm run check:sprache",
     "build": "npm run check:brand && astro build",
-    "postbuild": "npm run check:schablone && npm run check:vorspann",
+    "postbuild": "npm run check:schablone && npm run check:vorspann && npm run check:luecken",
     "preview": "astro preview --port 3491",
     "check:brand": "node scripts/check-brand.mjs",
     "check:sprache": "node scripts/check-sprache.mjs",
     "check:schablone": "node scripts/check-schablone.mjs",
     "favicon": "node scripts/make-favicon.mjs",
-    "check:vorspann": "node scripts/check-vorspann.mjs"
+    "check:vorspann": "node scripts/check-vorspann.mjs",
+    "check:luecken": "node scripts/check-luecken.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
