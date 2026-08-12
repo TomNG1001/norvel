@@ -37,11 +37,15 @@ const jahr = new Date().getFullYear();
       </ul>
     </div>
 
+    {/* Die Spaltentitel waren <h2>. Vier Stück auf jeder der 28 Seiten, und
+        beim Navigieren per Überschrift hörte man auf der Startseite
+        "Leistungen" zweimal. Eine Fußzeile ist keine Dokumentgliederung.
+        Die Überschrift für Vorleseprogramme steht am nav. */}
     <nav class="fuss__spalten" aria-label="Fußnavigation">
       {
         fussnavigation.map((spalte) => (
           <div class="fuss__spalte">
-            <h2 class="fuss__titel">{spalte.titel}</h2>
+            <p class="fuss__titel">{spalte.titel}</p>
             <ul>
               {spalte.punkte.map((punkt) => (
                 <li>

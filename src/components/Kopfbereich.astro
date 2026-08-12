@@ -31,6 +31,16 @@ function istAktiv(ziel: string) {
   <div class="breite kopf__innen">
     <div class="kopf__links">
 
+      {/* GEPRÜFT UND VERWORFEN: Platz für den Pfeil auch auf der Startseite
+          reservieren, damit das Logo beim ersten Klick nicht um 120 Pixel
+          nach rechts rutscht. Sieht in der Umsetzung schlechter aus als das
+          Problem: Auf der wichtigsten Seite der Website steht das Logo dann
+          eingerückt vor einer leeren Fläche, und das liest sich als Fehler.
+
+          Der Versatz ist außerdem kein Layout-Sprung im technischen Sinn.
+          Er passiert zwischen zwei Seitenaufrufen, nicht während einer
+          Seite, und dass beim Verlassen der Startseite ein Zurück-Pfeil
+          erscheint, ist genau die Information, die er tragen soll. */}
       {
         zurueck && (
           <a

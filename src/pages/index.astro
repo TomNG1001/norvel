@@ -89,6 +89,7 @@ import {
               <p>{p.kurz}</p>
               <a class="kachel__mehr" href={`/probleme/${p.slug}`}>
                 Mehr erfahren
+                <span class="nur-vorlesen"> über: {p.titel}</span>
               </a>
             </li>
           ))
@@ -281,6 +282,7 @@ import {
               <p>{l.kurz}</p>
               <a class="kachel__mehr" href={`/leistungen/${l.slug}`}>
                 Mehr dazu
+                <span class="nur-vorlesen"> zu: {l.name}</span>
               </a>
             </li>
           ))
@@ -334,6 +336,7 @@ import {
               <p>{p.kurz}</p>
               <a class="kachel__mehr" href={`/arbeiten/${p.slug}`}>
                 Projekt ansehen
+                <span class="nur-vorlesen">: {p.name}</span>
               </a>
             </li>
           ))
@@ -473,12 +476,14 @@ import {
     color: var(--stahl);
   }
 
+  /* "24 bis 72 Stunden" ist das stärkste Verkaufsargument der Seite. Es stand
+     in der Größe einer Bildunterschrift über der Überschrift. */
   .halt__dauer {
     display: block;
     margin-bottom: 0.125rem;
-    font-size: var(--gr-klein);
+    font-size: var(--gr-text);
     font-weight: 600;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.01em;
     color: var(--stahl);
   }
 
@@ -687,7 +692,7 @@ import {
 
   .zuschnitt p {
     margin-bottom: var(--raum-3);
-    max-width: none;
+    max-width: var(--breite-text);
   }
 
   .zuschnitt p:last-child {

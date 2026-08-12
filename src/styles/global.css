@@ -48,9 +48,14 @@
   --schrift-titel: "Bricolage Grotesque Variable", system-ui, sans-serif;
   --schrift-text: "Public Sans Variable", system-ui, sans-serif;
 
-  /* Schriftgrößen, mobil zuerst, wachsen mit dem Fenster. */
-  --gr-klein: 0.875rem;
-  --gr-text: 1.0625rem;
+  /* Schriftgrößen, mobil zuerst, wachsen mit dem Fenster.
+
+     18 statt 17 Pixel im Fließtext und 15 statt 14 im Kleingedruckten: Die
+     Leser sind Gastronomen, Handwerker und Salonbetreiber, im Schnitt eher
+     zwischen 40 und 60 als 25, und sie lesen das in der Küche oder in der
+     Werkstatt. Ein Pixel kostet nichts und ist dort spürbar. */
+  --gr-klein: 0.9375rem;
+  --gr-text: 1.125rem;
   --gr-gross: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
   --gr-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
   --gr-h2: clamp(1.625rem, 1.35rem + 1.4vw, 2.375rem);
@@ -122,14 +127,31 @@ h4 {
   font-family: var(--schrift-titel);
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.02em;
   text-wrap: balance;
   margin: 0 0 var(--raum-3);
 }
 
-h1 { font-size: var(--gr-h1); }
-h2 { font-size: var(--gr-h2); }
-h3 { font-size: var(--gr-h3); font-weight: 600; }
+/* Enges Tracking hilft bei 56 Pixeln und schadet bei 20. Vorher galt ein
+   einziger Wert für alle Überschriften. Bricolage ist eine variable Schrift,
+   also kostet auch die Gewichtsstaffel keine zusätzliche Datei. */
+h1 {
+  font-size: var(--gr-h1);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: var(--gr-h2);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--gr-h3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h4 { letter-spacing: -0.01em; }
 
 p,
 ul,
@@ -140,18 +162,24 @@ ol {
 
 p { text-wrap: pretty; }
 
-/* Einleitungssatz unter einer Überschrift. Höchstens zwei Sätze: Was darüber
-   hinausgeht, ist am Telefon keine Einleitung mehr, sondern eine Textwand.
-   Deshalb bekommt der Vorspann auf schmalen Geräten eine Stufe weniger. */
+/* Einleitungssatz unter einer Überschrift. Höchstens zwei Sätze, und das
+   erzwingt check-vorspann.mjs beim Bauen.
+
+   Vorher war der Vorspann unter 640 Pixeln exakt so groß wie normaler
+   Fließtext. Auf dem Gerät, auf dem er am meisten gelesen wird, hatte er
+   also keine Hierarchie. Der Kommentar begründete das mit Textwand-Gefahr,
+   aber Größe wegzunehmen macht einen Absatz nicht kürzer, nur unsichtbar.
+   Die Kürze kommt vom Wächter, die Hierarchie von hier. */
 .vorspann {
-  font-size: var(--gr-text);
-  line-height: 1.6;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  /* Eigenes, kürzeres Maß. Ein größerer Grad braucht eine kürzere Zeile. */
+  max-width: 34rem;
 }
 
 @media (min-width: 40em) {
   .vorspann {
     font-size: var(--gr-gross);
-    line-height: 1.55;
   }
 }
 
@@ -281,15 +309,41 @@ strong { font-weight: 600; }
   cursor: not-allowed;
 }
 
-/* Zweite Wahl auf hellem Grund. */
-.knopf--rand {
+/* Knopf ohne Fläche.
+
+   Es gab dafür zwei Namen: --rand für helle Hintergründe, --umriss für
+   dunkle, und der --umriss-Block stand sechsmal fast wörtlich in einzelnen
+   Seiten. In einem Projekt, dessen ganzer Zweck "eine Zahl an einer Stelle
+   ändern" ist, war das der einzige echte Ausreißer.
+
+   Jetzt ein Name, ein Ort, und das Band entscheidet über das Aussehen.
+   --rand bleibt als zweiter Name bestehen, damit vorhandenes Markup weiter
+   funktioniert. */
+.knopf--rand,
+.knopf--umriss {
   background: transparent;
   color: var(--stahl);
 }
 
-.knopf--rand:hover {
+.knopf--rand:hover,
+.knopf--umriss:hover {
   background: var(--stahl);
+  border-color: var(--stahl);
   color: #ffffff;
+}
+
+.band--tinte .knopf--rand,
+.band--tinte .knopf--umriss {
+  background: transparent;
+  border-color: var(--auf-tinte);
+  color: var(--auf-tinte);
+}
+
+.band--tinte .knopf--rand:hover,
+.band--tinte .knopf--umriss:hover {
+  background: var(--auf-tinte);
+  border-color: var(--auf-tinte);
+  color: var(--tinte);
 }
 
 /* Auf dunklem Band. */
@@ -527,13 +581,16 @@ body {
 }
 
 /* Hinweiskasten: was auch noch geht, obwohl es nicht in der Liste steht. */
+/* Reiner Fließtext, also gilt das normale Zeilenmaß. Vorher 44rem, das sind
+   rund 92 Zeichen je Zeile und deutlich über der Grenze, an der das Auge die
+   nächste Zeile zuverlässig findet. */
 .offen {
   margin-top: var(--raum-4);
   padding: var(--raum-3);
   border: 2px solid var(--kante);
   border-radius: var(--radius);
   background: var(--karte);
-  max-width: 44rem;
+  max-width: calc(var(--breite-text) + 2 * var(--raum-3));
 }
 
 /* Kennzeichnung oben in der Kachel, etwa "Konzeptprojekt". */
@@ -694,8 +751,11 @@ input[type="checkbox"] {
 
 /* Verweis zum Überspringen der Navigation. Erst sichtbar, wenn er den
    Tastaturfokus bekommt. */
+/* fixed statt absolute: Mit absolute klebt der Sprungverweis am Seitenanfang
+   und ist unsichtbar, wenn jemand mitten auf der Seite die Tabulatortaste
+   drückt. */
 .sprung {
-  position: absolute;
+  position: fixed;
   left: var(--seitenrand);
   top: var(--raum-2);
   z-index: 100;

@@ -56,7 +56,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
   <div class="konf__spalten">
     <div class="konf__auswahl">
       <fieldset class="block">
-        <legend class="block__titel">1. Welche Seiten brauchst du?</legend>
+        <legend class="block__titel"><h3>1. Welche Seiten brauchst du?</h3></legend>
         <p class="leise block__hinweis">
           Startseite und Kontakt sind immer dabei. Impressum und Datenschutz
           zählen nicht mit.
@@ -98,7 +98,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
       </fieldset>
 
       <fieldset class="block">
-        <legend class="block__titel">2. Paket</legend>
+        <legend class="block__titel"><h3>2. Paket</h3></legend>
         <p class="leise block__hinweis">
           Passt deine Seitenzahl nicht mehr, wechsle ich hier automatisch.
         </p>
@@ -128,7 +128,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
       </fieldset>
 
       <fieldset class="block">
-        <legend class="block__titel">3. Bei Google auffindbar sein</legend>
+        <legend class="block__titel"><h3>3. Bei Google auffindbar sein</h3></legend>
         <div class="haken">
           <input
             type="checkbox"
@@ -262,13 +262,17 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
     margin-bottom: 0;
   }
 
+  /* <legend> ist für ein Fieldset semantisch richtig, taucht aber in der
+     Überschriftennavigation nicht auf. Wer sich mit H durch /preise bewegt,
+     fand die drei Schritte des Konfigurators nicht. Ein h3 darin ist
+     zulässig und behebt das. */
   .block__titel {
     padding: 0;
     margin-bottom: var(--raum-1);
-    font-family: var(--schrift-titel);
-    font-size: var(--gr-h3);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+  }
+
+  .block__titel h3 {
+    margin: 0;
   }
 
   .block__hinweis {

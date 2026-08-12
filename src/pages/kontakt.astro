@@ -47,9 +47,11 @@ const naechsteSchritte = ablauf.slice(0, 3);
           <a
             class="knopf knopf--rand"
             href={`https://wa.me/${whatsappNummer}?text=${whatsappText}`}
-            rel="noopener"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Über WhatsApp schreiben
+            <span class="nur-vorlesen"> (öffnet WhatsApp in einem neuen Fenster)</span>
           </a>
         </li>
 
