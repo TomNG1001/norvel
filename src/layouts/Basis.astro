@@ -24,6 +24,7 @@ import Kopfbereich from "../components/Kopfbereich.astro";
 import Fussbereich from "../components/Fussbereich.astro";
 import { brand, mailFehlt } from "../config/brand";
 import { inDieSucheAufnehmen } from "../config/veroeffentlichung";
+import { pakete, euro } from "../data/pakete";
 
 interface Props {
   titel: string;
@@ -43,6 +44,10 @@ const ausDerSuche = noindex || !inDieSucheAufnehmen;
 /** Eine eindeutige Adresse je Seite, damit Google keine Doppel sieht. */
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
+/** Das Bild für geteilte Verknüpfungen. Muss absolut sein, relative Pfade
+    werden von WhatsApp und Facebook nicht aufgelöst. */
+const teilbild = new URL("/teilbild.png", Astro.site).href;
+
 /**
  * Strukturierte Daten zum Betrieb, auf jeder Seite.
  * Die Anschrift fehlt bewusst, sie steht noch nicht fest, und eine erfundene
@@ -60,6 +65,9 @@ const betrieb = {
   areaServed: { "@type": "AdministrativeArea", name: brand.region },
   founder: { "@type": "Person", name: brand.inhaber },
   knowsLanguage: "de",
+  // Spanne statt einzelner Zahl, damit sie stimmt, egal welches Paket.
+  priceRange: `${euro(pakete[0].preisAb)} bis ${euro(pakete[pakete.length - 1].preisAb)}`,
+  image: new URL("/teilbild.png", Astro.site).href,
 };
 ---
 
@@ -95,11 +103,27 @@ const betrieb = {
         CSS-Variablen kennt: siehe --papier in global.css. */}
     <meta name="theme-color" content="#dfe6ed" />
 
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${titel} – ${brand.name}`} />
     <meta property="og:description" content={beschreibung} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={brand.name} />
+
+    {/* Ohne Bild erscheint eine geteilte Verknüpfung in WhatsApp als nackter
+        grauer Kasten. Genau so schicken sich Handwerker und Gastronomen
+        gegenseitig Kontakte weiter. Das Bild entsteht beim Bau, siehe
+        scripts/make-teilbild.mjs. */}
+    <meta property="og:image" content={teilbild} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={`${brand.name}, Websites für kleine Betriebe`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <script
       type="application/ld+json"

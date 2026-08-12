@@ -12,6 +12,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 import { zeichen } from "../src/config/zeichen.mjs";
 
 const wurzel = fileURLToPath(new URL("..", import.meta.url));
@@ -40,5 +41,23 @@ const svg = zeichen({
 
 await mkdir(join(wurzel, "public"), { recursive: true });
 await writeFile(ziel, svg + "\n", "utf8");
+
+/**
+ * Dazu ein PNG für den Startbildschirm. iOS zeigt kein SVG-Favicon an: Wer
+ * die Seite auf den Homescreen legt, bekommt sonst ein graues Kästchen mit
+ * einem Buchstaben darin.
+ */
+const fuersHandy = zeichen({
+  linie: stahl,
+  flaeche: stahl,
+  hintergrund: papier,
+  groesse: 180,
+  eigenstaendig: true,
+});
+
+await sharp(Buffer.from(fuersHandy))
+  .resize(180, 180)
+  .png({ compressionLevel: 9 })
+  .toFile(join(wurzel, "public", "apple-touch-icon.png"));
 
 console.log(`Favicon erzeugt: public/favicon.svg (${stahl} auf ${papier})`);

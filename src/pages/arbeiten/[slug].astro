@@ -17,6 +17,7 @@
 import Basis from "../../layouts/Basis.astro";
 import Brotkrumen from "../../components/Brotkrumen.astro";
 import Kontaktabschluss from "../../components/Kontaktabschluss.astro";
+import Bild from "../../components/Bild.astro";
 import { projekte, kennzeichnung, type Projekt } from "../../data/projekte";
 import { branchen } from "../../data/branchen";
 import { paketNach, euro, umsatzsteuerHinweis, urlParameter } from "../../data/pakete";
@@ -74,6 +75,16 @@ const marke = kennzeichnung(projekt);
       </ul>
     </div>
   </section>
+
+  {
+    projekt.bild && (
+      <section class="abschnitt band--karte">
+        <div class="breite">
+          <Bild bild={projekt.bild} klasse="projektbild" />
+        </div>
+      </section>
+    )
+  }
 
   <section class="abschnitt band--tinte">
     <div class="breite">

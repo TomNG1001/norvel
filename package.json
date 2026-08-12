@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/make-favicon.mjs",
+    "predev": "node scripts/make-favicon.mjs && node scripts/make-teilbild.mjs",
     "dev": "astro dev --port 3491",
-    "prebuild": "node scripts/make-favicon.mjs && npm run check:sprache",
+    "prebuild": "node scripts/make-favicon.mjs && node scripts/make-teilbild.mjs && npm run check:sprache",
     "build": "npm run check:brand && astro build",
     "postbuild": "npm run check:schablone && npm run check:vorspann",
     "preview": "astro preview --port 3491",

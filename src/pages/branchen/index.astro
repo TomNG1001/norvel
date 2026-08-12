@@ -38,7 +38,7 @@ import { branchen } from "../../data/branchen";
               <h3>{b.name}</h3>
               <p>{b.kurz}</p>
               <a class="kachel__mehr" href={`/branchen/${b.slug}`}>
-                Für {b.name} ansehen
+                Für {b.linkText ?? b.name} ansehen
               </a>
             </li>
           ))

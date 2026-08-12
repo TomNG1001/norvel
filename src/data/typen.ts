@@ -15,11 +15,18 @@ export interface FaqEintrag {
 }
 
 /** Ein Bild mit den Angaben, die gegen springendes Layout nötig sind. */
+/**
+ * Ein Bild aus src/bilder. Ausgegeben wird es von components/Bild.astro.
+ *
+ * Breite und Höhe stehen bewusst nicht hier: Astro liest sie beim Bauen aus
+ * der Datei selbst. Zwei Zahlen von Hand zu pflegen, die auch falsch sein
+ * können, wäre eine Fehlerquelle ohne Nutzen.
+ */
 export interface Bild {
-  pfad: string;
+  /** Dateiname im Ordner src/bilder, zum Beispiel "tom.jpg". */
+  datei: string;
+  /** Was zu sehen ist. Nicht "Foto", sondern der Inhalt. */
   alt: string;
-  breite: number;
-  hoehe: number;
 }
 
 /** Ein Punkt in einer Aufzählung mit Überschrift und Erklärung. */

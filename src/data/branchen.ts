@@ -18,6 +18,12 @@ import type { FaqEintrag, PaketId, Punkt } from "./typen";
 export interface Branche {
   /** Mehrzahl, wie in der Navigation. */
   name: string;
+  /**
+   * Wie die Branche im Verweistext heißt, wenn `name` dort schief klingt.
+   * "Für Handwerk ansehen" ist falsch, weil Handwerk ein Fach ist und keine
+   * Gruppe von Betrieben. Fehlt das Feld, wird `name` benutzt.
+   */
+  linkText?: string;
   /** Einzahl, für Sätze wie "als Hundefriseur". */
   einzahl: string;
   slug: string;
@@ -296,6 +302,7 @@ export const branchen: Branche[] = [
 
   {
     name: "Handwerk",
+    linkText: "Handwerksbetriebe",
     einzahl: "Handwerksbetrieb",
     slug: "handwerk",
     seoTitel: "Website für Handwerker im Rhein-Neckar-Kreis",
@@ -309,7 +316,7 @@ export const branchen: Branche[] = [
       seite: "Handwerk: gefunden werden für das, was du wirklich machst",
       problem: "Warum „seit 1998 zuverlässig“ niemanden findet",
       paket: "Komplett, weil jede Leistung eine Seite braucht",
-      beispiel: "Hier fehlt noch ein Beispiel",
+      beispiel: "Der Aufbau ist bei jedem Gewerk derselbe",
       fragen: "Fragen vom Bau",
     },
     mussHaben: [

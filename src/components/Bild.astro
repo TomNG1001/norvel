@@ -1,0 +1,73 @@
+---
+/**
+ * Ein Bild aus src/bilder, fertig für den Browser.
+ *
+ * Warum es diese Komponente gibt: Vor ihr hatte das Projekt einen Typ `Bild`,
+ * ein Feld `bild` in projekte.ts, und keine einzige Stelle, an der jemals ein
+ * Bild ausgegeben wurde. Es fehlte also nicht das Foto, es fehlte der Ort.
+ *
+ * Was sie abnimmt:
+ * - Astro rechnet die Datei beim Bauen in mehrere Größen und in avif und webp
+ * - Breite und Höhe stehen im Markup, deshalb springt beim Laden nichts
+ * - Bilder unterhalb des ersten Bildschirms werden nachgeladen
+ *
+ * Was sie nicht tut: raten. Fehlt die Datei, bricht der Bau ab, statt still
+ * ein kaputtes Bild auszuliefern.
+ */
+import { Image } from "astro:assets";
+import type { Bild } from "../data/typen";
+
+interface Props {
+  bild: Bild | null;
+  /** Bilder im ersten Bildschirm sofort laden, alle anderen später. */
+  sofort?: boolean;
+  /** Breite, in der das Bild dargestellt wird. Bestimmt die erzeugten Größen. */
+  breite?: number;
+  klasse?: string;
+}
+
+const { bild, sofort = false, breite = 960, klasse } = Astro.props;
+
+/**
+ * Alle Dateien im Bilderordner, zur Bauzeit eingesammelt. Ein Glob statt
+ * einzelner Importe, damit Tom eine Datei ablegen kann, ohne Code zu ändern.
+ */
+const dateien = import.meta.glob<{ default: ImageMetadata }>(
+  "../bilder/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true }
+);
+
+const eintrag = bild ? dateien[`../bilder/${bild.datei}`] : undefined;
+
+if (bild && !eintrag) {
+  throw new Error(
+    `Bild "${bild.datei}" ist eingetragen, liegt aber nicht in src/bilder. ` +
+      `Vorhanden sind: ${Object.keys(dateien)
+        .map((p) => p.replace("../bilder/", ""))
+        .join(", ") || "keine Dateien"}`
+  );
+}
+---
+
+{
+  bild && eintrag && (
+    <Image
+      src={eintrag.default}
+      alt={bild.alt}
+      widths={[breite / 2, breite, breite * 1.5]}
+      sizes={`(min-width: ${breite}px) ${breite}px, 100vw`}
+      loading={sofort ? "eager" : "lazy"}
+      decoding={sofort ? "sync" : "async"}
+      class:list={["bild", klasse]}
+    />
+  )
+}
+
+<style>
+  .bild {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background: var(--karte);
+  }
+</style>

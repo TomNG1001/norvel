@@ -7,6 +7,8 @@ dist/
 
 # Zur Build-Zeit erzeugt
 public/favicon.svg
+public/teilbild.png
+public/apple-touch-icon.png
 
 # macOS
 .DS_Store

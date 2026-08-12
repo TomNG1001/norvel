@@ -10,6 +10,8 @@
  * Deshalb steht hier nur der Kreisname aus brand.ts, keine Städteliste.
  */
 import Basis from "../layouts/Basis.astro";
+import Bild from "../components/Bild.astro";
+import type { Bild as BildTyp } from "../data/typen";
 import Kontaktabschluss from "../components/Kontaktabschluss.astro";
 import { brand } from "../config/brand";
 
@@ -41,6 +43,26 @@ const nichtMeinGeschaeft = [
   "Kein Redaktionssystem, das du selbst bedienst. Das macht Seiten langsam und angreifbar.",
   "Keine erfundenen Kundenstimmen und keine ausgedachten Erfolgszahlen. Was ich zeige, ist als das gekennzeichnet, was es ist.",
 ];
+
+/**
+ * DAS FOTO. Hier trägst du es ein, sonst nirgends.
+ *
+ * So geht es: Datei nach src/bilder legen, dann diese Zeile ersetzen durch
+ *
+ *   const foto: BildTyp | null = {
+ *     datei: "tom.jpg",
+ *     alt: "Ich an meinem Schreibtisch, im Hintergrund zwei Bildschirme",
+ *   };
+ *
+ * Solange hier null steht, erscheint an der Stelle der Hinweis, dass das
+ * Foto fehlt. Es wird kein Platzhalterbild geladen und kein Stockfoto
+ * eingesetzt.
+ *
+ * Warum sich das lohnt: Bei einem Einzelunternehmer ist ein echtes Gesicht
+ * der stärkste einzelne Vertrauensfaktor, den es gibt. Die Seite verkauft
+ * "du redest immer mit derselben Person" und zeigt diese Person nicht.
+ */
+const foto: BildTyp | null = null;
 ---
 
 <Basis
@@ -82,6 +104,9 @@ const nichtMeinGeschaeft = [
   <section class="abschnitt">
     <div class="breite">
       <h2>Wie ich dazu gekommen bin</h2>
+
+      {foto && <Bild bild={foto} klasse="portraet" breite={520} />}
+
       <div class="platzhalter">
         <p class="platzhalter__marke">Platzhalter: Text fehlt noch</p>
         <p>
