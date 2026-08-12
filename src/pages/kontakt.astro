@@ -165,8 +165,13 @@ const naechsteSchritte = ablauf.slice(0, 3);
     flex-grow: 1;
   }
 
+  /* Der Kasten steht auf hidden und wird per JavaScript eingeblendet, wenn
+     eine Auswahl von der Preisseite mitkommt. Ohne reservierte Mindesthöhe
+     rutscht das Formular dabei nach unten. Serverseitig lässt sich das nicht
+     lösen, die Seite ist statisch und kennt die Adresszeile nicht. */
   .uebernommen {
     max-width: 44rem;
+    min-height: 9rem;
     margin-bottom: var(--raum-4);
     padding: var(--raum-3);
     border: 2px solid var(--stahl);

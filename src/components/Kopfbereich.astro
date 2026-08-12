@@ -221,7 +221,9 @@ function istAktiv(ziel: string) {
     /* 44 Pixel hoch, damit der Daumen ihn trifft. */
     min-height: 2.75rem;
     padding-right: var(--raum-2);
-    border-right: var(--linie);
+    /* --linie wäre --eisblau bei 1,24:1, also unsichtbar. Dann lesen sich
+       Pfeil und Marke als ein einziges Element. */
+    border-right: 1px solid var(--kante);
     color: var(--stahl);
     font-size: var(--gr-klein);
     font-weight: 600;
