@@ -11,7 +11,7 @@
  * feststehen. Die Anschrift fehlt und ist Pflicht.
  */
 import Basis from "../layouts/Basis.astro";
-import { brand } from "../config/brand";
+import { brand, mailFehlt } from "../config/brand";
 
 /** Was ein Impressum für einen Einzelunternehmer enthalten muss. */
 const pflichtangaben = [
@@ -27,8 +27,10 @@ const pflichtangaben = [
   },
   {
     titel: "Kontakt",
-    text: `${brand.telefonAnzeige} · ${brand.mail}`,
-    fehlt: false,
+    text: mailFehlt
+      ? brand.telefonAnzeige
+      : `${brand.telefonAnzeige} · ${brand.mail}`,
+    fehlt: mailFehlt,
   },
   {
     titel: "Umsatzsteuer-Identifikationsnummer",

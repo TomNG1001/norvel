@@ -6,6 +6,14 @@
  * Ohne JavaScript funktioniert das Formular vollständig: Es ist ein normales
  * HTML-Formular mit POST. JavaScript füllt nur das versteckte Feld mit der
  * Auswahl von der Preisseite und zeigt sie dem Besucher an.
+ *
+ * WICHTIG, solange der Endpunkt fehlt: Dann wird das Formular gar nicht erst
+ * ausgeliefert. Vorher stand hier ein vollständig bedienbares Formular, das
+ * beim Absenden ins Nichts lief. Der Warnkasten dazu war an
+ * `import.meta.env.DEV` gebunden, also im fertigen Build unsichtbar. Ein
+ * Interessent hätte abgeschickt, nie eine Antwort bekommen und angenommen,
+ * dass sich hier niemand meldet. Ein sichtbar abgeschalteter Weg kostet
+ * weniger als ein stiller.
  */
 import { brand } from "../config/brand";
 import {
@@ -18,19 +26,44 @@ import {
 import { branchen } from "../data/branchen";
 
 const dankeAdresse = `${brand.domain}/danke/`;
+
+/** Vorbelegter Text für WhatsApp, solange das Formular aus ist. */
+const whatsappNummer = brand.telefonE164.replace(/\D/g, "");
+const whatsappText = encodeURIComponent(
+  "Hallo, ich habe eine Frage zu einer Website für meinen Betrieb."
+);
 ---
 
 {
-  /* Nur beim Entwickeln sichtbar. Im fertigen Build ist dieser Kasten weg. */
-  import.meta.env.DEV && endpunktFehlt && (
-    <p class="warnung">
-      <strong>Nur für dich sichtbar:</strong> In
-      <code>src/config/formular.ts</code> steht noch kein echter
-      Formspree-Endpunkt. Solange geht keine Anfrage raus.
-    </p>
-  )
-}
-
+  endpunktFehlt ? (
+    <div class="formular-aus">
+      <p class="formular-aus__marke">Das Formular ist gerade abgeschaltet</p>
+      <h3 class="formular-aus__titel">Ruf einfach an, das geht sowieso schneller</h3>
+      <p>
+        Ich richte den Versand gerade ein. Bis das steht, schalte ich das
+        Formular lieber ab, als dich etwas abschicken zu lassen, das bei mir
+        nicht ankommt.
+      </p>
+      <p class="knoepfe">
+        <a class="knopf" href={`tel:${brand.telefonE164}`}>
+          {brand.telefonAnzeige} anrufen
+        </a>
+        <a
+          class="knopf knopf--rand"
+          href={`https://wa.me/${whatsappNummer}?text=${whatsappText}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Über WhatsApp schreiben
+          <span class="nur-vorlesen"> (öffnet WhatsApp)</span>
+        </a>
+      </p>
+      <p class="leise">
+        Zwei Sätze zu deinem Betrieb reichen für den Anfang. Den Rest frage
+        ich dich.
+      </p>
+    </div>
+  ) : (
 <form
   class="formular"
   id="formular"
@@ -143,6 +176,8 @@ const dankeAdresse = `${brand.domain}/danke/`;
 
   <button type="submit" class="knopf">Anfrage schicken</button>
 </form>
+  )
+}
 
 <style>
   .formular {
@@ -170,18 +205,37 @@ const dankeAdresse = `${brand.domain}/danke/`;
     overflow: hidden;
   }
 
-  .warnung {
-    max-width: 44rem;
-    margin-bottom: var(--raum-3);
-    padding: var(--raum-2);
-    border: 2px dashed var(--stahl);
+  /* Steht anstelle des Formulars, solange kein Endpunkt eingetragen ist. */
+  .formular-aus {
+    max-width: 40rem;
+    padding: var(--raum-4);
+    border: 2px solid var(--stahl);
     border-radius: var(--radius);
     background: var(--karte);
-    font-size: var(--gr-klein);
   }
 
-  .warnung code {
-    font-size: 0.95em;
+  .formular-aus__marke {
+    margin: 0 0 var(--raum-1);
+    font-size: var(--gr-klein);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stahl);
+  }
+
+  .formular-aus__titel {
+    margin-bottom: var(--raum-2);
+  }
+
+  .formular-aus .knoepfe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--raum-2);
+    margin: var(--raum-3) 0 var(--raum-2);
+  }
+
+  .formular-aus p:last-child {
+    margin-bottom: 0;
   }
 
   @media (min-width: 40em) {

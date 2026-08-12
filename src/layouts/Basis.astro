@@ -22,7 +22,7 @@ import schriftText from "@fontsource-variable/public-sans/files/public-sans-lati
 
 import Kopfbereich from "../components/Kopfbereich.astro";
 import Fussbereich from "../components/Fussbereich.astro";
-import { brand } from "../config/brand";
+import { brand, mailFehlt } from "../config/brand";
 import { inDieSucheAufnehmen } from "../config/veroeffentlichung";
 
 interface Props {
@@ -54,7 +54,9 @@ const betrieb = {
   name: brand.name,
   url: brand.domain,
   telephone: brand.telefonE164,
-  email: brand.mail,
+  // Erst eintragen, wenn es eine echte Adresse gibt. Eine erfundene in den
+  // strukturierten Daten ist schlimmer als ein fehlendes Feld.
+  ...(mailFehlt ? {} : { email: brand.mail }),
   areaServed: { "@type": "AdministrativeArea", name: brand.region },
   founder: { "@type": "Person", name: brand.inhaber },
   knowsLanguage: "de",

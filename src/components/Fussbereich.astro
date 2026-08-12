@@ -7,7 +7,7 @@
  * nichts zu suchen.
  */
 import Logo from "./Logo.astro";
-import { brand } from "../config/brand";
+import { brand, mailFehlt } from "../config/brand";
 import { fussnavigation } from "../config/navigation";
 
 const jahr = new Date().getFullYear();
@@ -24,9 +24,16 @@ const jahr = new Date().getFullYear();
         <li>
           <a href={`tel:${brand.telefonE164}`}>{brand.telefonAnzeige}</a>
         </li>
-        <li>
-          <a href={`mailto:${brand.mail}`}>{brand.mail}</a>
-        </li>
+        {
+          /* Erst zeigen, wenn es eine echte Adresse gibt. Eine offensichtlich
+             erfundene Mail direkt neben der echten Nummer nimmt auch der
+             Nummer ihre Glaubwürdigkeit. */
+          !mailFehlt && (
+            <li>
+              <a href={`mailto:${brand.mail}`}>{brand.mail}</a>
+            </li>
+          )
+        }
       </ul>
     </div>
 

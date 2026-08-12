@@ -17,7 +17,14 @@ export default defineConfig({
     sitemap({
       // Seiten, die auf noindex stehen, gehören nicht in die Sitemap.
       // Sonst widerspricht sich die Website selbst.
-      filter: (seite) => !seite.includes("/danke"),
+      //
+      // Impressum und Datenschutz stehen aus einem anderen Grund nicht drin:
+      // Rechtsseiten sollen erreichbar sein, aber nicht ranken. Sie in die
+      // Sitemap zu setzen, heißt Google zu bitten, sie zu bewerten.
+      filter: (seite) =>
+        !["/danke", "/impressum", "/datenschutz"].some((pfad) =>
+          seite.includes(pfad)
+        ),
     }),
   ],
 });
