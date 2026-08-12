@@ -95,10 +95,14 @@ const marke = kennzeichnung(projekt);
           <dt>Seiten</dt>
           <dd>{projekt.seitenzahl}</dd>
         </div>
-        <div>
-          <dt>Dauer</dt>
-          <dd>{projekt.dauer}</dd>
-        </div>
+        {
+          projekt.dauer && (
+            <div>
+              <dt>Dauer</dt>
+              <dd>{projekt.dauer}</dd>
+            </div>
+          )
+        }
       </dl>
       <p class="leise">{umsatzsteuerHinweis}</p>
       <p class="knoepfe">

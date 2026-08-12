@@ -5,9 +5,10 @@
  *
  * In Schritt 11 wird daraus zusätzlich FAQPage-Auszeichnung erzeugt.
  *
- * PLATZHALTER: Alles, was Tom vertraglich festlegen muss. Anzahlung,
- * Laufzeit, Kündigung, Domainübergabe, steht als erkennbarer Platzhalter da.
- * Da wird nichts geraten.
+ * Vertragliches steht hier bewusst nicht ausformuliert: Anzahlung, Laufzeit,
+ * Kündigungsfrist, Domaininhaber. Diese Antworten verweisen stattdessen auf
+ * das Angebot, denn es sind Zahlen, die nur Tom festlegen kann, und geraten
+ * wird hier nichts. Sobald sie feststehen, gehören sie an diese Stellen.
  */
 
 import type { FaqEintrag } from "./typen";
@@ -59,7 +60,7 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Wie läuft die Bezahlung?",
         antwort:
-          "PLATZHALTER. Tom muss festlegen, ob es eine Anzahlung gibt, wie hoch sie ist und wann der Rest fällig wird.",
+          "Die Zahlungsbedingungen bekommst du zusammen mit deinem Angebot, bevor du zusagst. Wenn du sie vorher wissen willst, ruf an, dann sage ich dir die Zahlen sofort.",
       },
       {
         frage: "Was kostet eine zusätzliche Seite später?",
@@ -89,12 +90,12 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Wem gehört die Domain?",
         antwort:
-          "PLATZHALTER. Tom muss festlegen, ob die Domain auf ihn oder auf den Kunden läuft und was bei einer Kündigung damit passiert.",
+          "Wenn du schon eine hast, bleibt sie deine, daran ändere ich nichts. Kommt eine neue dazu, halte ich vor der Bestellung schriftlich fest, auf wen sie läuft.",
       },
       {
         frage: "Was passiert, wenn ich die Pflege kündige?",
         antwort:
-          "PLATZHALTER. Tom muss Laufzeit, Kündigungsfrist und Übergabe der Dateien festlegen.",
+          "Das steht schwarz auf weiß in deinem Angebot, bevor du zusagst: Laufzeit, Frist und was mit deinen Dateien passiert. Du sollst das nicht erst suchen müssen, wenn du aussteigen willst.",
       },
     ],
   },
@@ -124,12 +125,12 @@ export const faqGruppen: FaqGruppe[] = [
       {
         frage: "Machst du auch Logos oder Flyer?",
         antwort:
-          "PLATZHALTER. Tom muss entscheiden, ob er das anbietet. Wenn nicht, gehört hier ein klares Nein hin.",
+          "Nein. Ich baue Websites, sonst nichts. Ein Logo ist ein eigenes Handwerk, und dafür bist du bei jemandem besser aufgehoben, der den ganzen Tag nichts anderes macht.",
       },
       {
         frage: "Machst du Fotos für meinen Betrieb?",
         antwort:
-          "PLATZHALTER. Tom muss festlegen, ob er fotografiert, vermittelt oder nur vorhandene Bilder aufbereitet.",
+          "Ich fotografiere nicht selbst. In jedem Paket steckt, dass ich deine vorhandenen Fotos zuschneide und fürs Web aufbereite. Ohne brauchbare Bilder wird es schwer, deshalb sprich mich früh darauf an.",
       },
       {
         frage: "Kann ich Beispiele deiner Arbeit sehen?",

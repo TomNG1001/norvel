@@ -221,7 +221,7 @@ export const branchen: Branche[] = [
       {
         frage: "Welches Buchungssystem nimmst du?",
         antwort:
-          "PLATZHALTER. Tom muss festlegen, welchen Anbieter er einsetzt und was er datenschutzrechtlich prüft. Ohne diese Angabe bleibt die Frage unbeantwortet.",
+          "Das hängt davon ab, womit du heute arbeitest. Hast du schon ein System, binde ich es ein. Hast du keins, prüfe ich vorher, wo die Daten deiner Kundinnen landen, und schlage dir eines vor, das zu deiner Größe passt.",
       },
       {
         frage: "Ich arbeite allein und bin oft ausgebucht.",

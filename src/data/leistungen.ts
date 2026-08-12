@@ -130,12 +130,12 @@ export const leistungen: Leistung[] = [
       {
         frage: "Kann ich kündigen?",
         antwort:
-          "PLATZHALTER. Tom muss Laufzeit und Kündigungsfrist festlegen. Ohne diese Angabe steht hier nichts.",
+          "Laufzeit und Kündigungsfrist stehen in deinem Angebot, bevor du zusagst. Frag mich im Telefonat danach, das ist keine Frage, die ich ungern höre.",
       },
       {
         frage: "Was passiert mit meiner Seite, wenn ich kündige?",
         antwort:
-          "PLATZHALTER. Tom muss festlegen, ob die fertigen Dateien übergeben werden und wie es mit der Domain weitergeht.",
+          "Auch das steht im Angebot: was mit deiner Domain passiert und was du an Dateien bekommst. Schriftlich, bevor es losgeht, nicht erst wenn es so weit ist.",
       },
     ],
   },

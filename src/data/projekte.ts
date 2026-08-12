@@ -13,7 +13,7 @@
  * "konzept" auf "kunde". Der Hinweis über den Karten verschwindet dann von
  * selbst, sobald kein Konzept mehr dabei ist.
  *
- * PLATZHALTER: Name, Bild und Dauer je Projekt muss Tom festlegen. Sie stehen
+ * Name, Bild und Dauer je Projekt: siehe die Kommentare an den Feldern. Sie stehen
  * bewusst als erkennbarer Platzhalter da und nicht als erfundener Inhalt.
  */
 
@@ -23,7 +23,11 @@ export type Projektart = "konzept" | "kunde";
 
 export interface Projekt {
   slug: string;
-  /** PLATZHALTER, solange Tom keinen Namen festgelegt hat. */
+  /**
+   * Konzeptprojekte tragen keinen erfundenen Betriebsnamen, sondern
+   * beschreiben den Betrieb. Ein ausgedachter Name auf einer Referenzseite
+   * liest sich wie ein Kunde, der nicht existiert.
+   */
   name: string;
   art: Projektart;
   /** Slug aus branchen.ts. Jedes Projekt kennt seine Branche. */
@@ -52,8 +56,12 @@ export interface Projekt {
   umsetzung: string[];
   paket: PaketId;
   seitenzahl: number;
-  /** PLATZHALTER, bis Tom eine belastbare Angabe macht. */
-  dauer: string;
+  /**
+   * Nur bei Kundenprojekten. Konzepte hatten keinen Auftraggeber, also gibt
+   * es keine Bauzeit, die man ehrlich nennen könnte. Dann steht hier null
+   * und die Zeile in den Eckdaten entfällt.
+   */
+  dauer: string | null;
   /** null, solange kein Bild vorliegt. Kein Stockfoto. */
   bild: Bild | null;
   /** Bei Konzeptprojekten immer null. Es gibt nichts Erreichbares. */
@@ -63,7 +71,7 @@ export interface Projekt {
 export const projekte: Projekt[] = [
   {
     slug: "restaurant",
-    name: "PLATZHALTER Restaurantname",
+    name: "Restaurant mit Mittagstisch",
     art: "konzept",
     branche: "restaurants",
     kurz: "Ein Restaurant mit Mittagstisch, wechselnder Karte und Reservierung am Abend.",
@@ -88,14 +96,14 @@ export const projekte: Projekt[] = [
     ],
     paket: "standard",
     seitenzahl: 6,
-    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
+    dauer: null,
     bild: null,
     liveUrl: null,
   },
 
   {
     slug: "kosmetikstudio",
-    name: "PLATZHALTER Studioname",
+    name: "Kosmetikstudio mit Abendterminen",
     art: "konzept",
     branche: "kosmetik",
     kurz: "Ein Studio mit einer Behandlerin, festen Behandlungen und Terminen nach Feierabend.",
@@ -120,14 +128,14 @@ export const projekte: Projekt[] = [
     ],
     paket: "standard",
     seitenzahl: 6,
-    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
+    dauer: null,
     bild: null,
     liveUrl: null,
   },
 
   {
     slug: "hundesalon",
-    name: "PLATZHALTER Salonname",
+    name: "Hundesalon mit langer Warteliste",
     art: "konzept",
     branche: "hundefriseure",
     kurz: "Ein Hundesalon mit Preisen nach Größe und Wartezeit von mehreren Wochen.",
@@ -152,7 +160,7 @@ export const projekte: Projekt[] = [
     ],
     paket: "start",
     seitenzahl: 4,
-    dauer: "PLATZHALTER. Dauer von Tom bestätigen lassen",
+    dauer: null,
     bild: null,
     liveUrl: null,
   },
