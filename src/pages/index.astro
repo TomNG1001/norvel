@@ -303,8 +303,15 @@ import {
         {
           pakete.map((p) => (
             <li class:list={["preis", p.hervorgehoben && "preis--wahl"]}>
-              <span class="preis__name">{p.name}</span>
-              <span class="preis__betrag">ab {euro(p.preisAb)}</span>
+              <span class="preis__name">
+                {p.name}
+                {p.hervorgehoben && (
+                  <span class="preis__marke">Für die meisten richtig</span>
+                )}
+              </span>
+              <span class="preis__betrag">
+                <span class="preis__ab">ab</span> {euro(p.preisAb)}
+              </span>
               <span class="preis__zusatz">
                 {p.seitenMin}–{p.seitenMax} Seiten · {euro(p.pflegeMonat)} im
                 Monat
@@ -314,7 +321,15 @@ import {
         }
       </ul>
 
-      <p class="leise">{umsatzsteuerHinweis}. Der angezeigte Preis ist der Preis.</p>
+      {/* Die Überschrift verspricht Festpreise, darunter steht dreimal "ab".
+          Diesen Widerspruch liest der Besucher zuerst, den Erklärsatz im
+          Vorspann erst danach. Also gehört die Erklärung an die Zahl. */}
+      <p class="leise">
+        „ab" heißt: Der Preis hängt allein an der Seitenzahl. Wie viele du
+        brauchst, klickst du dir auf der Preisseite in einer Minute zusammen.
+        Dann steht dein Betrag, und der ändert sich nicht mehr.
+      </p>
+      <p class="leise">{umsatzsteuerHinweis}.</p>
       <p>
         <a class="knopf" href="/preise">Preise vergleichen</a>
       </p>
@@ -745,6 +760,7 @@ import {
 
   .preis--wahl {
     border-left: 4px solid var(--stahl);
+    background: color-mix(in srgb, var(--stahl) 5%, var(--karte));
   }
 
   .preis__name {
@@ -753,11 +769,32 @@ import {
     font-weight: 600;
   }
 
+  /* Vorher --gr-h3, also 14 Pixel kleiner als derselbe Betrag auf /preise.
+     Auf der Seite, die am häufigsten aufgerufen wird, war der Preis kleiner
+     als auf der, die man erst erreicht, wenn man schon interessiert ist. */
   .preis__betrag {
     font-family: var(--schrift-titel);
-    font-size: var(--gr-h3);
-    font-weight: 600;
+    font-size: var(--gr-h2);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     text-align: right;
+  }
+
+  /* Klein und leicht, damit die Zahl das Element trägt und nicht das Wort. */
+  .preis__ab {
+    font-family: var(--schrift-text);
+    font-size: var(--gr-text);
+    font-weight: 400;
+  }
+
+  .preis__marke {
+    display: block;
+    margin-top: 0.125rem;
+    font-family: var(--schrift-text);
+    font-size: var(--gr-klein);
+    font-weight: 600;
+    color: var(--stahl);
   }
 
   .preis__zusatz {

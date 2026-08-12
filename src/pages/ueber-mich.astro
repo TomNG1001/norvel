@@ -123,6 +123,58 @@ const foto: BildTyp | null = null;
     </div>
   </section>
 
+  {/* Kundenstimmen gibt es nicht, und erfinden ist keine Möglichkeit. Was
+      es stattdessen gibt: Zusagen, die jeder in dreißig Sekunden selbst
+      nachprüfen kann. Das ist stärker als ein Testimonial, weil es nicht auf
+      Vertrauen angewiesen ist. Wer eine dieser Zeilen widerlegt, hat recht,
+      und dann gehört sie geändert. */}
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Prüf mich nach, statt mir zu glauben</h2>
+      <p class="vorspann">
+        Ich habe keine Kundenstimmen, und ausdenken werde ich mir keine.
+        Nachprüfen kannst du dafür jede Zeile hier, an dieser Seite.
+      </p>
+
+      <dl class="probe">
+        <div>
+          <dt>Kein Cookie-Banner, weil nichts mitgeschnitten wird</dt>
+          <dd>
+            Drück F12, geh auf Anwendung, dann Cookies. Die Liste ist leer.
+            Kein Google Analytics, kein Zählpixel, keine fremde Karte.
+          </dd>
+        </div>
+        <div>
+          <dt>Die Schriften liegen auf meinem Server</dt>
+          <dd>
+            Im Reiter Netzwerk taucht keine fremde Adresse auf. Schriften von
+            Google zu laden ist in Deutschland abgemahnt worden, deshalb tue
+            ich es nicht.
+          </dd>
+        </div>
+        <div>
+          <dt>Sie ist ohne Maus bedienbar</dt>
+          <dd>
+            Drück die Tabulatortaste und geh die Seite durch. Jedes Ziel ist
+            erreichbar und man sieht immer, wo man gerade steht.
+          </dd>
+        </div>
+        <div>
+          <dt>Sie lädt auch im Mobilfunknetz</dt>
+          <dd>
+            Schalte das WLAN aus und ruf sie noch einmal auf. Sie besteht aus
+            fertigen Dateien, es rechnet im Hintergrund kein Server mit.
+          </dd>
+        </div>
+      </dl>
+
+      <p class="fazit">
+        Das hier ist meine eigene Seite. Was ich dir baue, wird nach denselben
+        Regeln gebaut.
+      </p>
+    </div>
+  </section>
+
   <section class="abschnitt band--tinte">
     <div class="breite">
       <h2>Was ich nicht mache</h2>
@@ -144,6 +196,38 @@ const foto: BildTyp | null = null;
 </Basis>
 
 <style>
+  .probe {
+    display: grid;
+    gap: var(--raum-3);
+    margin: 0 0 var(--raum-4);
+    max-width: 44rem;
+  }
+
+  .probe > div {
+    padding-left: var(--raum-3);
+    border-left: 3px solid var(--kante);
+  }
+
+  .probe dt {
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--raum-1);
+  }
+
+  .probe dd {
+    margin: 0;
+    max-width: var(--breite-text);
+  }
+
+  .fazit {
+    margin-bottom: 0;
+    font-size: var(--gr-gross);
+    font-weight: 600;
+    max-width: var(--breite-text);
+  }
+
   .punkte {
     display: grid;
     gap: var(--raum-4);

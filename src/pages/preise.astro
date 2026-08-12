@@ -142,10 +142,23 @@ import {
     color: var(--tinte);
   }
 
-  /* Das hervorgehobene Paket bekommt einen kräftigen Rahmen, keinen Schatten. */
+  /* Das hervorgehobene Paket bekommt einen kräftigen Rahmen, keinen Schatten.
+
+     Ein Pixel Rahmenstärke mehr war zu wenig: Auf dem Desktop standen drei
+     gleich große Karten nebeneinander und die mittlere unterschied sich
+     kaum. Jetzt trägt sie zusätzlich eine eigene Fläche und darf oben und
+     unten aus der Reihe treten. */
   .paket--wahl {
     border-color: var(--stahl);
     border-width: 3px;
+    background: color-mix(in srgb, var(--stahl) 5%, var(--karte));
+  }
+
+  @media (min-width: 48em) {
+    .paket--wahl {
+      margin-block: calc(var(--raum-3) * -1);
+      padding-block: calc(var(--raum-3) * 2);
+    }
   }
 
   .paket__marke {
