@@ -106,6 +106,20 @@ const betrieb = {
       set:html={JSON.stringify(betrieb)}
       is:inline
     />
+
+    {/* Ohne JavaScript gibt es niemanden, der den Menüknopf bedienen könnte.
+        Dann verschwindet der Knopf und die Navigation steht offen da. Die
+        Seite ist untereinander bedienbar, aber nie kaputt. Steht hier und
+        nicht in Kopfbereich.astro, weil Astro Stile in Komponenten auf die
+        Komponente einschränkt und diese Regeln global gelten müssen. */}
+    <noscript>
+      <style>
+        .kopf__menue { display: none !important; }
+        @media (max-width: 59.999em) {
+          .kopf__navigation { display: flex !important; }
+        }
+      </style>
+    </noscript>
   </head>
 
   <body>
@@ -115,5 +129,23 @@ const betrieb = {
       <slot />
     </main>
     <Fussbereich />
+
+    {/* Aktionsleiste am unteren Rand, nur auf dem Handy.
+
+        Grund: Die Startseite ist über zehn Bildschirme hoch. Handlungsaufrufe
+        gab es auf Bildschirm 1 und danach erst wieder im Kontaktabschluss.
+        Zehn Bildschirme lang liest jemand, warum seine Seite nicht
+        funktioniert, wird überzeugt, und findet nichts zum Drücken.
+
+        Das ist kein Chat-Widget, kein Aufklapper und kein Newsletter-Fenster.
+        Alle drei verbietet PROJEKT.md, und aus gutem Grund: Sie verdecken und
+        unterbrechen. Diese Leiste tut beides nicht, sie steht auf jeder Seite
+        an derselben Stelle und verlangt nichts. */}
+    <div class="daumenleiste">
+      <a class="knopf" href={`tel:${brand.telefonE164}`}>Anrufen</a>
+      <a class="knopf knopf--rand" href="/kontakt">
+        Schreiben<span class="nur-vorlesen"> und Anfrage schicken</span>
+      </a>
+    </div>
   </body>
 </html>

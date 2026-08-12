@@ -35,6 +35,11 @@
   --eisblau: #c9d8e6; /* Trennlinien innerhalb eines Blocks */
   --kante: #64809f;   /* Umrisse: Eingabefelder, Kacheln, Karten */
 
+  /* Der einzige Ton außerhalb der Blaufamilie, und er hat genau eine
+     Aufgabe: ein Feld markieren, in dem etwas fehlt. Nie als Fläche,
+     nie als Schmuck. */
+  --fehler: #a03030;
+
   /* Textfarbe auf dunklen Bändern. Nicht reines Weiß, das flimmert. */
   --auf-tinte: #e8eef5;
   --auf-tinte-leise: #a9bdd3;
@@ -255,6 +260,27 @@ strong { font-weight: 600; }
   border-color: var(--tinte);
 }
 
+/* Auf dem Handy gibt es kein :hover. Ohne :active erzeugt ein Tipp auf einen
+   Knopf überhaupt keine Rückmeldung, und die Zielgruppe ist fast vollständig
+   mobil. */
+.knopf:active {
+  transform: translateY(1px);
+}
+
+@media (hover: none) {
+  .knopf:active {
+    background: var(--tinte);
+    border-color: var(--tinte);
+    color: #ffffff;
+  }
+}
+
+.knopf[aria-disabled="true"],
+.knopf:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 /* Zweite Wahl auf hellem Grund. */
 .knopf--rand {
   background: transparent;
@@ -395,6 +421,58 @@ strong { font-weight: 600; }
 
 .kachel--offen:hover {
   background: var(--karte);
+}
+
+/* --------------------------------------------------------------------------
+   Daumenleiste
+
+   Feste Leiste am unteren Rand, nur auf dem Handy. Siehe die Begründung in
+   Basis.astro. Sie liegt außerhalb von <main>, verdeckt keinen Inhalt (der
+   Platz wird über padding-bottom am body freigehalten) und respektiert die
+   sichere Zone auf Geräten mit Hausbalken.
+   -------------------------------------------------------------------------- */
+
+.daumenleiste {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 50;
+  display: flex;
+  gap: var(--raum-2);
+  padding: var(--raum-2) var(--seitenrand);
+  padding-bottom: calc(var(--raum-2) + env(safe-area-inset-bottom, 0px));
+  background: var(--papier);
+  border-top: 2px solid var(--kante);
+}
+
+.daumenleiste .knopf {
+  flex: 1;
+  padding-inline: var(--raum-2);
+}
+
+.daumenleiste .knopf--rand {
+  background: var(--karte);
+}
+
+/* Platz für die Leiste, damit sie nichts verdeckt. */
+body {
+  padding-bottom: 5.25rem;
+}
+
+@media (min-width: 60em) {
+  .daumenleiste {
+    display: none;
+  }
+
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* Beim Drucken hat eine feste Leiste nichts verloren. */
+@media print {
+  .daumenleiste {
+    display: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -542,6 +620,28 @@ input:hover,
 select:hover,
 textarea:hover {
   border-color: color-mix(in srgb, var(--stahl) 45%, var(--kante));
+}
+
+/* Sichtbare Rückmeldung im Formular.
+
+   :user-invalid statt :invalid ist der wichtige Unterschied: :invalid würde
+   jedes leere Pflichtfeld sofort rot einfärben, also schon bevor jemand
+   überhaupt getippt hat. :user-invalid greift erst nach der ersten Eingabe
+   oder dem ersten Absendeversuch.
+
+   Vorher gab es dazu keine einzige Regel. Wer auf Absenden drückte, sah eine
+   Sprechblase am ersten leeren Feld und sonst nichts. */
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: var(--fehler);
+  background: color-mix(in srgb, var(--fehler) 5%, var(--karte));
+}
+
+input:user-valid,
+select:user-valid,
+textarea:user-valid {
+  border-color: color-mix(in srgb, var(--stahl) 55%, var(--kante));
 }
 
 input:focus,

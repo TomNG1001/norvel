@@ -83,13 +83,14 @@ const whatsappText = encodeURIComponent(
     </div>
 
     <div class="feld">
-      <label for="feld-betrieb">Name deines Betriebs</label>
+      <label for="feld-betrieb">
+        Name deines Betriebs <span class="leise">(freiwillig)</span>
+      </label>
       <input
         type="text"
         id="feld-betrieb"
         name={feldNamen.betrieb}
         autocomplete="organization"
-        required
       />
     </div>
   </div>
@@ -104,6 +105,9 @@ const whatsappText = encodeURIComponent(
         autocomplete="email"
         required
       />
+      <p class="feldhinweis">
+        Oder trag rechts deine Nummer ein, dann reicht eins von beidem.
+      </p>
     </div>
 
     <div class="feld">
@@ -114,14 +118,18 @@ const whatsappText = encodeURIComponent(
         name={feldNamen.telefon}
         autocomplete="tel"
       />
-      <p class="feldhinweis">Freiwillig. Vieles ist am Telefon in fünf Minuten geklärt.</p>
+      <p class="feldhinweis">
+        Wenn dir ein Anruf lieber ist als eine Mail, reicht die Nummer allein.
+      </p>
     </div>
   </div>
 
   <div class="formular__reihe">
     <div class="feld">
-      <label for="feld-branche">Was für ein Betrieb?</label>
-      <select id="feld-branche" name={feldNamen.branche} required>
+      <label for="feld-branche">
+        Was für ein Betrieb? <span class="leise">(freiwillig)</span>
+      </label>
+      <select id="feld-branche" name={feldNamen.branche}>
         <option value="">Bitte auswählen</option>
         {branchen.map((b) => <option value={b.einzahl}>{b.einzahl}</option>)}
         <option value={brancheSonstiges}>{brancheSonstiges}</option>
@@ -129,8 +137,10 @@ const whatsappText = encodeURIComponent(
     </div>
 
     <div class="feld">
-      <label for="feld-stand">Wie sieht es gerade aus?</label>
-      <select id="feld-stand" name={feldNamen.stand} required>
+      <label for="feld-stand">
+        Wie sieht es gerade aus? <span class="leise">(freiwillig)</span>
+      </label>
+      <select id="feld-stand" name={feldNamen.stand}>
         <option value="">Bitte auswählen</option>
         {standOptionen.map((o) => <option value={o}>{o}</option>)}
       </select>
@@ -268,5 +278,27 @@ const whatsappText = encodeURIComponent(
       ziel.textContent = text;
       kasten.hidden = false;
     }
+  }
+
+  /**
+   * Eine Kontaktmöglichkeit reicht, nicht beide.
+   *
+   * Im Markup steht `required` an der Mailadresse. Das ist die Sicherung für
+   * den Fall, dass kein JavaScript läuft: Dann muss eine Mail da sein, sonst
+   * gäbe es keinen Weg zurück. Sobald jemand eine Telefonnummer einträgt,
+   * nimmt dieses Skript die Pflicht von der Mail. Wer angerufen werden will,
+   * soll nicht gezwungen sein, eine Adresse zu erfinden.
+   */
+  const mail = document.getElementById("feld-mail") as HTMLInputElement | null;
+  const telefon = document.getElementById(
+    "feld-telefon"
+  ) as HTMLInputElement | null;
+
+  if (mail && telefon) {
+    const nachziehen = () => {
+      mail.required = telefon.value.trim() === "";
+    };
+    telefon.addEventListener("input", nachziehen);
+    nachziehen();
   }
 </script>

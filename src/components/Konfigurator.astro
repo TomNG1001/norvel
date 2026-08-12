@@ -30,7 +30,29 @@ const festeOptionen = seitenOptionen.filter((o) => o.fest);
 const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
 ---
 
-<form class="konf" id="konfigurator" action="/kontakt" method="GET">
+{/* Das Fragment bleibt bei GET-Formularen erhalten, nur die
+    Abfragezeichenfolge wird ersetzt. Ohne es landet der Besucher oben
+    auf /kontakt und muss zwei Bildschirme scrollen, genau in dem
+    Moment, in dem seine Absicht am höchsten ist. */}
+<form class="konf" id="konfigurator" action="/kontakt#formular" method="GET">
+  {/* Am Handy klebt diese Zeile oben, während man Kästchen anhakt. Ohne sie
+      ändert sich der Preis außerhalb des sichtbaren Bereichs: Der Besucher
+      hakt die fünfte Seite an, das Paket springt von 449 auf 849 Euro, und
+      er sieht es erst, wenn er nach unten scrollt. Dann wirkt die klügste
+      Funktion der Seite wie ein Trick. Für Vorleseprogramme meldet die
+      Statuszeile weiter unten dasselbe in Worten. */}
+  <p class="streifen" aria-hidden="true">
+    <span class="streifen__paket" data-feld="streifen-paket">
+      {anfang.paket.name}
+    </span>
+    <span class="streifen__seiten" data-feld="streifen-seiten">
+      {anfang.seitenAnzahl} Seiten
+    </span>
+    <strong class="streifen__betrag" data-feld="streifen-gesamt">
+      {euro(anfang.gesamt)}
+    </strong>
+  </p>
+
   <div class="konf__spalten">
     <div class="konf__auswahl">
       <fieldset class="block">
@@ -126,7 +148,7 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
     </div>
 
     <div class="konf__ergebnis">
-      <div class="summe" aria-live="polite">
+      <div class="summe">
         <p class="summe__zeile">
           <span>Paket</span>
           <strong data-feld="paket">{anfang.paket.name}</strong>
@@ -160,6 +182,12 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
           Deine Auswahl wird ins Formular übernommen. Kostet nichts und
           verpflichtet zu nichts.
         </p>
+
+        {/* Vorher trug der ganze Block aria-live. Bei jedem Kästchen wurde
+            alles neu vorgelesen, von "Paket Standard" bis "verpflichtet zu
+            nichts". Nach dem dritten Mal schaltet jeder ab. Jetzt meldet
+            eine eigene Zeile nur noch die Änderung. */}
+        <p class="nur-vorlesen" role="status" data-feld="ansage"></p>
       </div>
 
       <div class="kasten" data-kasten hidden>
@@ -178,6 +206,50 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
     display: grid;
     gap: var(--raum-5);
     align-items: start;
+  }
+
+  /* Der Streifen am Handy ------------------------------------------------ */
+
+  .streifen {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem var(--raum-2);
+    margin: 0 0 var(--raum-4);
+    padding: 0.625rem var(--raum-3);
+    border: 2px solid var(--stahl);
+    border-radius: var(--radius);
+    background: var(--stahl);
+    color: #ffffff;
+    max-width: none;
+  }
+
+  .streifen__paket {
+    font-weight: 600;
+  }
+
+  .streifen__seiten {
+    color: color-mix(in srgb, #ffffff 78%, var(--stahl));
+    font-size: var(--gr-klein);
+  }
+
+  .streifen__betrag {
+    margin-left: auto;
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Ab hier steht die vollständige Summe ohnehin sichtbar in der zweiten
+     Spalte. Dann wäre der Streifen eine Dopplung. */
+  @media (min-width: 60em) {
+    .streifen {
+      display: none;
+    }
   }
 
   .block {
@@ -439,6 +511,13 @@ const waehlbareOptionen = seitenOptionen.filter((o) => !o.fest);
       feld("seiten").textContent = String(r.seitenAnzahl);
       feld("gesamt").textContent = euro(r.gesamt);
       feld("pflege").textContent = `${euro(r.pflegeMonat)} im Monat`;
+
+      feld("streifen-paket").textContent = r.paket.name;
+      feld("streifen-seiten").textContent = `${r.seitenAnzahl} Seiten`;
+      feld("streifen-gesamt").textContent = euro(r.gesamt);
+      feld("ansage").textContent =
+        `${r.paket.name}, ${r.seitenAnzahl} Seiten, ` +
+        `${euro(r.gesamt)} einmalig, ${euro(r.pflegeMonat)} im Monat.`;
 
       zeile("zusatz").hidden = r.zusatzseiten === 0;
       feld("zusatz").textContent = `${r.zusatzseiten} × ${euro(

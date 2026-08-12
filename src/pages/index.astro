@@ -46,9 +46,30 @@ import {
         <a class="knopf" href="/preise">Preise ansehen</a>
         <a class="knopf knopf--rand" href="/kontakt">Anfrage schicken</a>
       </p>
-      <p class="leise">
-        Oder ruf einfach an:{" "}
-        <a href={`tel:${brand.telefonE164}`}>{brand.telefonAnzeige}</a>
+
+      {/* Der Kanal, den ich selbst als schnellsten bezeichne, stand hier
+          vorher als kleinstes und grauestes Element der Seite: 14 Pixel in
+          .leise, unter zwei Knöpfen. Für einen Handwerksbetrieb ist der
+          Anruf nicht die dritte Möglichkeit, sondern die erste. */}
+      <p class="anruf">
+        <a class="anruf__verweis" href={`tel:${brand.telefonE164}`}>
+          <svg
+            class="anruf__hoerer"
+            viewBox="0 0 16 16"
+            width="17"
+            height="17"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M4.2 1.6 6 4.1 4.5 5.9c.9 1.9 2.4 3.4 4.3 4.3l1.8-1.5 2.5 1.8c.3.9-.4 2.4-1.7 2.9C8.5 14.2 1.8 7.5 2.4 3.3c.5-1.3 2-2 2.9-1.7Z"
+              fill="currentColor"></path>
+          </svg>
+          {brand.telefonAnzeige}
+        </a>
+        <span class="anruf__zusatz">
+          Ruf einfach an, das geht am schnellsten.
+        </span>
       </p>
     </div>
   </section>
@@ -334,6 +355,41 @@ import {
     flex-wrap: wrap;
     gap: var(--raum-2);
     margin-bottom: var(--raum-3);
+  }
+
+  /* Anruf im Kopf der Startseite ---------------------------------------- */
+
+  .anruf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem var(--raum-2);
+    margin-bottom: 0;
+  }
+
+  .anruf__verweis {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h3);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .anruf__verweis:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+
+  .anruf__hoerer {
+    flex: none;
+  }
+
+  .anruf__zusatz {
+    color: color-mix(in srgb, var(--tinte) 75%, var(--papier));
   }
 
   /* Fahrplan ------------------------------------------------------------- */

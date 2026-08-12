@@ -76,7 +76,11 @@ const naechsteSchritte = ablauf.slice(0, 3);
     </div>
   </section>
 
-  <section class="abschnitt">
+  {/* Das Sprungziel sitzt am Abschnitt und nicht am <form>. Solange kein
+      Formspree-Endpunkt eingetragen ist, wird gar kein Formular ausgeliefert,
+      und ein Sprungziel am Formular ginge dann ins Leere. Der Knopf im
+      Konfigurator zeigt auf #formular. */}
+  <section class="abschnitt" id="formular">
     <div class="breite">
       <h2>Schreib mir</h2>
 

@@ -30,6 +30,17 @@ export const standOptionen: string[] = [
 /** Wird als letzte Möglichkeit an die Branchenliste gehängt. */
 export const brancheSonstiges = "Andere Branche";
 
+/**
+ * Wie schnell ich mich melde. Steht auf /danke.
+ *
+ * ACHTUNG, TOM: Das ist eine Zusage, keine Formulierung. Ich habe die
+ * vorsichtigste Variante gewählt, die realistisch zu halten ist, weil ohne
+ * jede Zeitangabe der Besucher parallel bei zwei anderen anfragt. Lieber
+ * hier zwei Werktage versprechen und nach vier Stunden antworten als
+ * umgekehrt. Wenn du schneller bist, ändere diese eine Zeile.
+ */
+export const antwortzeit = "innerhalb von zwei Werktagen";
+
 /** Feldnamen. Stehen hier, damit Formular und Übergabe dieselben benutzen. */
 export const feldNamen = {
   name: "name",

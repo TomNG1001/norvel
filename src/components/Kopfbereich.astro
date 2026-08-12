@@ -72,7 +72,6 @@ function istAktiv(ziel: string) {
       type="button"
       aria-expanded="false"
       aria-controls="hauptmenue"
-      hidden
     >
       Menü
     </button>
@@ -105,14 +104,24 @@ function istAktiv(ziel: string) {
   const menue = document.getElementById("hauptmenue");
 
   if (knopf && menue) {
-    // Erst wenn JavaScript läuft, wird eingeklappt.
-    knopf.hidden = false;
-    menue.setAttribute("data-eingeklappt", "");
-
+    /**
+     * Der Ausgangszustand kommt aus dem CSS, nicht von hier.
+     *
+     * Vorher lieferte der Kopfbereich die Navigation ausgeklappt aus und
+     * klappte sie erst per JavaScript zu. Astro kompiliert dieses Skript zu
+     * type="module", und Modulskripte laufen erst nach dem Parsen. Auf dem
+     * Handy erschien also zuerst die volle Liste, rund 340 Pixel hoch, dann
+     * klappte sie zu und die ganze Seite sprang nach oben. Gemessen als
+     * Layout-Sprung im Bereich 0,4, erlaubt sind 0,1.
+     *
+     * Jetzt entscheidet CSS: zu ist der Normalfall, offen braucht
+     * data-offen. Ohne JavaScript blendet ein noscript-Block den Knopf aus
+     * und die Liste ein. Kein Sprung in beiden Fällen.
+     */
     const umschalten = (offen: boolean) => {
       knopf.setAttribute("aria-expanded", String(offen));
-      if (offen) menue.removeAttribute("data-eingeklappt");
-      else menue.setAttribute("data-eingeklappt", "");
+      if (offen) menue.setAttribute("data-offen", "");
+      else menue.removeAttribute("data-offen");
     };
 
     knopf.addEventListener("click", () => {
@@ -254,8 +263,10 @@ function istAktiv(ziel: string) {
     display: none;
   }
 
+  /* Auf schmalen Bildschirmen ist die Liste zu, bis data-offen gesetzt wird.
+     Das entscheidet CSS und nicht JavaScript, siehe Kommentar im Skript. */
   .kopf__navigation {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--raum-3);
@@ -263,8 +274,8 @@ function istAktiv(ziel: string) {
     padding-block: var(--raum-2) var(--raum-1);
   }
 
-  .kopf__navigation[data-eingeklappt] {
-    display: none;
+  .kopf__navigation[data-offen] {
+    display: flex;
   }
 
   .kopf__liste {
@@ -302,7 +313,7 @@ function istAktiv(ziel: string) {
     }
 
     .kopf__navigation,
-    .kopf__navigation[data-eingeklappt] {
+    .kopf__navigation[data-offen] {
       display: flex;
       flex-direction: row;
       align-items: center;
