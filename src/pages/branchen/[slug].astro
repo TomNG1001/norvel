@@ -203,7 +203,7 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
 
   .punkt {
     padding-left: var(--raum-3);
-    border-left: 3px solid var(--eisblau);
+    border-left: 3px solid var(--kante);
   }
 
   .punkt h4 {
@@ -304,29 +304,6 @@ const andere = branchen.filter((b) => b.slug !== branche.slug);
     max-width: var(--breite-text);
   }
 
-  .branchenreihe {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--raum-2);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    max-width: none;
-  }
-
-  .branchenreihe a {
-    display: inline-block;
-    padding: 0.5rem 0.875rem;
-    border: 2px solid var(--eisblau);
-    border-radius: var(--radius);
-    background: var(--papier);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .branchenreihe a:hover {
-    border-color: var(--stahl);
-  }
 
   @media (min-width: 48em) {
     .punkte {

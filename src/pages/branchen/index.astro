@@ -25,19 +25,13 @@ import { branchen } from "../../data/branchen";
         Ich baue für jede Branche. Diese fünf haben nur eine eigene Seite, weil
         sie am häufigsten anfragen.
       </p>
-      <p class="offen">
-        <strong>Das ist keine Liste dessen, was ich kann.</strong> Es sind die
-        fünf, die ich am häufigsten baue und deshalb am besten kenne. Werkstatt,
-        Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro: Ich baue für jeden
-        Betrieb, hinter dem ein Mensch steht, der selbst ans Telefon geht.
-      </p>
     </div>
   </section>
 
   <section class="abschnitt band--karte">
     <div class="breite">
       <h2 class="nur-vorlesen">Die fünf Branchen</h2>
-      <ul class="kacheln kacheln--5">
+      <ul class="kacheln kacheln--6">
         {
           branchen.map((b) => (
             <li class="kachel">
@@ -49,6 +43,17 @@ import { branchen } from "../../data/branchen";
             </li>
           ))
         }
+
+        {/* Sechste Kachel statt eines Erklärabsatzes darunter. Sie füllt das
+            Raster und beantwortet die Frage dort, wo sie entsteht. */}
+        <li class="kachel kachel--offen">
+          <h3>Deine Branche fehlt?</h3>
+          <p>
+            Werkstatt, Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro.
+            Ich baue für jeden Betrieb, hinter dem ein Mensch steht.
+          </p>
+          <a class="kachel__mehr" href="/kontakt">Sag mir, was du machst</a>
+        </li>
       </ul>
     </div>
   </section>

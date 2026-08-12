@@ -10,12 +10,30 @@
    ========================================================================== */
 
 :root {
+  /* Native Bedienelemente bleiben hell, auch wenn das Gerät auf Dunkelmodus
+     steht. Ohne diese Zeile rendern Chrome und Safari die beiden
+     Auswahllisten im Kontaktformular dunkel, mitten in einem hellen
+     Formular, dazu dunkle Scrollbalken. Ein umschaltbares Farbschema ist
+     laut PROJEKT.md nicht vorgesehen, also wird es hier festgenagelt. */
+  color-scheme: light;
+
   /* --- Farben ------------------------------------------------------------ */
-  --papier: #e9edf1;  /* Grundfläche der Seite, kühles Kreideweiß */
+  /* Kreide gegen Weiß lag bei 1,18:1 und war damit unter der
+     Wahrnehmungsschwelle: Der Wechsel der Abschnitte war gerechnet, aber
+     nicht sichtbar. Jetzt 1,26:1. */
+  --papier: #dfe6ed;  /* Grundfläche der Seite, kühles Kreideweiß */
   --karte: #ffffff;   /* Karten und Formulare */
-  --eisblau: #c9d8e6; /* nur Linien und Rahmen, nie als Fläche */
   --stahl: #1c4f82;   /* Knöpfe und Verweise */
   --tinte: #0a1a30;   /* Fließtext und ganze dunkle Abschnitte */
+
+  /* Zwei Linientöne, und der Unterschied ist keine Geschmacksfrage:
+     --eisblau trennt innerhalb eines Blocks, das darf leise sein.
+     --kante umreißt Bedienelemente, und dafür verlangt WCAG 2.2 (1.4.11)
+     mindestens 3:1. Der alte Wert schaffte 1,45:1 auf Weiß, ein leeres
+     Eingabefeld war damit für Sehschwache nicht auffindbar.
+     --kante erreicht 4,09:1 auf Weiß und 3,25:1 auf Kreide. */
+  --eisblau: #c9d8e6; /* Trennlinien innerhalb eines Blocks */
+  --kante: #64809f;   /* Umrisse: Eingabefelder, Kacheln, Karten */
 
   /* Textfarbe auf dunklen Bändern. Nicht reines Weiß, das flimmert. */
   --auf-tinte: #e8eef5;
@@ -182,6 +200,33 @@ strong { font-weight: 600; }
 
 .band--tinte .leise { color: var(--auf-tinte-leise); }
 
+/* Stoßen zwei dunkle Bänder aneinander, oder ein dunkles Band an den
+   Fußbereich, verschmelzen sie zu einer einzigen Fläche. Auf sechs Seiten
+   waren das die letzten 40 Prozent: Inhalt, Kontaktabschluss und Fußzeile
+   ohne erkennbare Grenze. Eine Linie reicht, um sie wieder zu trennen. */
+.band--tinte + .band--tinte,
+.band--tinte + .fuss {
+  border-top: 1px solid color-mix(in srgb, var(--auf-tinte) 18%, transparent);
+}
+
+/* Kacheln auf dunklem Grund. Ohne diese Variante wären es weiße Karten in
+   einem Tinte-Band, also genau der Bruch, den das Band vermeiden soll. */
+.band--tinte .kachel {
+  background: color-mix(in srgb, var(--karte) 8%, var(--tinte));
+  border-color: color-mix(in srgb, var(--auf-tinte) 30%, transparent);
+  color: var(--auf-tinte);
+}
+
+.band--tinte .kachel h3 { color: var(--auf-tinte); }
+
+.band--tinte .kachel:hover {
+  border-color: var(--auf-tinte);
+}
+
+.band--tinte .kachel:has(.kachel__mehr:focus-visible) {
+  outline-color: var(--auf-tinte);
+}
+
 /* --------------------------------------------------------------------------
    Knöpfe
    -------------------------------------------------------------------------- */
@@ -256,7 +301,7 @@ strong { font-weight: 600; }
   display: flex;
   flex-direction: column;
   padding: var(--raum-3);
-  border: 2px solid var(--eisblau);
+  border: 2px solid var(--kante);
   border-radius: var(--radius);
   background: var(--karte);
   color: var(--tinte);
@@ -328,11 +373,86 @@ strong { font-weight: 600; }
   outline: none;
 }
 
+/* „Da war ich schon." Bei 28 Seiten und vierzehn Kacheln allein auf der
+   Startseite ist das die wichtigste Orientierungshilfe, die es gibt, und sie
+   kostet eine Regel. Auf dunklem Grund bleibt es bei Weiß, dort ist der Ton
+   zu dunkel zum Lesen. */
+.kachel__mehr:visited {
+  color: color-mix(in srgb, var(--stahl) 60%, var(--tinte));
+}
+
+.band--tinte .kachel__mehr:visited {
+  color: var(--auf-tinte-leise);
+}
+
+/* Die Kachel, die kein Ziel beschreibt, sondern eine offene Tür: „deine
+   Branche fehlt". Gestrichelt und ohne Fläche, damit sie sich als Angebot
+   liest und nicht als sechste Branche. */
+.kachel--offen {
+  border-style: dashed;
+  background: transparent;
+}
+
+.kachel--offen:hover {
+  background: var(--karte);
+}
+
+/* --------------------------------------------------------------------------
+   Branchenreihe
+
+   Dieselben Ziele wie die Kacheln, aber als Reihe statt als Raster. Auf
+   Seiten, die ohnehin schon ein Kachelraster tragen, wäre ein zweites nur
+   mehr vom Gleichen: Die Startseite hatte vier Raster hintereinander mit
+   fünfzehn optisch identischen Karten.
+
+   Stand hier vorher zweimal fast wörtlich in einzelnen Seiten.
+   -------------------------------------------------------------------------- */
+
+.branchenreihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--raum-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: none;
+}
+
+.branchenreihe a {
+  display: inline-block;
+  padding: 0.5rem 0.875rem;
+  border: 2px solid var(--kante);
+  border-radius: var(--radius);
+  background: var(--papier);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.branchenreihe a:hover {
+  border-color: var(--stahl);
+}
+
+.branchenreihe a:visited {
+  color: color-mix(in srgb, var(--stahl) 60%, var(--tinte));
+}
+
+/* Auf weißem Grund muss die Fläche des Chips sich vom Band abheben, sonst
+   sieht man nur den Rahmen. */
+.band--karte .branchenreihe a {
+  background: var(--papier);
+}
+
+/* Die offene Tür am Ende der Reihe: gestrichelt, ohne Fläche. */
+.branchenreihe a.offen-chip {
+  border-style: dashed;
+  background: transparent;
+}
+
 /* Hinweiskasten: was auch noch geht, obwohl es nicht in der Liste steht. */
 .offen {
   margin-top: var(--raum-4);
   padding: var(--raum-3);
-  border: 2px solid var(--eisblau);
+  border: 2px solid var(--kante);
   border-radius: var(--radius);
   background: var(--karte);
   max-width: 44rem;
@@ -350,7 +470,8 @@ strong { font-weight: 600; }
 
 @media (min-width: 40em) {
   .kacheln--2,
-  .kacheln--4 {
+  .kacheln--4,
+  .kacheln--6 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -364,7 +485,9 @@ strong { font-weight: 600; }
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .kacheln--5 {
+  /* Sechs Kacheln in drei Spalten: zwei volle Reihen, kein Loch rechts
+     unten. Mit fünf Karten sah die Lücke nach Fehler aus. */
+  .kacheln--6 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -390,7 +513,7 @@ textarea {
   width: 100%;
   min-height: 2.875rem;
   padding: 0.625rem 0.75rem;
-  border: 2px solid var(--eisblau);
+  border: 2px solid var(--kante);
   border-radius: var(--radius);
   background: var(--karte);
   color: var(--tinte);
@@ -418,7 +541,7 @@ select {
 input:hover,
 select:hover,
 textarea:hover {
-  border-color: color-mix(in srgb, var(--stahl) 45%, var(--eisblau));
+  border-color: color-mix(in srgb, var(--stahl) 45%, var(--kante));
 }
 
 input:focus,

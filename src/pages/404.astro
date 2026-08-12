@@ -63,7 +63,9 @@ import { brand } from "../config/brand";
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.02em;
-    color: var(--eisblau);
+    /* Vorher --eisblau: eine 56 Pixel grosse Zahl bei 1,24:1 Kontrast,
+       also das erste, was ein Besucher hier nicht sieht. */
+    color: color-mix(in srgb, var(--stahl) 75%, var(--papier));
   }
 
   .reihe {
@@ -79,7 +81,7 @@ import { brand } from "../config/brand";
   .reihe a {
     display: inline-block;
     padding: 0.5rem 0.875rem;
-    border: 2px solid var(--eisblau);
+    border: 2px solid var(--kante);
     border-radius: var(--radius);
     background: var(--papier);
     font-weight: 600;

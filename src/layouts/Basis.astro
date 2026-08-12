@@ -89,7 +89,11 @@ const betrieb = {
     <link rel="canonical" href={canonical} />
     {ausDerSuche && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#0a1a30" />
+    {/* Die Farbe der Adressleiste auf dem Handy. Muss die Farbe sein, die
+        oben auf der Seite steht, sonst sitzt ein dunkler Streifen ueber
+        einer hellen Seite. Haendisch gepflegt, weil <meta> keine
+        CSS-Variablen kennt: siehe --papier in global.css. */}
+    <meta name="theme-color" content="#dfe6ed" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${titel} – ${brand.name}`} />

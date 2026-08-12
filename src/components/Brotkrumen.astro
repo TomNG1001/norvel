@@ -82,7 +82,9 @@ const breadcrumbList = {
   .brotkrumen li + li::before {
     content: "›";
     margin-right: 0.5rem;
-    color: var(--eisblau);
+    /* Bei --eisblau lag das Zeichen bei 1,24:1 und war praktisch
+       unsichtbar, die Krumen lasen sich als ein Wortband. */
+    color: var(--kante);
   }
 
   .brotkrumen a {

@@ -3,9 +3,13 @@
  * Die Startseite.
  *
  * Hauptziel: Anfrage. Nächster Schritt: Preise ansehen oder anrufen.
- * Aufbau nach dem Hell-Dunkel-Rhythmus: Kreide und Weiß im Wechsel, dunkel
- * wird nur der Abschluss. Der 24–72-Stunden-Abschnitt war früher ein
- * Tinte-Band, steht seit dem 10.08. auf Kreide.
+ *
+ * Rhythmus: Kreide, dunkel, Kreide, weiß, Kreide, weiß, Kreide, dunkel.
+ * Das erste dunkle Band sitzt bewusst auf „Woran es fast immer hängt", also
+ * bei Bildschirm 2 und nicht erst bei 11. Vorher lag der einzige dunkle
+ * Abschnitt ganz unten, und die Startseite war elf Bildschirme lang ohne ein
+ * einziges optisches Ereignis. Dunkel steht für das Problem, hell für die
+ * Lösung, deshalb liegt es genau hier und nicht auf dem Fahrplan.
  *
  * Branchen, Leistungen, Pakete und Projekte kommen aus den Datendateien.
  * Trägst du dort etwas ein, steht es hier.
@@ -19,7 +23,7 @@ import { leistungen } from "../data/leistungen";
 import { pakete, euro, umsatzsteuerHinweis } from "../data/pakete";
 import {
   projekte,
-  hinweisKonzeptprojekte,
+  hinweisKonzeptprojekteKurz,
   zeigeKonzepthinweis,
   kennzeichnung,
 } from "../data/projekte";
@@ -49,7 +53,7 @@ import {
     </div>
   </section>
 
-  <section class="abschnitt band--karte">
+  <section class="abschnitt band--tinte">
     <div class="breite">
       <h2>Woran es fast immer hängt</h2>
       <p class="vorspann">
@@ -72,6 +76,30 @@ import {
       <p class="fazit">
         Wer eines davon erlebt, sucht weiter. Nicht weil dein Laden schlecht
         wäre, sondern weil er es gar nicht erst herausfindet.
+      </p>
+    </div>
+  </section>
+
+  {/* Der Fingertest. Er stand zwei Klicks tief auf /probleme/preise-im-pdf,
+      und er ist das stärkste Stück Inhalt der ganzen Website: Der Besucher
+      stellt die Diagnose selbst, an seinem eigenen Betrieb, in zehn
+      Sekunden. Das ist kein Argument, das er glauben muss, sondern ein
+      Befund, den er selbst erhebt. */}
+  <section class="abschnitt band--karte">
+    <div class="breite">
+      <h2>Der Fingertest, jetzt gleich, dauert zehn Sekunden</h2>
+      <p class="vorspann">
+        Öffne deine Speisekarte oder deine Preisliste auf dem Handy. Versuch,
+        ein einzelnes Wort mit dem Finger zu markieren.
+      </p>
+      <p class="fazit">
+        Geht nicht? Dann ist es ein Bild. Google liest es nicht, und dein Gast
+        muss hineinzoomen.
+      </p>
+      <p class="knoepfe">
+        <a class="knopf" href="/probleme/preise-im-pdf">
+          Was das konkret kostet
+        </a>
       </p>
     </div>
   </section>
@@ -182,44 +210,40 @@ import {
 
   <section class="abschnitt band--karte">
     <div class="breite">
-      <h2>Für wen ich baue</h2>
+      <h2>Fünf Branchen, die ich am besten kenne</h2>
       <p class="vorspann">
-        Ich baue für jede Branche. Diese fünf kenne ich nur am besten, weil
-        sie am häufigsten anfragen.
+        Diese fünf fragen am häufigsten an, deshalb haben sie eine eigene
+        Seite. Gebaut wird für jeden Einzelbetrieb.
       </p>
-      <ul class="kacheln kacheln--5">
+      {/* Bewusst eine Reihe und kein Raster. Die Startseite trug vorher vier
+          Kachelraster hintereinander mit fünfzehn optisch gleichen Karten,
+          und dieser Abschnitt allein war 2,7 Bildschirme hoch. Die
+          Beschreibung je Branche steht dort, wo sie hingehört: auf der
+          Branchenseite. */}
+      <ul class="branchenreihe">
         {
           branchen.map((b) => (
-            <li class="kachel">
-              <h3>{b.name}</h3>
-              <p>{b.kurz}</p>
-              <a class="kachel__mehr" href={`/branchen/${b.slug}`}>
-                Für {b.name} ansehen
-              </a>
+            <li>
+              <a href={`/branchen/${b.slug}`}>{b.name}</a>
             </li>
           ))
         }
+        <li>
+          <a class="offen-chip" href="/kontakt">Andere Branche</a>
+        </li>
       </ul>
 
+      {/* Der stärkste Satz der ganzen Website, und deshalb steht er genau
+          einmal, groß, und nicht viermal in Absatzgröße verteilt. Was hier
+          vorher an Aufzählung stand, macht jetzt die sechste Kachel. */}
       <div class="zuschnitt">
-        <h3 class="zuschnitt__titel">
-          Die fünf oben sind Beispiele, keine Liste
-        </h3>
-        <p class="zuschnitt__gross">
-          Werkstatt, Praxis, Fahrschule, Metzgerei, Fotograf, Steuerbüro:
-          Ich baue für jede Branche. Die Fragen sind überall dieselben, nur
-          die Antworten sind andere.
-        </p>
-        <p>
-          <strong>Worauf es mir ankommt: Es muss ein Einzelbetrieb sein.</strong>
-          {" "}Ein Standort, ein Inhaber, jemand, der selbst ans Telefon geht.
-          Bei Ketten mit mehreren Filialen entscheidet die Zentrale, und da bin
-          ich der Falsche.
+        <p class="zuschnitt__satz">
+          Ein Standort, ein Inhaber, jemand, der selbst ans Telefon geht.
         </p>
         <p class="zuschnitt__nein">
           <strong>Was ich nicht baue:</strong> Onlineshops, Auftritte für
-          Konzerne, Zulieferarbeit für Agenturen. Trifft eines davon auf dich
-          zu, sage ich dir das im ersten Telefonat.
+          Konzerne, Zulieferarbeit für Agenturen. Bei Ketten mit mehreren
+          Filialen entscheidet die Zentrale, und da bin ich der Falsche.
         </p>
       </div>
     </div>
@@ -276,8 +300,7 @@ import {
 
   <section class="abschnitt">
     <div class="breite">
-      <h2>Beispiele</h2>
-      {zeigeKonzepthinweis && <p>{hinweisKonzeptprojekte}</p>}
+      <h2>Drei Betriebe, drei durchgeplante Websites</h2>
 
       <ul class="kacheln kacheln--3">
         {
@@ -295,6 +318,10 @@ import {
           ))
         }
       </ul>
+
+      {/* Steht bewusst unter den Karten. Wer zuerst die Entschuldigung liest,
+          sieht die Arbeit danach mit anderen Augen. */}
+      {zeigeKonzepthinweis && <p class="nachsatz">{hinweisKonzeptprojekteKurz}</p>}
     </div>
   </section>
 
@@ -355,7 +382,7 @@ import {
     left: 1.1875rem;
     top: 2.75rem;
     bottom: 0;
-    border-left: 2px solid var(--eisblau);
+    border-left: 2px solid var(--kante);
   }
 
   .halt:last-child::before {
@@ -588,14 +615,18 @@ import {
     }
   }
 
-  .zuschnitt__titel {
-    margin-bottom: var(--raum-2);
-  }
-
-  /* Der Satz, auf den es ankommt, ist der einzige in großer Schrift. */
-  .zuschnitt__gross {
-    font-size: var(--gr-gross);
-    max-width: none;
+  /* Die laute Stelle des Abschnitts. Auf einer Seite, auf der sonst alles
+     zwischen 14 und 24 Pixeln liegt, ist ein Satz in Überschriftengröße das
+     Ereignis. Ohne so eine Stelle liest sich Zurückhaltung als Langeweile. */
+  .zuschnitt__satz {
+    max-width: 24ch;
+    margin-bottom: var(--raum-3);
+    font-family: var(--schrift-titel);
+    font-size: var(--gr-h2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    text-wrap: balance;
   }
 
   .zuschnitt p {
@@ -620,6 +651,12 @@ import {
     font-weight: 600;
   }
 
+  .nachsatz {
+    margin-top: var(--raum-3);
+    margin-bottom: 0;
+    color: color-mix(in srgb, var(--tinte) 80%, var(--papier));
+  }
+
   /* Preisübersicht: knapp, die eigentliche Tabelle steht auf /preise. */
   .preise {
     display: grid;
@@ -628,7 +665,7 @@ import {
     padding: 0;
     list-style: none;
     max-width: 44rem;
-    border: 2px solid var(--eisblau);
+    border: 2px solid var(--kante);
     border-radius: var(--radius);
     background: var(--karte);
   }

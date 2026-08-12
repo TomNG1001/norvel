@@ -173,6 +173,16 @@ export const projekte: Projekt[] = [
 export const hinweisKonzeptprojekte =
   "Ich baue seit Kurzem Websites für Betriebe in der Region. Es ist noch keine Kundenseite live. Die folgenden Projekte sind Konzepte: echte Aufgabenstellungen, von mir durchgeplant und gebaut, aber ohne Auftraggeber.";
 
+/**
+ * Dieselbe Ehrlichkeit in einem Satz, für die Startseite. Dort stand vorher
+ * die lange Fassung, und zwar über den Karten: Der Besucher las erst die
+ * Erklärung, warum es keine Kunden gibt, und dann die Arbeit. Jetzt steht die
+ * Arbeit zuerst und der Satz darunter. Der Hinweis verschwindet nicht, er
+ * kommt nur an die richtige Stelle.
+ */
+export const hinweisKonzeptprojekteKurz =
+  "Keines davon hat einen Auftraggeber. Ich zeige dir lieber, wie ich eine Aufgabe angehe, als eine Kundenliste, die es nicht gibt.";
+
 /** True, solange irgendein Projekt noch ein Konzept ist. */
 export const zeigeKonzepthinweis = projekte.some((p) => p.art === "konzept");
 
